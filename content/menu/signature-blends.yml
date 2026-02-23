@@ -1,0 +1,23 @@
+category: "Signature Blends"
+items:
+  - id: 1
+    name: "Lounge Elegance Espresso"
+    description: "Rich and full-bodied espresso with a smooth finish"
+    price: 3.50
+  - id: 2
+    name: "Velvet Mocha Delight"
+    description: "Silky mocha infused with premium chocolate and espresso"
+    price: 4.25
+  - id: 3
+    name: "Caramel Macchiato"
+    description: "Smooth espresso with steamed milk and caramel drizzle"
+    price: 4.00
+  - id: 4
+    name: "Vanilla Latte"
+    description: "Creamy latte with Madagascar vanilla"
+    price: 3.75
+  - id: 5
+    name: "Hazelnut Cappuccino"
+    description: "Classic cappuccino with roasted hazelnut flavor"
+    price: 4.00
+

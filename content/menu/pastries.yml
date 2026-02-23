@@ -1,0 +1,23 @@
+category: "Pastries"
+items:
+  - id: 6
+    name: "Butter Croissant"
+    description: "Flaky French croissant with layers of butter"
+    price: 3.00
+  - id: 7
+    name: "Chocolate Croissant"
+    description: "Buttery croissant filled with dark chocolate"
+    price: 3.50
+  - id: 8
+    name: "Almond Croissant"
+    description: "Croissant topped with sliced almonds and cream"
+    price: 3.75
+  - id: 9
+    name: "Blueberry Muffin"
+    description: "Fresh blueberry muffin with a crumbly top"
+    price: 2.75
+  - id: 10
+    name: "Cinnamon Roll"
+    description: "Soft cinnamon roll with cream cheese frosting"
+    price: 3.25
+
