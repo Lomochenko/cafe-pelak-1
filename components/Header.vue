@@ -1,33 +1,51 @@
 <template>
-  <header class="header" :class="{ 'header--sticky': isSticky }">
-    <div class="container">
-      <div class="header__content">
-        <div class="header__logo">
+  <header class="header s-header" :class="{ 'header--sticky': isSticky }" dir="ltr">
+    <div class="container s-header__content">
+      <div class="header__content s-header__block">
+        <div class="header__logo header-logo">
           <NuxtLink to="/" class="logo">
             <img src="/images/logo.svg" alt="Cafe Pelak 1" class="logo__img" />
           </NuxtLink>
         </div>
 
-        <nav class="header__nav" :class="{ 'header__nav--active': mobileMenuOpen }">
-          <ul class="nav__list">
-            <li class="nav__item">
-              <a href="#hero" class="nav__link" @click="scrollToSection">Hero</a>
+        <nav class="header__nav header-nav" :class="{ 'header__nav--active': mobileMenuOpen }">
+          <ul class="nav__list header-nav__links">
+            <li class="nav__item current">
+              <a href="#hero" class="nav__link smoothscroll" @click="scrollToSection">Intro</a>
             </li>
             <li class="nav__item">
-              <a href="#about" class="nav__link" @click="scrollToSection">About</a>
+              <a href="#about" class="nav__link smoothscroll" @click="scrollToSection">About</a>
             </li>
             <li class="nav__item">
-              <a href="#menu" class="nav__link" @click="scrollToSection">Menu</a>
+              <a href="#menu" class="nav__link smoothscroll" @click="scrollToSection">Menu</a>
             </li>
             <li class="nav__item">
-              <a href="#gallery" class="nav__link" @click="scrollToSection">Gallery</a>
-            </li>
-            <li class="nav__item">
-              <a href="#contact" class="nav__link" @click="scrollToSection">Contact</a>
+              <a href="#gallery" class="nav__link smoothscroll" @click="scrollToSection">Gallery</a>
             </li>
           </ul>
         </nav>
-
+        <div class="header-contact">
+          <a href="tel:+" class="header-contact__num btn">
+            <svg
+              id="Layer_1"
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              width="24"
+              height="24"
+              color="#000000"
+            >
+              <defs></defs>
+              <path
+                class="cls-6376396cc3a86d32eae6f0dc-1"
+                d="M19.64,21.25c-2.54,2.55-8.38.83-13-3.84S.2,6.9,2.75,4.36L5.53,1.57,10.9,6.94l-2,2A2.18,2.18,0,0,0,8.9,12L12,15.1a2.18,2.18,0,0,0,3.07,0l2-2,5.37,5.37Z"
+              ></path>
+            </svg>
+            555-123-3456
+          </a>
+        </div>
+        <!-- end header-contact -->
         <button
           class="header__toggle"
           :class="{ 'header__toggle--active': mobileMenuOpen }"
@@ -196,4 +214,3 @@ onUnmounted(() => {
   }
 }
 </style>
-
