@@ -1,32 +1,22 @@
 <template>
-  <div class="app">
+  <div id="page" class="s-pagewrap ss-home">
     <Preloader />
-    <Header />
-    <main>
-      <NuxtPage />
-    </main>
-    <Footer />
+    <NuxtPage />
   </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 useHead({
   htmlAttrs: {
-    dir: 'rtl',
     lang: 'fa',
+    class: 'no-js',
   },
 })
+
+onMounted(() => {
+  document.documentElement.classList.remove('no-js')
+  document.documentElement.classList.add('js')
+})
 </script>
-
-<style scoped>
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-}
-</style>
-

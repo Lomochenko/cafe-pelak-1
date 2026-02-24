@@ -1,22 +1,24 @@
 <template>
-  <div class="home">
-    <Hero />
-    <About />
-    <Menu />
-    <Gallery />
-    <Testimonials />
+  <div>
+    <Header />
+    <section id="intro" class="container s-intro target-section">
+      <Hero />
+    </section>
+    <section id="about" class="container s-about target-section">
+      <About />
+    </section>
+    <section id="menu" class="container s-menu target-section">
+      <Menu />
+    </section>
+    <section id="gallery" class="container s-gallery target-section">
+      <Gallery />
+    </section>
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'default',
+  layout: false,
 })
 </script>
-
-<style scoped>
-.home {
-  width: 100%;
-}
-</style>
-

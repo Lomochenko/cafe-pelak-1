@@ -1,82 +1,68 @@
 <template>
-  <!-- # intro
-        ================================================== -->
-        <section id="intro" class="container s-intro target-section" dir="ltr">
+  <div class="grid-block s-intro__content">
+    <div class="intro-header">
+      <div class="intro-header__overline">Welcome to</div>
+      <h1 class="intro-header__big-type">
+        Pelak 1 <br />
+        Cafe
+      </h1>
+    </div>
 
-            <div class="grid-block s-intro__content">
+    <figure class="intro-pic-primary">
+      <img
+        src="/images/intro-pic-primary.jpg"
+        srcset="/images/intro-pic-primary.jpg 1x, /images/intro-pic-primary@2x.jpg 2x"
+        alt=""
+      />
+    </figure>
 
-                <div class="intro-header">
-                    <div class="intro-header__overline">Welcome to</div>
-                    <h1 class="intro-header__big-type">
-                        Pelak 1 <br>
-                        Cafe
-                    </h1>
-                </div> <!-- end intro-header -->
+    <div class="intro-block-content">
+      <figure class="intro-block-content__pic">
+        <img
+          src="/images/intro-pic-secondary.jpg"
+          srcset="/images/intro-pic-secondary.jpg 1x, /images/intro-pic-secondary@2x.jpg 2x"
+          alt=""
+        />
+      </figure>
 
-                <figure class="intro-pic-primary">
-                    <img src="/images/intro-pic-primary.jpg" 
-                         srcset="/images/intro-pic-primary.jpg 1x, 
-                         /images/intro-pic-primary@2x.jpg 2x" alt="">  
-                </figure> <!-- end intro-pic-primary -->    
-                    
-                <div class="intro-block-content">
+      <div class="intro-block-content__text-wrap">
+        <p class="intro-block-content__text">
+          Savor moments of bliss with every sip, as our expertly crafted coffees and delectable
+          pastries embrace your senses.
+        </p>
 
-                    <figure class="intro-block-content__pic">
-                        <img src="/images/intro-pic-secondary.jpg" 
-                             srcset="/images/intro-pic-secondary.jpg 1x, 
-                             /images/intro-pic-secondary@2x.jpg 2x" alt=""> 
-                    </figure> <!-- end intro-pic-secondary -->   
+        <ul class="intro-block-content__social">
+          <li><a href="#0">FB</a></li>
+          <li><a href="#0">IG</a></li>
+          <li><a href="#0">PI</a></li>
+          <li><a href="#0">X</a></li>
+        </ul>
+      </div>
+    </div>
 
-                    <div class="intro-block-content__text-wrap">
-                        <p class="intro-block-content__text">
-                            Savor moments of bliss with every sip, as our expertly 
-                            crafted coffees and delectable pastries embrace your senses.
-                        </p>
-                        
-                        <ul class="intro-block-content__social">
-                            <li><a href="#0">FB</a></li>
-                            <li><a href="#0">IG</a></li>
-                            <li><a href="#0">PI</a></li>
-                            <li><a href="#0">X</a></li>
-                        </ul>
-                    </div> <!-- end intro-block-content__social -->   
-
-                </div> <!-- end intro-block-content -->
-
-                <div class="intro-scroll">
-                    <a class="smoothscroll" href="#about">                            
-                        <span class="intro-scroll__circle-text"></span>
-                        <span class="intro-scroll__text u-screen-reader-text">Scroll Down</span>
-                        <div class="intro-scroll__icon">
-                            <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m5.214 14.522s4.505 4.502 6.259 6.255c.146.147.338.22.53.22s.384-.073.53-.22c1.754-1.752 6.249-6.244 6.249-6.244.144-.144.216-.334.217-.523 0-.193-.074-.386-.221-.534-.293-.293-.766-.294-1.057-.004l-4.968 4.968v-14.692c0-.414-.336-.75-.75-.75s-.75.336-.75.75v14.692l-4.979-4.978c-.289-.289-.761-.287-1.054.006-.148.148-.222.341-.221.534 0 .189.071.377.215.52z" fill-rule="nonzero"/></svg>
-                        </div>
-                    </a>
-                </div> <!-- end intro-scroll -->
-
-            </div> <!-- grid-block -->            
-
-        </section> <!-- end s-intro -->
+    <div class="intro-scroll">
+      <a class="smoothscroll" href="#about">
+        <span class="intro-scroll__circle-text"></span>
+        <span class="intro-scroll__text u-screen-reader-text">Scroll Down</span>
+        <div class="intro-scroll__icon">
+          <svg
+            clip-rule="evenodd"
+            fill-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m5.214 14.522s4.505 4.502 6.259 6.255c.146.147.338.22.53.22s.384-.073.53-.22c1.754-1.752 6.249-6.244 6.249-6.244.144-.144.216-.334.217-.523 0-.193-.074-.386-.221-.534-.293-.293-.766-.294-1.057-.004l-4.968 4.968v-14.692c0-.414-.336-.75-.75-.75s-.75.336-.75.75v14.692l-4.979-4.978c-.289-.289-.761-.287-1.054.006-.148.148-.222.341-.221.534 0 .189.071.377.215.52z"
+              fill-rule="nonzero"
+            />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
-
-const handleScroll = () => {
-  const scrollIndicator = document.querySelector('.hero__scroll-indicator')
-  if (scrollIndicator) {
-    const opacity = Math.max(0, 1 - window.scrollY / 300)
-    ;(scrollIndicator as HTMLElement).style.opacity = opacity.toString()
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-</script>
 
 <style scoped>
 /* ===================================================================

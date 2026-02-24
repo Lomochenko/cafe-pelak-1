@@ -1,129 +1,57 @@
 <template>
-  <section id="about" class="about">
-    <div class="container">
-      <div class="about__grid">
-        <div class="about__image">
-          <img
-            src="/images/about-pic-primary.jpg"
-            alt="About Cafe Pelak"
-            class="about__img"
-          />
-        </div>
-
-        <div class="about__content">
-          <h2 class="about__title">About Cafe Pelak</h2>
-          <p class="about__text">
-            Welcome to Cafe Pelak, where tradition meets modern coffee culture. We are dedicated to
-            providing the finest coffee experience with carefully selected beans from around the
-            world.
-          </p>
-          <p class="about__text">
-            Our passionate baristas craft each cup with precision and care, ensuring every visit is
-            memorable. From our cozy ambiance to our exceptional service, we create the perfect
-            space for coffee lovers.
-          </p>
-
-          <div class="about__features">
-            <div class="feature">
-              <h3 class="feature__title">Premium Quality</h3>
-              <p class="feature__text">Sourced from the finest coffee regions worldwide</p>
-            </div>
-            <div class="feature">
-              <h3 class="feature__title">Expert Baristas</h3>
-              <p class="feature__text">Trained professionals crafting your perfect cup</p>
-            </div>
-            <div class="feature">
-              <h3 class="feature__title">Cozy Atmosphere</h3>
-              <p class="feature__text">The perfect place to relax and connect</p>
-            </div>
-          </div>
-        </div>
+  <div class="row s-about__content">
+    <div class="column xl-4 lg-5 md-12 s-about__content-start">
+      <div class="section-header" data-num="01">
+        <h2 class="text-display-title">Our Story</h2>
       </div>
+
+      <figure class="about-pic-primary">
+        <img
+          src="/images/about-pic-primary.jpg"
+          srcset="/images/about-pic-primary.jpg 1x, /images/about-pic-primary@2x.jpg 2x"
+          alt=""
+        />
+      </figure>
     </div>
-  </section>
+
+    <div class="column xl-6 lg-6 md-12 s-about__content-end">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi earum, ut consequuntur
+        pariatur fugiat aliquam voluptatem officia blanditiis ipsa laboriosam ad velit voluptate
+        nisi saepe quisquam minima culpa eaque amet.
+      </p>
+
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem vero sit neque sequi
+        eius illum at porro aperiam. Iusto reiciendis reprehenderit ipsa molestias sit eaque velit,
+        veritatis quod, cum exercitationem doloribus eos cumque, ipsam voluptate! Nam doloribus
+        quibusdam eos ipsum optio animi ea ex. Atque neque nesciunt numquam fugiat inventore!
+      </p>
+
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem vero sit neque sequi
+        eius illum at porro aperiam. Iusto reiciendis reprehenderit ipsa molestias sit eaque velit,
+        veritatis quod, cum exercitationem doloribus eos cumque, ipsam voluptate! Nam doloribus
+        quibusdam eos ipsum optio animi ea ex. Atque neque nesciunt numquam fugiat inventore!
+      </p>
+
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem vero sit neque sequi
+        eius illum at porro aperiam. Iusto reiciendis reprehenderit ipsa molestias sit eaque velit,
+        veritatis quod, cum exercitationem doloribus.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore qui quod consequuntur iure.
+        Assumenda, magnam quis ut libero impedit porro?
+      </p>
+
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem vero sit neque sequi
+        eius illum at porro aperiam. Iusto reiciendis reprehenderit ipsa molestias sit eaque velit,
+        veritatis quod, cum exercitationem doloribus eos cumque, ipsam voluptate! Nam doloribus
+        quibusdam eos ipsum optio animi ea ex. Atque neque nesciunt numquam fugiat inventore!
+      </p>
+    </div>
+  </div>
 </template>
-
-<script setup lang="ts">
-// Component logic here
-</script>
-
-<style scoped>
-.about {
-  padding: var(--vspace-4) 0;
-  background-color: var(--color-bg-neutral);
-}
-
-.about__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--vspace-2);
-  align-items: center;
-}
-
-.about__image {
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-}
-
-.about__img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform var(--transition-slow);
-}
-
-.about__image:hover .about__img {
-  transform: scale(1.05);
-}
-
-.about__content {
-  padding: var(--vspace-1);
-}
-
-.about__title {
-  margin-bottom: var(--vspace-1);
-  color: var(--color-headings);
-}
-
-.about__text {
-  margin-bottom: var(--vspace-1);
-  line-height: var(--type-line-height-body);
-  color: var(--color-text);
-}
-
-.about__features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--vspace-1);
-  margin-top: var(--vspace-2);
-}
-
-.feature {
-  padding: var(--vspace-1);
-  background-color: var(--color-bg);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--color-bg-primary);
-}
-
-.feature__title {
-  font-size: var(--text-md);
-  margin-bottom: 0.5rem;
-  color: var(--color-headings);
-}
-
-.feature__text {
-  font-size: var(--text-sm);
-  color: var(--color-text-light);
-}
-
-@media (max-width: 768px) {
-  .about__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about__features {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
