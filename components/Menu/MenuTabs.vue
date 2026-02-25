@@ -5,14 +5,14 @@
         <h2 class="text-display-title">Our Menu</h2>
       </div>
 
-      <nav class="tab-nav">
+      <nav class="tab-nav" ref="tabNavRef" :class="{ 'tab-nav--sticky': isSticky }">
         <ul class="tab-nav__list">
           <li
             v-for="(category, index) in categories"
             :key="index"
             :data-tab-active="activeTab === index ? '' : undefined"
           >
-            <a :href="'#tab-' + category.id" @click.prevent="activeTab = index">
+            <a :href="'#tab-' + category.id" @click.prevent="scrollToCategory(index)">
               <span>{{ category.name }}</span>
               <svg
                 clip-rule="evenodd"
@@ -33,7 +33,7 @@
       </nav>
     </div>
 
-    <div class="column xl-6 lg-6 md-12 s-menu__content-end">
+    <div class="column xl-6 lg-6 md-12 s-menu__content-end" ref="menuContentRef">
       <div class="tab-content menu-block">
         <div
           v-for="(category, index) in categories"
@@ -54,9 +54,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const activeTab = ref(0)
+const isSticky = ref(false)
+const tabNavRef = ref<HTMLElement | null>(null)
+const menuContentRef = ref<HTMLElement | null>(null)
+
+const scrollToCategory = (index: number) => {
+  activeTab.value = index
+  const element = document.getElementById('tab-' + categories[index].id)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
+const handleScroll = () => {
+  if (window.innerWidth < 1000 && menuContentRef.value) {
+    const rect = menuContentRef.value.getBoundingClientRect()
+    isSticky.value = rect.top <= 0
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const categories = [
   {
@@ -171,3 +197,91 @@ const categories = [
   },
 ]
 </script>
+
+<style scoped>
+.tab-nav {
+  position: relative;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-nav--sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--vspace-0_5) 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.tab-nav--sticky .tab-nav__list li a {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tab-nav--sticky .tab-nav__list li a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.tab-nav--sticky .tab-nav__list li[data-tab-active] a {
+  color: rgba(255, 255, 255, 1);
+  border-bottom-color: rgba(255, 255, 255, 0.8);
+}
+
+.tab-nav__list {
+  display: flex;
+  gap: var(--vspace-0_5);
+  padding: 0 var(--gutter);
+  margin: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.tab-nav__list li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: var(--vspace-0_5) var(--vspace-0_75);
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-nav__list li a:hover {
+  color: var(--color-text);
+}
+
+.tab-nav__list li[data-tab-active] a {
+  color: var(--color-text);
+  border-bottom-color: var(--color-text);
+}
+
+.tab-nav__list svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 1000px) {
+  .tab-nav--sticky {
+    padding: var(--vspace-0_375) 0;
+  }
+
+  .tab-nav__list {
+    gap: 0;
+  }
+
+  .tab-nav__list li a {
+    padding: var(--vspace-0_375) var(--vspace-0_5);
+    font-size: calc(var(--text-size) * 0.9);
+  }
+}
+</style>
