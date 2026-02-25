@@ -1,6 +1,6 @@
 <template>
   <header class="s-header" :class="headerClasses">
-    <div class="container s-header__content">
+    <div class="container s-header__content" v-motion="{ initial: { opacity: 0, y: -30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 2.1, ease: 'easeInOut' } } }">
       <div class="s-header__block">
         <div class="header-logo">
           <a class="logo" href="#top">
@@ -28,7 +28,7 @@
           </li>
         </ul>
 
-        <div class="header-contact">
+        <div class="header-contact" v-motion="{ initial: { opacity: 0, y: -30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 2.4, ease: 'easeInOut' } } }">
           <a href="tel:+" class="header-contact__num btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
