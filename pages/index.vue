@@ -4,9 +4,6 @@
     <section id="intro" class="container s-intro target-section">
       <Hero />
     </section>
-    <section id="about" class="container s-about target-section">
-      <About />
-    </section>
     <section id="menu" class="container s-menu target-section">
       <Menu />
     </section>
