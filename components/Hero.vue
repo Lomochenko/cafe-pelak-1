@@ -78,33 +78,7 @@
       </div>
     </div>
 
-    <div 
-      class="intro-scroll"
-      v-motion="{ 
-        initial: { opacity: 0, y: 30 }, 
-        enter: { opacity: 1, y: 0, transition: { duration: 600, delay: 1500 } } 
-      }"
-    >
-      <a class="smoothscroll" href="#about">
-        <span class="intro-scroll__circle-text"></span>
-        <span class="intro-scroll__text u-screen-reader-text">Scroll Down</span>
-        <div class="intro-scroll__icon">
-          <svg
-            clip-rule="evenodd"
-            fill-rule="evenodd"
-            stroke-linejoin="round"
-            stroke-miterlimit="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m5.214 14.522s4.505 4.502 6.259 6.255c.146.147.338.22.53.22s.384-.073.53-.22c1.754-1.752 6.249-6.244 6.249-6.244.144-.144.216-.334.217-.523 0-.193-.074-.386-.221-.534-.293-.293-.766-.294-1.057-.004l-4.968 4.968v-14.692c0-.414-.336-.75-.75-.75s-.75.336-.75.75v14.692l-4.979-4.978c-.289-.289-.761-.287-1.054.006-.148.148-.222.341-.221.534 0 .189.071.377.215.52z"
-              fill-rule="nonzero"
-            />
-          </svg>
-        </div>
-      </a>
-    </div>
+    
   </div>
 </template>
 
@@ -232,104 +206,6 @@
 
 .intro-block-content__social a:hover {
   color: var(--color-text);
-}
-
-.intro-scroll {
-  z-index: 2;
-  grid-column: 2/span 6;
-  grid-row: 2;
-  display: flex;
-  position: relative;
-}
-
-.intro-scroll a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 9.2rem;
-  height: 9.2rem;
-  position: relative;
-}
-
-.intro-scroll__circle-text {
-  height: 100%;
-  width: 100%;
-  background-image: url(../images/scrolldown-circle-text.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  animation: rotation 12s linear infinite;
-  transform-origin: center;
-}
-
-.intro-scroll__text {
-  display: block;
-  font-family: var(--type-body);
-  font-size: var(--text-xs);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  line-height: var(--vspace-1);
-}
-
-.intro-scroll__icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: var(--vspace-1_25);
-  width: var(--vspace-1_25);
-}
-
-.intro-scroll svg {
-  height: var(--vspace-0_875);
-  width: var(--vspace-0_875);
-  animation: bounce 2s ease-in-out infinite;
-}
-
-.intro-scroll svg path {
-  fill: var(--color-bg-accent-light);
-}
-
-@keyframes rotation {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-@media screen and (max-width: 1300px) {
-  .intro-header {
-    grid-column: 1/span 6;
-  }
-
-  .intro-header__overline {
-    font-size: var(--text-md);
-  }
-
-  .intro-header__overline::before {
-    display: none;
-  }
-
-  .intro-scroll {
-    grid-column: 1/span 6;
-    left: var(--vspace-0_25);
-  }
-
-  .intro-scroll a {
-    width: 8.8rem;
-    height: 8.8rem;
-  }
 }
 
 @media screen and (max-width: 1000px) {

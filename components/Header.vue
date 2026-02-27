@@ -27,33 +27,6 @@
             <a class="smoothscroll" href="#gallery" @click="handleNavClick">Gallery</a>
           </li>
         </ul>
-
-        <div class="header-contact" v-motion="{ initial: { opacity: 0, y: -30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 2.4, ease: 'easeInOut' } } }">
-          <a href="tel:+" class="header-contact__num btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              width="24"
-              height="24"
-            >
-              <!-- <defs>
-                <style>
-                  .cls-6376396cc3a86d32eae6f0dc-1 {
-                    fill: none;
-                    stroke: currentColor;
-                    stroke-miterlimit: 10;
-                  }
-                </style>
-              </defs> -->
-              <path
-                class="cls-6376396cc3a86d32eae6f0dc-1"
-                d="M19.64,21.25c-2.54,2.55-8.38.83-13-3.84S.2,6.9,2.75,4.36L5.53,1.57,10.9,6.94l-2,2A2.18,2.18,0,0,0,8.9,12L12,15.1a2.18,2.18,0,0,0,3.07,0l2-2,5.37,5.37Z"
-              ></path>
-            </svg>
-            555-123-3456
-          </a>
-        </div>
       </nav>
     </div>
   </header>

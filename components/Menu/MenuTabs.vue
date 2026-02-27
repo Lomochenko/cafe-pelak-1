@@ -65,9 +65,20 @@ const scrollToCategory = (index: number) => {
   activeTab.value = index
   const element = document.getElementById('tab-' + categories[index].id)
   if (element) {
-    setTimeout(() => {
-      element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }, 0)
+    const firstItem = element.querySelector('.menu-list__item')
+    const targetElement = firstItem || element
+    
+    const stickyNavHeight = tabNavRef.value?.offsetHeight || 60
+    const additionalOffset = 250
+    const totalOffset = isSticky.value ? stickyNavHeight + additionalOffset : additionalOffset
+    
+    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
+    const offsetPosition = elementPosition - totalOffset
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
   }
 }
 
