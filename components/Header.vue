@@ -17,9 +17,6 @@
           <li :class="{ current: activeSection === 'intro' }">
             <a class="smoothscroll" href="#intro" @click="handleNavClick">Intro</a>
           </li>
-          <li :class="{ current: activeSection === 'about' }">
-            <a class="smoothscroll" href="#about" @click="handleNavClick">About</a>
-          </li>
           <li :class="{ current: activeSection === 'menu' }">
             <a class="smoothscroll" href="#menu" @click="handleNavClick">Menu</a>
           </li>
