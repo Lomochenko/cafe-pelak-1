@@ -1,5 +1,5 @@
 <template>
-  <GalleryGrid />
+  <GalleryGrid  dir="ltr"/>
 </template>
 
 <script setup lang="ts">

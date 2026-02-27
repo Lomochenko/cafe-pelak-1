@@ -65,14 +65,17 @@ const scrollToCategory = (index: number) => {
   activeTab.value = index
   const element = document.getElementById('tab-' + categories[index].id)
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    setTimeout(() => {
+      element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }, 0)
   }
 }
 
 const handleScroll = () => {
-  if (window.innerWidth < 1000 && menuContentRef.value) {
+  if (window.innerWidth < 1000 && menuContentRef.value && tabNavRef.value) {
     const rect = menuContentRef.value.getBoundingClientRect()
-    isSticky.value = rect.top <= 0
+    const menuEndRect = document.querySelector('.s-menu__content')?.getBoundingClientRect()
+    isSticky.value = rect.top <= 0 && (menuEndRect ? menuEndRect.bottom > 0 : true)
   }
 }
 
@@ -215,9 +218,36 @@ const categories = [
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--vspace-0_5) 0;
+  padding: var(--vspace-0_375) 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-nav:not(.tab-nav--sticky) {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 }
 
 .tab-nav--sticky .tab-nav__list li a {
