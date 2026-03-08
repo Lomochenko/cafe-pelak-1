@@ -51,7 +51,7 @@
         />
       </figure>
 
-      <div class="intro-block-content__text-wrap">
+      <div class="intro-block-content__text-wrap" dir="rtl">
         <p 
           class="intro-block-content__text"
           v-motion="{ 
