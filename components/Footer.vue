@@ -15,10 +15,9 @@
         <div class="footer__section">
           <h4 class="footer__heading">Quick Links</h4>
           <ul class="footer__list">
-            <li><a href="#hero" class="footer__link">Home</a></li>
-            <li><a href="#about" class="footer__link">About</a></li>
-            <li><a href="#menu" class="footer__link">Menu</a></li>
-            <li><a href="#gallery" class="footer__link">Gallery</a></li>
+            <li><a href="#intro" class="footer__link" @click="handleNavClick">Intro</a></li>
+            <li><a href="#menu" class="footer__link" @click="handleNavClick">Menu</a></li>
+            <li><a href="#gallery" class="footer__link" @click="handleNavClick">Gallery</a></li>
           </ul>
         </div>
 
@@ -52,7 +51,17 @@
 </template>
 
 <script setup lang="ts">
-// Footer component
+const handleNavClick = (e: Event) => {
+e.preventDefault()
+const target = e.target as HTMLAnchorElement
+const href = target.getAttribute('href')
+if (href) {
+  const element = document.querySelector(href)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+}
 </script>
 
 <style scoped>
@@ -175,4 +184,3 @@
   }
 }
 </style>
-
