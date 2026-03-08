@@ -63,7 +63,7 @@
           pastries embrace your senses.
         </p>
 
-        <ul 
+        <!-- <ul 
           class="intro-block-content__social"
           v-motion="{ 
             initial: { opacity: 0, y: 30 }, 
@@ -74,7 +74,7 @@
           <li><a href="#0">IG</a></li>
           <li><a href="#0">PI</a></li>
           <li><a href="#0">X</a></li>
-        </ul>
+        </ul> -->
       </div>
     </div>
 
@@ -137,7 +137,7 @@
 }
 
 .intro-header__big-type {
-  font-size: clamp(var(--text-display), var(--text-3xl) + 10vw, 18.4rem);
+  font-size: clamp(var(--text-display), var(--text-3xl) + 10vw, 15.4rem);
   line-height: 1;
   margin-top: 0;
 }

@@ -1545,7 +1545,9 @@ h6,
     font-weight: var(--type-weight-headings);
     color      : var(--color-headings);
 }
-
+.specialFont{
+    font-family: var(--type-headings);
+}
 h1,
 .h1 {
     margin-top   : var(--vspace-2_5);
@@ -3625,7 +3627,7 @@ td:last-child {
 }
 
 .intro-header__big-type {
-    font-size  : clamp(var(--text-display), var(--text-3xl) + 10vw, 18.4rem);
+    font-size  : clamp(var(--text-display), var(--text-3xl) + 10vw, 17.4rem);
     line-height: 1;
     margin-top : 0;
 }

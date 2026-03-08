@@ -3,8 +3,8 @@
     <div class="container s-header__content" v-motion="{ initial: { opacity: 0, y: -30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 2.1, ease: 'easeInOut' } } }">
       <div class="s-header__block">
         <div class="header-logo">
-          <a class="logo" href="#top">
-            <img src="/images/logo.svg" alt="Homepage" />
+          <a class="specialFont" href="#top">
+            Pelak 1 Cafe
           </a>
         </div>
         <a class="header-menu-toggle" :class="{ 'is-clicked': menuOpen }" href="#0" @click.prevent="toggleMenu">
