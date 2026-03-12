@@ -20,22 +20,19 @@
             <li><a href="#gallery" class="footer__link" @click="handleNavClick">Gallery</a></li>
           </ul>
         </div>
-
-        <div class="footer__section">
-          <h4 class="footer__heading">Hours</h4>
+        <!-- contact -->
+         <div class="footer__section">
+          <h4 class="footer__heading">Contact</h4>
           <ul class="footer__list">
-            <li><span class="footer__label">Mon - Fri:</span> 7:00 AM - 10:00 PM</li>
-            <li><span class="footer__label">Sat - Sun:</span> 8:00 AM - 11:00 PM</li>
+            <li><a href="tel:+1234567890" class="footer__link">+1 (234) 567-890</a></li>
+            <li><a href="#cafePelak1" class="footer__link">Instagram</a></li>
+            <li>123 Coffee Street, City, Country</li>
           </ul>
         </div>
 
         <div class="footer__section">
-          <h4 class="footer__heading">Contact</h4>
-          <ul class="footer__list">
-            <li><a href="tel:+1234567890" class="footer__link">+1 (234) 567-890</a></li>
-            <li><a href="mailto:info@cafepelak.com" class="footer__link">info@cafepelak.com</a></li>
-            <li>123 Coffee Street, City, Country</li>
-          </ul>
+          <h4 class="footer__heading">Location</h4>
+          <!-- add location later -->
         </div>
       </div>
 
