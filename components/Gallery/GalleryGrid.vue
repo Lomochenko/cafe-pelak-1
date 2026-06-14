@@ -83,8 +83,9 @@ const handleScroll = () => {
     isInGallery = true
     
     // Calculate scroll progress through the gallery section
-    const scrollProgress = clamp(-sectionTop / (sectionHeight + windowHeight - windowHeight), 0, 1)
-    scroll.target = scrollProgress * scroll.limit
+    // Extended calculation to ensure all images are visible including last ones
+    const scrollProgress = clamp(-sectionTop / (sectionHeight - windowHeight * 1), 0, 1)
+    scroll.target = clamp(scrollProgress * scroll.limit, 0, scroll.limit)
 
     console.log('🎯 [GALLERY]', {
       progress: (scrollProgress * 100).toFixed(1) + '%',
@@ -175,9 +176,10 @@ onBeforeUnmount(() => {
 <style scoped>
 .content {
   padding: var(--vspace-4, 2.5rem) 0;
+  padding-bottom: var(--vspace-6, 4rem);
   width: 100%;
   position: relative;
-  min-height: 200vh;
+  min-height: 320vh;
 }
 
 .gallery__wrapper {
@@ -195,6 +197,7 @@ onBeforeUnmount(() => {
   will-change: transform;
   height: 100%;
   padding: 0 2rem;
+  padding-right: calc(2rem + 100vw);
 }
 
 .gallery__media {
@@ -219,12 +222,18 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 1200px) {
+  .content {
+    min-height: 300vh;
+    padding-bottom: var(--vspace-5, 3.125rem);
+  }
+
   .gallery__wrapper {
     height: 55vh;
   }
 
   .gallery__image__container {
     gap: 1.5rem;
+    padding-right: calc(1.5rem + 100vw);
   }
 
   .gallery__media {
@@ -235,16 +244,19 @@ onBeforeUnmount(() => {
 @media (max-width: 768px) {
   .content {
     padding: var(--vspace-3, 1.875rem) 0;
-    min-height: 150vh;
+    padding-bottom: var(--vspace-4, 2.5rem);
+    min-height: 280vh;
   }
 
   .gallery__wrapper {
     height: 50vh;
+    top: 15vh;
   }
 
   .gallery__image__container {
     gap: 1rem;
     padding: 0 1rem;
+    padding-right: calc(1rem + 100vw);
   }
 
   .gallery__media {
@@ -256,15 +268,19 @@ onBeforeUnmount(() => {
 @media (max-width: 480px) {
   .content {
     padding: var(--vspace-2, 1.25rem) 0;
+    padding-bottom: var(--vspace-3, 1.875rem);
+    min-height: 250vh;
   }
 
   .gallery__wrapper {
     height: 45vh;
+    top: 10vh;
   }
 
   .gallery__image__container {
     gap: 0.75rem;
     padding: 0 0.75rem;
+    padding-right: calc(0.75rem + 100vw);
   }
 
   .gallery__media {

@@ -137,7 +137,7 @@
 }
 
 .intro-header__big-type {
-  font-size: clamp(var(--text-display), var(--text-3xl) + 10vw, 15.4rem);
+  font-size: clamp(var(--text-display), var(--text-3xl) + 10vw, 13.4rem);
   line-height: 1;
   margin-top: 0;
 }

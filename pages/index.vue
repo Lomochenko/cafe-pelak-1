@@ -7,10 +7,10 @@
     <section id="menu" class="container s-menu target-section">
       <Menu />
     </section>
-    <!-- <section id="gallery" class="container s-gallery target-section">
+    <section id="gallery" class="container s-gallery target-section">
       <Gallery />
     </section>
-    <Footer /> -->
+    <Footer />
   </div>
 </template>
 

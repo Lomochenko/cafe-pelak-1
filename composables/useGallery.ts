@@ -32,7 +32,8 @@ export const useGallery = () => {
       src: '/images/gallery/gallery-04.jpg',
       thumb: '/images/gallery/gallery-04.jpg',
       alt: 'Fresh pastries display',
-    },
+    }
+    ,
     {
       id: 5,
       src: '/images/gallery/gallery-05.jpg',
