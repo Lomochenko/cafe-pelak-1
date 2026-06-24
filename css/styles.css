@@ -93,12 +93,29 @@
  * ------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap");
 
+/* Roboto Condensed - self hosted variable font (single file, all weights) */
+@font-face {
+    font-family   : "Roboto Condensed";
+    src           : url("/fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype-variations"),
+                    url("/fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype");
+    font-weight   : 100 900;
+    font-stretch  : 75% 100%;
+    font-style    : normal;
+    font-display  : swap;
+}
+
 :root {    
    /* font-families
    */
-    --font-1   : "Roboto Flex", Sans-Serif;
-    --font-2   : "Playfair Display", Serif;
-    --font-mono: Consolas, "Andale Mono", Courier, "Courier New", monospace;
+    --font-1        : "Roboto Flex", Sans-Serif;
+    --font-2        : "Playfair Display", Serif;
+    --font-condensed: "Roboto Condensed", "Arial Narrow", Sans-Serif;
+    --font-mono     : Consolas, "Andale Mono", Courier, "Courier New", monospace;
+}
+
+/* utility: apply the Roboto Condensed brand font (used for "Pelak" & "1") */
+.font-condensed {
+    font-family: var(--font-condensed);
 }
 
 /* ------------------------------------------------------------------- 

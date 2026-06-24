@@ -17,8 +17,8 @@
           enter: { opacity: 1, y: 0, transition: { duration: 700, delay: 600 } } 
         }"
       >
-        Pelak 1 <br />
-        Cafe
+        <span class="font-condensed">Pelak 1</span> <br />
+        <span class="font-condensed">Cafe</span>
       </h1>
     </div>
 

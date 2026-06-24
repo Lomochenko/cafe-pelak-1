@@ -4,7 +4,7 @@
       <div class="s-header__block">
         <div class="header-logo">
           <a class="specialFont" href="#top">
-            Pelak 1 Cafe
+            <span class="font-condensed">Pelak 1</span> Cafe
           </a>
         </div>
         <a class="header-menu-toggle" :class="{ 'is-clicked': menuOpen }" href="#0" @click.prevent="toggleMenu">

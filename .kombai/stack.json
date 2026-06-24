@@ -1,0 +1,11 @@
+// Kombai Tech Stack Configuration
+// Each value must be a string or an array of strings.
+// Example: "Framework": "Vite" or "Project Type": ["React", "Vue"]
+{
+  "Project Type": "Vue",
+  "Framework": "Nuxt 3",
+  "Build Tool": "Vite",
+  "CSS Implementation": "Vanilla CSS",
+  "TS/JS": "TS",
+  "State Management": "VueUse"
+}

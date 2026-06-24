@@ -8,45 +8,24 @@
         <!-- Brand Section -->
         <div class="footer__brand">
           <h3 class="footer__title">
-            <span class="footer__title-line">Cafe</span>
-            <span class="footer__title-line footer__title-line--accent">Pelak</span>
+            <span class="footer__title-line font-condensed">Cafe</span>
+            <span class="footer__title-line footer__title-line--accent font-condensed">Pelak 1</span>
           </h3>
           <p class="footer__tagline">Experience premium coffee culture with us.</p>
-          
-          <div class="footer__social">
-            <a href="#cafePelak1" class="footer__social-link" aria-label="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-              </svg>
-            </a>
-            <a href="tel:+1234567890" class="footer__social-link" aria-label="Phone">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-              </svg>
-            </a>
-          </div>
         </div>
 
         <!-- Contact Section -->
         <div class="footer__section">
-          <h4 class="footer__heading">Contact</h4>
+          <h4 class="footer__heading font-condensed">Contact</h4>
           <ul class="footer__list">
             <li class="footer__list-item">
-              <svg class="footer__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
-              </svg>
               <a href="tel:+1234567890" class="footer__link">+1 (234) 567-890</a>
             </li>
             <li class="footer__list-item">
-              <svg class="footer__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
-              </svg>
               <a href="#cafePelak1" class="footer__link">@cafePelak1</a>
             </li>
             <li class="footer__list-item">
-              <svg class="footer__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
+              
               <span>123 Coffee Street, City, Country</span>
             </li>
           </ul>
@@ -54,7 +33,7 @@
 
         <!-- Location Section with Map -->
         <div class="footer__section footer__section--location">
-          <h4 class="footer__heading">Location</h4>
+          <h4 class="footer__heading font-condensed">Location</h4>
           <div class="footer__map-wrapper">
             <iframe
               class="footer__map"
@@ -63,7 +42,7 @@
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="Cafe Pelak Location"
+              title="کافه پلاک یک"
             ></iframe>
           </div>
         </div>
@@ -71,12 +50,12 @@
 
       <!-- Bottom Section -->
       <div class="footer__bottom">
-        <p class="footer__copyright">&copy; 2025 Cafe Pelak. All rights reserved.</p>
-        <div class="footer__links">
-          <a href="#" class="footer__link footer__link--bottom">Privacy Policy</a>
+        <a class="footer__heading font-condensed">Maded By Naseri</a>
+        <!-- <div class="footer__links">
+          <a href="#" class="footer__link footer__link--bottom font-condensed">Mad With Love</a>
           <span class="footer__divider">|</span>
-          <a href="#" class="footer__link footer__link--bottom">Terms of Service</a>
-        </div>
+          <a href="#" class="footer__link footer__link--bottom font-condensed">By Naseri</a>
+        </div> -->
       </div>
     </div>
   </footer>
