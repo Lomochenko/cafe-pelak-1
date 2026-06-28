@@ -15,6 +15,8 @@ export default defineNuxtConfig({
   },
   css: [
     '~/css/styles.css',
+    '~/assets/css/main.css',
+    '~/assets/css/variables.css',
     'glightbox/dist/css/glightbox.css',
   ],
   app: {
@@ -57,7 +59,7 @@ export default defineNuxtConfig({
     public: 'public',
   },
   typescript: {
-    strict: true,
+    strict: false,
     typeCheck: false,
   },
   nitro: {

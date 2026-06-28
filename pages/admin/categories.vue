@@ -1,64 +1,46 @@
 <template>
   <AdminLayout>
-    <div class="menu-admin">
+    <div class="categories-admin">
       <div class="admin-header-section">
         <div>
-          <h2 class="admin-section-title">Menu Items</h2>
-          <p class="admin-section-subtitle">{{ menuItems.length }} items across {{ categories.length }} categories</p>
+          <h2 class="admin-section-title">Menu Categories</h2>
+          <p class="admin-section-subtitle">{{ availableCategories.length }} categories</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          Add Item
+          Add Category
         </button>
       </div>
 
-      <!-- Category Filter Tabs -->
-      <div class="category-tabs" role="tablist">
-        <button
-          v-for="cat in categories"
-          :key="cat"
-          :class="{ active: activeCategory === cat }"
-          @click="activeCategory = cat"
-          role="tab"
-          :aria-selected="activeCategory === cat"
-        >
-          {{ cat }}
-        </button>
-      </div>
-
-      <!-- Menu Items Grid -->
-      <div v-if="filteredItems.length" class="menu-items-grid">
+      <div class="categories-list">
         <TransitionGroup name="card" tag="div" class="cards-grid">
           <div
-            v-for="item in filteredItems"
-            :key="item.id"
-            class="menu-item-card"
+            v-for="category in availableCategories"
+            :key="category.id"
+            class="category-card"
           >
-            <div class="card-thumbnail">
-              <div class="category-badge">{{ getCategoryIcon(item.category) }}</div>
-            </div>
-            <div class="card-content">
-              <div class="card-header">
-                <h4 class="card-title">{{ item.name }}</h4>
-                <span class="card-price">${{ item.price.toFixed(2) }}</span>
-              </div>
-              <p class="card-description">{{ item.description }}</p>
-              <div class="card-meta">
-                <span class="card-category">{{ item.category }}</span>
+            <div class="category-icon">{{ category.icon }}</div>
+            <div class="category-content">
+              <h4 class="category-name">{{ category.name }}</h4>
+              <p class="category-description">{{ category.description }}</p>
+              <div class="category-stats">
+                <span class="stat-badge">
+                  {{ getItemCount(category.name) }} items
+                </span>
               </div>
             </div>
             <div class="card-actions">
-              <button @click="editItem(item)" class="action-btn" aria-label="Edit item">
+              <button @click="editCategory(category)" class="action-btn" aria-label="Edit category">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
                 Edit
               </button>
-              <button @click="confirmDelete(item)" class="action-btn action-btn--danger" aria-label="Delete item">
+              <button @click="confirmDelete(category)" class="action-btn action-btn--danger" aria-label="Delete category">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -70,15 +52,15 @@
         </TransitionGroup>
       </div>
 
-      <div v-else class="empty-state">
+      <div v-if="!availableCategories.length" class="empty-state">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
           <path d="M2 17l10 5 10-5"></path>
           <path d="M2 12l10 5 10-5"></path>
         </svg>
-        <h3>No menu items yet</h3>
-        <p>Add your first item to get started</p>
-        <button @click="openAddForm" class="btn btn-primary">Add Item</button>
+        <h3>No categories yet</h3>
+        <p>Add your first category to organize your menu</p>
+        <button @click="openAddForm" class="btn btn-primary">Add Category</button>
       </div>
     </div>
 
@@ -88,7 +70,7 @@
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
-              <h3 class="modal-title">{{ editingItem ? 'Edit Menu Item' : 'Add Menu Item' }}</h3>
+              <h3 class="modal-title">{{ editingCategory ? 'Edit Category' : 'Add Category' }}</h3>
               <button class="modal-close" @click="closeForm" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -96,29 +78,24 @@
                 </svg>
               </button>
             </div>
-            <form @submit.prevent="saveItem" class="modal-body">
+            <form @submit.prevent="saveCategory" class="modal-body">
               <div class="form-group">
-                <label class="form-label">Name *</label>
-                <input v-model="formData.name" type="text" class="form-input" placeholder="Enter item name" required />
+                <label class="form-label">Category Name *</label>
+                <input v-model="formData.name" type="text" class="form-input" placeholder="e.g., Signature Blends" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Description *</label>
-                <textarea v-model="formData.description" class="form-input form-textarea" placeholder="Describe the item" rows="3" required></textarea>
+                <label class="form-label">Icon (Emoji) *</label>
+                <input v-model="formData.icon" type="text" class="form-input" placeholder="e.g., ☕" maxlength="2" required />
+                <span class="form-hint">Use a single emoji as the category icon</span>
               </div>
               <div class="form-group">
-                <label class="form-label">Price ($) *</label>
-                <input v-model="formData.price" type="number" step="0.01" min="0" class="form-input" placeholder="0.00" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Category *</label>
-                <select v-model="formData.category" class="form-input form-select" required>
-                  <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
-                </select>
+                <label class="form-label">Description</label>
+                <textarea v-model="formData.description" class="form-input form-textarea" placeholder="Brief description of this category" rows="2"></textarea>
               </div>
               <div class="modal-footer">
                 <button type="button" @click="closeForm" class="btn btn-outline">Cancel</button>
                 <button type="submit" class="btn btn-primary" :disabled="saving">
-                  {{ saving ? 'Saving...' : (editingItem ? 'Update' : 'Add') }}
+                  {{ saving ? 'Saving...' : (editingCategory ? 'Update' : 'Add') }}
                 </button>
               </div>
             </form>
@@ -133,7 +110,7 @@
         <div v-if="showDeleteConfirm" class="modal-overlay" @click.self="cancelDelete">
           <div class="modal-container modal-sm">
             <div class="modal-header">
-              <h3 class="modal-title">Delete Menu Item</h3>
+              <h3 class="modal-title">Delete Category</h3>
               <button class="modal-close" @click="cancelDelete" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -142,8 +119,10 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete <strong>{{ itemToDelete?.name }}</strong>?</p>
-              <p class="delete-warning">This action cannot be undone.</p>
+              <p>Are you sure you want to delete <strong>{{ categoryToDelete?.name }}</strong>?</p>
+              <p class="delete-warning">
+                {{ getItemCount(categoryToDelete?.name) }} menu items will be moved to another category.
+              </p>
             </div>
             <div class="modal-footer">
               <button @click="cancelDelete" class="btn btn-outline">Cancel</button>
@@ -159,7 +138,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 import AdminLayout from '~/components/AdminLayout.vue'
 
@@ -168,65 +147,60 @@ definePageMeta({
   middleware: 'admin-auth',
 })
 
-const { menuItems, addMenuItem, updateMenuItem, deleteMenuItem, categories, fetchAll } = useMenu()
+const { menuItems, availableCategories, addCategory, updateCategory, deleteCategory } = useMenu()
 
-onMounted(() => fetchAll())
-
-const activeCategory = ref('')
 const showForm = ref(false)
 const showDeleteConfirm = ref(false)
-const editingItem = ref(null)
-const itemToDelete = ref(null)
+const editingCategory = ref(null)
+const categoryToDelete = ref(null)
 const saving = ref(false)
 const deleting = ref(false)
 
-// Default to first category when categories load
-watch(categories, (cats) => {
-  if (cats.length && !activeCategory.value) activeCategory.value = cats[0]
-}, { immediate: true })
-
 const formData = ref({
   name: '',
+  icon: '',
   description: '',
-  price: 0,
-  category: '',
 })
 
-const filteredItems = computed(() =>
-  menuItems.value.filter(item => item.category === activeCategory.value)
-)
+const getItemCount = (categoryName) => {
+  if (!categoryName) return 0
+  return menuItems.value.filter(item => item.category === categoryName).length
+}
 
 const openAddForm = () => {
-  editingItem.value = null
-  formData.value = { name: '', description: '', price: 0, category: activeCategory.value }
+  editingCategory.value = null
+  formData.value = { name: '', icon: '', description: '' }
   showForm.value = true
 }
 
-const editItem = (item) => {
-  editingItem.value = item
-  formData.value = { name: item.name, description: item.description, price: item.price, category: item.category }
+const editCategory = (category) => {
+  editingCategory.value = category
+  formData.value = {
+    name: category.name,
+    icon: category.icon,
+    description: category.description,
+  }
   showForm.value = true
 }
 
 const closeForm = () => {
   showForm.value = false
-  editingItem.value = null
-  formData.value = { name: '', description: '', price: 0, category: activeCategory.value }
+  editingCategory.value = null
+  formData.value = { name: '', icon: '', description: '' }
 }
 
-const saveItem = async () => {
+const saveCategory = async () => {
   saving.value = true
   try {
-    const itemData = {
+    const categoryData = {
       name: formData.value.name,
+      icon: formData.value.icon,
       description: formData.value.description,
-      price: Number(formData.value.price),
-      category: formData.value.category,
     }
-    if (editingItem.value) {
-      await updateMenuItem(editingItem.value.id, itemData)
+    if (editingCategory.value) {
+      updateCategory(editingCategory.value.id, categoryData)
     } else {
-      await addMenuItem(itemData)
+      addCategory(categoryData)
     }
     closeForm()
   } finally {
@@ -234,35 +208,30 @@ const saveItem = async () => {
   }
 }
 
-const confirmDelete = (item) => {
-  itemToDelete.value = item
+const confirmDelete = (category) => {
+  categoryToDelete.value = category
   showDeleteConfirm.value = true
 }
 
 const cancelDelete = () => {
   showDeleteConfirm.value = false
-  itemToDelete.value = null
+  categoryToDelete.value = null
 }
 
 const executeDelete = async () => {
-  if (!itemToDelete.value) return
+  if (!categoryToDelete.value) return
   deleting.value = true
   try {
-    await deleteMenuItem(itemToDelete.value.id)
+    deleteCategory(categoryToDelete.value.id)
   } finally {
     deleting.value = false
     cancelDelete()
   }
 }
-
-const getCategoryIcon = (category) => {
-  const icons = { 'Signature Blends': '☕', 'Pastries': '🥐', 'Gourmet Treats': '🍫' }
-  return icons[category] || '📦'
-}
 </script>
 
 <style scoped>
-.menu-admin {
+.categories-admin {
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -294,46 +263,13 @@ const getCategoryIcon = (category) => {
   gap: 0.5rem;
 }
 
-.category-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.category-tabs button {
-  padding: 0.5rem 1rem;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  color: var(--color-text);
-  font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s var(--ease-snappy-polished);
-}
-
-.category-tabs button:hover {
-  border-color: var(--color-bg-primary);
-  color: var(--color-bg-primary);
-}
-
-.category-tabs button.active {
-  background: var(--color-bg-primary);
-  border-color: var(--color-bg-primary);
-  color: #fff;
-}
-
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
 
-.menu-item-card {
+.category-card {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -343,81 +279,49 @@ const getCategoryIcon = (category) => {
   transition: transform 0.2s var(--ease-snappy-polished), box-shadow 0.2s var(--ease-snappy-polished);
 }
 
-.menu-item-card:hover {
+.category-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.card-thumbnail {
-  aspect-ratio: 16/9;
+.category-icon {
+  font-size: 2.5rem;
+  padding: 1.5rem;
   background: linear-gradient(135deg, var(--color-bg-primary-light), var(--color-bg-secondary-light));
-  position: relative;
-}
-
-.category-badge {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  font-size: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
-}
-
-.card-content {
-  padding: 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.card-title {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-headings);
-  line-height: 1.3;
-}
-
-.card-price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-bg-primary);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.card-description {
-  margin: 0 0 0.75rem;
-  color: var(--color-text-light);
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.card-meta {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: auto;
+  justify-content: center;
 }
 
-.card-category {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.category-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.category-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-headings);
+}
+
+.category-description {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
   color: var(--color-text-light);
-  background: var(--color-bg-neutral);
+}
+
+.category-stats {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.stat-badge {
+  font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
+  background: var(--color-bg-neutral);
   border-radius: var(--radius-sm);
+  color: var(--color-text-light);
 }
 
 .card-actions {
@@ -447,7 +351,6 @@ const getCategoryIcon = (category) => {
 .action-btn:hover {
   color: var(--color-text);
   border-color: var(--color-bg-primary);
-  background: var(--color-bg);
 }
 
 .action-btn--danger:hover {
@@ -494,7 +397,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   max-height: 90vh;
   overflow: hidden;
   display: flex;
@@ -584,17 +487,15 @@ const getCategoryIcon = (category) => {
 }
 
 .form-textarea {
-  min-height: 80px;
+  min-height: 60px;
   resize: vertical;
 }
 
-.form-select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239fa1a1' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  padding-right: 2.5rem;
+.form-hint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
 }
 
 .delete-warning {
@@ -672,11 +573,6 @@ const getCategoryIcon = (category) => {
   opacity: 0;
 }
 
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  transform: translateY(20px);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .cards-grid {
@@ -691,10 +587,6 @@ const getCategoryIcon = (category) => {
   .admin-header-section .btn {
     width: 100%;
     justify-content: center;
-  }
-
-  .category-tabs {
-    justify-content: flex-start;
   }
 
   .modal-container {

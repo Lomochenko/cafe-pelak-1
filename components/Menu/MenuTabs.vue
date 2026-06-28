@@ -54,7 +54,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useMenu } from '~/composables/useMenu'
 
 const activeTab = ref(0)
 const isSticky = ref(false)
@@ -63,7 +64,7 @@ const menuContentRef = ref<HTMLElement | null>(null)
 
 const scrollToCategory = (index: number) => {
   activeTab.value = index
-  const element = document.getElementById('tab-' + categories[index].id)
+  const element = document.getElementById('tab-' + categories.value[index].id)
   if (element) {
     const firstItem = element.querySelector('.menu-list__item')
     const targetElement = firstItem || element
@@ -98,118 +99,15 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-const categories = [
-  {
-    id: 'signature-blends',
-    name: 'Signature Blends',
-    items: [
-      {
-        id: 1,
-        name: 'Lounge Elegance Espresso',
-        description:
-          'Rich and full-bodied, our signature espresso blend with notes of dark chocolate and toasted nuts.',
-        price: 3.5,
-      },
-      {
-        id: 2,
-        name: 'Velvet Mocha Delight',
-        description: 'Silky mocha infused with a hint of vanilla, crowned with velvety whipped cream.',
-        price: 4.25,
-      },
-      {
-        id: 3,
-        name: 'Caramel Macchiato Symphony',
-        description: 'A harmonious blend of espresso, steamed milk, and caramel drizzle.',
-        price: 4.0,
-      },
-      {
-        id: 4,
-        name: 'Hazelnut Heaven Latte',
-        description: 'Creamy latte with the nutty goodness of hazelnut syrup.',
-        price: 4.5,
-      },
-      {
-        id: 5,
-        name: 'French Vanilla Cappuccino',
-        description: 'Classic cappuccino with a touch of French vanilla sweetness.',
-        price: 4.25,
-      },
-    ],
-  },
-  {
-    id: 'pastries',
-    name: 'Freshly Baked Pastries',
-    items: [
-      {
-        id: 6,
-        name: 'Buttery Croissants',
-        description: 'Flaky and buttery croissants baked to perfection.',
-        price: 2.5,
-      },
-      {
-        id: 7,
-        name: 'Flaky Almond Danishes',
-        description: 'Delicate pastries filled with almond paste and sliced almonds.',
-        price: 3.0,
-      },
-      {
-        id: 8,
-        name: 'Blueberry Streusel Muffins',
-        description: 'Moist muffins bursting with blueberries and a crumbly streusel top.',
-        price: 2.75,
-      },
-      {
-        id: 9,
-        name: 'Chocolate-Filled Scones',
-        description: 'Tender scones with a surprise chocolate center.',
-        price: 3.25,
-      },
-      {
-        id: 10,
-        name: 'Raspberry Cream Cheese Danish',
-        description: 'Sweet and tangy raspberry filling in a cream cheese danish.',
-        price: 3.25,
-      },
-    ],
-  },
-  {
-    id: 'gourmet-treats',
-    name: 'Gourmet Treats',
-    items: [
-      {
-        id: 11,
-        name: 'Artisanal Dark Chocolate Truffles',
-        description: 'Luxurious dark chocolate truffles dusted with cocoa powder.',
-        price: 2.75,
-      },
-      {
-        id: 12,
-        name: 'Handcrafted Praline Bonbons',
-        description: 'Praline-filled bonbons topped with a caramelized nut.',
-        price: 3.0,
-      },
-      {
-        id: 13,
-        name: 'Pistachio and Sea Salt Toffee',
-        description: 'Crunchy toffee coated in pistachios and sea salt.',
-        price: 4.0,
-      },
-      {
-        id: 14,
-        name: 'Raspberry White Chocolate Bark',
-        description:
-          'Creamy white chocolate with swirls of raspberry and a sprinkle of almonds.',
-        price: 3.5,
-      },
-      {
-        id: 15,
-        name: 'Salted Caramel Brownie Bites',
-        description: 'Fudgy brownie bites with a caramel drizzle and a touch of sea salt.',
-        price: 2.5,
-      },
-    ],
-  },
-]
+const { availableCategories, menuItems } = useMenu()
+
+const categories = computed(() =>
+  availableCategories.value.map(cat => ({
+    id: cat.name.toLowerCase().replace(/\s+/g, '-'),
+    name: cat.name,
+    items: menuItems.value.filter(item => item.category === cat.name),
+  }))
+)
 </script>
 
 <style scoped>

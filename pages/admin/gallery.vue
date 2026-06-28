@@ -1,215 +1,781 @@
 <template>
-  <div class="gallery-admin">
-    <div class="admin-header-section">
-      <h2 class="admin-section-title">Gallery Management</h2>
-      <button @click="showAddForm = true" class="btn btn-primary">Add New Image</button>
-    </div>
+  <AdminLayout>
+    <div class="gallery-admin">
+      <div class="admin-header-section">
+        <div>
+          <h2 class="admin-section-title">Gallery Images</h2>
+          <p class="admin-section-subtitle">{{ galleryImages.length }} images in gallery</p>
+        </div>
+        <button @click="openAddForm" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Image
+        </button>
+      </div>
 
-    <!-- Add/Edit Form -->
-    <div v-if="showAddForm || editingImage" class="form-modal">
-      <div class="form-container">
-        <h3>{{ editingImage ? 'Edit Gallery Image' : 'Add New Gallery Image' }}</h3>
-        <form @submit.prevent="saveImage">
-          <div class="form-group">
-            <label for="src">Image URL</label>
-            <input v-model="formData.src" id="src" type="text" required />
+      <div v-if="galleryImages.length" class="gallery-grid">
+        <TransitionGroup name="card" tag="div" class="cards-grid">
+          <div
+            v-for="image in galleryImages"
+            :key="image.id"
+            class="gallery-item-card"
+          >
+            <div class="card-thumbnail">
+              <img :src="image.thumb" :alt="image.alt" loading="lazy" />
+            </div>
+            <div class="card-content">
+              <p class="card-alt">{{ image.alt }}</p>
+            </div>
+            <div class="card-actions">
+              <button @click="editImage(image)" class="action-btn" aria-label="Edit image">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+                Edit
+              </button>
+              <button @click="confirmDelete(image)" class="action-btn action-btn--danger" aria-label="Delete image">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Delete
+              </button>
+            </div>
           </div>
+        </TransitionGroup>
+      </div>
 
-          <div class="form-group">
-            <label for="thumb">Thumbnail URL</label>
-            <input v-model="formData.thumb" id="thumb" type="text" required />
-          </div>
-
-          <div class="form-group">
-            <label for="alt">Alt Text</label>
-            <input v-model="formData.alt" id="alt" type="text" required />
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" @click="cancelEdit" class="btn btn-outline">Cancel</button>
-          </div>
-        </form>
+      <div v-else class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <h3>No gallery images yet</h3>
+        <p>Upload your first image to get started</p>
+        <button @click="openAddForm" class="btn btn-primary">Add Image</button>
       </div>
     </div>
 
-    <!-- Gallery Images Grid -->
-    <div class="gallery-grid">
-      <div v-for="image in galleryImages" :key="image.id" class="gallery-item-card">
-        <img :src="image.thumb" :alt="image.alt" />
-        <div class="item-overlay">
-          <p>{{ image.alt }}</p>
-          <div class="item-actions">
-            <button @click="editImage(image)" class="btn btn-sm btn-secondary">Edit</button>
-            <button @click="deleteImage(image.id)" class="btn btn-sm btn-outline">Delete</button>
+    <!-- Add/Edit Form Modal -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3 class="modal-title">{{ editingImage ? 'Edit Gallery Image' : 'Add Gallery Image' }}</h3>
+              <button class="modal-close" @click="closeForm" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <form @submit.prevent="saveImage" class="modal-body">
+              <div class="form-group">
+                <label class="form-label">Alt Text *</label>
+                <input v-model="formData.alt" type="text" class="form-input" placeholder="Describe the image for accessibility" required />
+                <span class="form-hint">Required for accessibility</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">{{ editingImage ? 'Replace Image (optional)' : 'Image *' }}</label>
+                <div 
+                  class="file-drop-zone"
+                  :class="{ 'has-file': filePreview }"
+                  @click="$refs.fileInput.click()"
+                  @dragover.prevent="dragOver = true"
+                  @dragleave.prevent="dragOver = false"
+                  @drop.prevent="handleDrop"
+                >
+                  <input
+                    ref="fileInput"
+                    type="file"
+                    accept="image/*"
+                    @change="handleFileSelect"
+                    class="file-input"
+                  />
+                  <div v-if="!filePreview" class="drop-zone-content">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p>Drag & drop an image here, or click to browse</p>
+                    <span class="file-hint">JPG, PNG, WebP supported (max 5MB)</span>
+                  </div>
+                  <div v-else class="file-preview">
+                    <img :src="filePreview" alt="Preview" />
+                    <div class="file-info">
+                      <span class="file-name">{{ fileName }}</span>
+                      <span class="file-size">{{ formatFileSize(fileSize) }}</span>
+                    </div>
+                    <button type="button" class="file-remove" @click.stop="removeFile">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" @click="closeForm" class="btn btn-outline">Cancel</button>
+                <button type="submit" class="btn btn-primary" :disabled="saving || (!formData.file && !editingImage)">
+                  {{ saving ? 'Saving...' : (editingImage ? 'Update' : 'Add') }}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Delete Confirmation Modal -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-if="showDeleteConfirm" class="modal-overlay" @click.self="cancelDelete">
+          <div class="modal-container modal-sm">
+            <div class="modal-header">
+              <h3 class="modal-title">Delete Gallery Image</h3>
+              <button class="modal-close" @click="cancelDelete" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete this image?</p>
+              <p class="delete-warning">This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+              <button @click="cancelDelete" class="btn btn-outline">Cancel</button>
+              <button @click="executeDelete" class="btn btn-danger" :disabled="deleting">
+                {{ deleting ? 'Deleting...' : 'Delete' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+  </AdminLayout>
 </template>
 
-<script setup lang="ts">
-import type { GalleryImage } from '~/composables/useGallery'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useGallery } from '~/composables/useGallery'
+import AdminLayout from '~/components/AdminLayout.vue'
 
 definePageMeta({
   layout: 'admin',
   middleware: 'admin-auth',
 })
 
-const { galleryImages, addImage, updateImage, deleteImage: removeImage } = useGallery()
+const { galleryImages, addImage, updateImage, deleteImage: removeImage, fetchGallery } = useGallery()
 
-const showAddForm = ref(false)
-const editingImage = ref<GalleryImage | null>(null)
+onMounted(() => fetchGallery())
+
+const showForm = ref(false)
+const showDeleteConfirm = ref(false)
+const editingImage = ref(null)
+const imageToDelete = ref(null)
+const saving = ref(false)
+const deleting = ref(false)
+const dragOver = ref(false)
+
 const formData = ref({
   src: '',
   thumb: '',
   alt: '',
+  file: null,
 })
 
-const editImage = (image: GalleryImage) => {
-  editingImage.value = image
-  formData.value = { ...image }
-  showAddForm.value = false
-}
+const filePreview = ref(null)
+const fileName = ref('')
+const fileSize = ref(0)
 
-const saveImage = () => {
-  if (editingImage.value) {
-    updateImage(editingImage.value.id, formData.value)
-  } else {
-    addImage(formData.value)
-  }
-  cancelEdit()
-}
-
-const cancelEdit = () => {
-  showAddForm.value = false
+const openAddForm = () => {
   editingImage.value = null
+  formData.value = { src: '', thumb: '', alt: '', file: null }
+  filePreview.value = null
+  fileName.value = ''
+  fileSize.value = 0
+  showForm.value = true
+}
+
+const editImage = (image) => {
+  editingImage.value = image
   formData.value = {
-    src: '',
-    thumb: '',
-    alt: '',
+    src: image.src,
+    thumb: image.thumb,
+    alt: image.alt,
+    file: null,
+  }
+  filePreview.value = image.thumb
+  fileName.value = 'Current image'
+  fileSize.value = 0
+  showForm.value = true
+}
+
+const closeForm = () => {
+  showForm.value = false
+  editingImage.value = null
+  formData.value = { src: '', thumb: '', alt: '', file: null }
+  filePreview.value = null
+  fileName.value = ''
+  fileSize.value = 0
+}
+
+const handleFileSelect = (event) => {
+  const input = event.target
+  if (input.files && input.files[0]) {
+    processFile(input.files[0])
   }
 }
 
-const deleteImage = (id: number) => {
-  if (confirm('Are you sure you want to delete this image?')) {
-    removeImage(id)
+const handleDrop = (event) => {
+  dragOver.value = false
+  if (event.dataTransfer?.files?.[0]) {
+    processFile(event.dataTransfer.files[0])
+  }
+}
+
+const processFile = (file) => {
+  if (!file.type.startsWith('image/')) {
+    alert('Please select an image file')
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    alert('File size must be less than 5MB')
+    return
+  }
+  fileName.value = file.name
+  fileSize.value = file.size
+  formData.value.file = file
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    filePreview.value = e.target?.result
+  }
+  reader.readAsDataURL(file)
+}
+
+const removeFile = () => {
+  formData.value.file = null
+  filePreview.value = editingImage.value ? editingImage.value.thumb : null
+  fileName.value = editingImage.value ? 'Current image' : ''
+  fileSize.value = 0
+}
+
+const formatFileSize = (bytes) => {
+  if (bytes < 1024) return bytes + ' B'
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB'
+}
+
+const saveImage = async () => {
+  if (!formData.value.file && !editingImage.value) return
+  saving.value = true
+  try {
+    const imageData = {
+      alt: formData.value.alt,
+    }
+
+    if (formData.value.file) {
+      const objectUrl = URL.createObjectURL(formData.value.file)
+      imageData.src = objectUrl
+      imageData.thumb = objectUrl
+    } else if (editingImage.value) {
+      imageData.src = editingImage.value.src
+      imageData.thumb = editingImage.value.thumb
+    }
+
+    if (editingImage.value) {
+      updateImage(editingImage.value.id, imageData)
+    } else {
+      addImage(imageData)
+    }
+    closeForm()
+  } finally {
+    saving.value = false
+  }
+}
+
+const confirmDelete = (image) => {
+  imageToDelete.value = image
+  showDeleteConfirm.value = true
+}
+
+const cancelDelete = () => {
+  showDeleteConfirm.value = false
+  imageToDelete.value = null
+}
+
+const executeDelete = async () => {
+  if (!imageToDelete.value) return
+  deleting.value = true
+  try {
+    removeImage(imageToDelete.value.id)
+  } finally {
+    deleting.value = false
+    cancelDelete()
   }
 }
 </script>
 
 <style scoped>
 .gallery-admin {
-  padding: var(--spacing-4);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .admin-header-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--spacing-4);
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .admin-section-title {
-  font-size: var(--font-size-4);
-  color: var(--color-1-dark);
+  font-size: 1.5rem;
+  color: var(--color-headings);
+  margin: 0 0 0.25rem;
 }
 
-.form-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
+.admin-section-subtitle {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  gap: 0.5rem;
 }
 
-.form-container {
-  background: white;
-  padding: var(--spacing-4);
-  border-radius: var(--border-radius-md);
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.form-group {
-  margin-bottom: var(--spacing-3);
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: var(--spacing-1);
-  font-weight: var(--font-weight-medium);
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: var(--spacing-2);
-  border: 1px solid var(--color-neutral-3);
-  border-radius: var(--border-radius-sm);
-}
-
-.form-actions {
-  display: flex;
-  gap: var(--spacing-2);
-  margin-top: var(--spacing-3);
-}
-
-.gallery-grid {
+.cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--spacing-3);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
 }
 
 .gallery-item-card {
-  position: relative;
-  border-radius: var(--border-radius-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.gallery-item-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.item-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: var(--spacing-2);
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-}
-
-.gallery-item-card:hover .item-overlay {
-  transform: translateY(0);
-}
-
-.item-overlay p {
-  margin-bottom: var(--spacing-2);
-  font-size: var(--font-size--1);
-}
-
-.item-actions {
   display: flex;
-  gap: var(--spacing-2);
+  flex-direction: column;
+  transition: transform 0.2s var(--ease-snappy-polished), box-shadow 0.2s var(--ease-snappy-polished);
 }
 
-.btn-sm {
-  padding: var(--spacing-1) var(--spacing-2);
-  font-size: var(--font-size--1);
+.gallery-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-thumbnail {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-bg-neutral);
+}
+
+.card-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s var(--ease-snappy-polished);
+}
+
+.gallery-item-card:hover .card-thumbnail img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.card-alt {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-neutral);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-snappy-polished);
+}
+
+.action-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-bg-primary);
+}
+
+.action-btn--danger:hover {
+  color: #fff;
+  border-color: #dc2626;
+  background: #dc2626;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-text-light);
+}
+
+.empty-state svg {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin: 0 0 0.5rem;
+  color: var(--color-headings);
+}
+
+.empty-state p {
+  margin: 0 0 1.5rem;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: var(--color-bg-neutral);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-sm {
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+  margin: 0;
+  color: var(--color-headings);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-headings);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-bg-primary);
+  box-shadow: 0 0 0 3px var(--color-bg-primary-light);
+}
+
+.form-hint {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+/* File Upload */
+.file-drop-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  background: var(--color-bg);
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.file-drop-zone:hover,
+.file-drop-zone.drag-over {
+  border-color: var(--color-bg-primary);
+  background: var(--color-bg-neutral);
+}
+
+.file-drop-zone.has-file {
+  padding: 1rem;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.drop-zone-content {
+  color: var(--color-text-light);
+}
+
+.drop-zone-content p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.drop-zone-content svg {
+  opacity: 0.5;
+}
+
+.file-hint {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-preview img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.file-name {
+  font-weight: 500;
+  color: var(--color-headings);
+}
+
+.file-size {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.file-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-light);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.file-remove:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+
+.delete-warning {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-snappy-polished);
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--color-bg-primary);
+  color: #fff;
+  border-color: var(--color-bg-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-bg-primary-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn-outline:hover {
+  background: var(--color-bg);
+  border-color: var(--color-text-light);
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Transitions */
+.card-enter-active,
+.card-leave-active {
+  transition: all 0.3s var(--ease-snappy-polished);
+}
+
+.card-enter-from,
+.card-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.25s var(--ease-snappy-polished);
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-header-section .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-container {
+    max-width: 100%;
+    margin: 0.5rem;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>

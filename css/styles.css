@@ -104,18 +104,43 @@
     font-display  : swap;
 }
 
+/* Digi Lotos Bold - Persian/Display font */
+@font-face {
+    font-family   : "Digi Lotos";
+    src           : url("/fonts/Digi Lotos Bold.ttf") format("truetype");
+    font-weight   : 700;
+    font-style    : normal;
+    font-display  : swap;
+}
+
 :root {    
    /* font-families
    */
     --font-1        : "Roboto Flex", Sans-Serif;
     --font-2        : "Playfair Display", Serif;
     --font-condensed: "Roboto Condensed", "Arial Narrow", Sans-Serif;
+    --font-digi     : "Digi Lotos", "Playfair Display", Serif;
     --font-mono     : Consolas, "Andale Mono", Courier, "Courier New", monospace;
 }
 
-/* utility: apply the Roboto Condensed brand font (used for "Pelak" & "1") */
+/* utility: apply the Roboto Condensed brand font */
 .font-condensed {
     font-family: var(--font-condensed);
+}
+
+/* Menu list item: Digi Lotos for title, description, category name */
+.menu-list__item h4 {
+    font-family: var(--font-digi) !important;
+    font-weight: 700;
+}
+
+.menu-list__item p {
+    font-family: var(--font-digi) !important;
+}
+
+.menu-block__cat-name {
+    font-family: var(--font-digi) !important;
+    font-weight: 700;
 }
 
 /* ------------------------------------------------------------------- 
@@ -4301,7 +4326,8 @@ td:last-child {
 
 .menu-list__item-desc {
     max-width    : min(100%, 90rem);
-    padding-right: calc(var(--gutter) * 2);
+    padding-left : calc(var(--gutter) * 2);
+    padding-right: 0;
 }
 
 .menu-list__item-price {

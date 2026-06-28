@@ -20,23 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useGallery } from '~/composables/useGallery'
 
-interface GalleryImage {
-  src: string
-  alt: string
-}
+const { galleryImages } = useGallery()
 
-const images = ref<GalleryImage[]>([
-  { src: '/images/gallery/gallery-01.jpg', alt: 'Gallery 1' },
-  { src: '/images/gallery/gallery-02.jpg', alt: 'Gallery 2' },
-  { src: '/images/gallery/gallery-03.jpg', alt: 'Gallery 3' },
-  { src: '/images/gallery/gallery-04.jpg', alt: 'Gallery 4' },
-  { src: '/images/gallery/gallery-05.jpg', alt: 'Gallery 5' },
-  { src: '/images/gallery/gallery-06.jpg', alt: 'Gallery 6' },
-  { src: '/images/gallery/gallery-07.jpg', alt: 'Gallery 7' },
-  { src: '/images/gallery/gallery-08.jpg', alt: 'Gallery 8' },
-])
+// Map to the shape the template expects
+const images = computed(() =>
+  galleryImages.value.map(img => ({ src: img.src, alt: img.alt }))
+)
 
 const sectionRef = ref<HTMLElement | null>(null)
 const wrapperRef = ref<HTMLElement | null>(null)
@@ -274,7 +266,8 @@ onBeforeUnmount(() => {
 
   .gallery__wrapper {
     height: 45vh;
-    top: 10vh;
+    top: 20vh;
+    /* gallery items height */
   }
 
   .gallery__image__container {

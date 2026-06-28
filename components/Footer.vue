@@ -50,12 +50,7 @@
 
       <!-- Bottom Section -->
       <div class="footer__bottom">
-        <a class="footer__heading font-condensed">Maded By Naseri</a>
-        <!-- <div class="footer__links">
-          <a href="#" class="footer__link footer__link--bottom font-condensed">Mad With Love</a>
-          <span class="footer__divider">|</span>
-          <a href="#" class="footer__link footer__link--bottom font-condensed">By Naseri</a>
-        </div> -->
+        <span class="footer__made-by footerGlow font-condensed">Made By Naseri</span>
       </div>
     </div>
   </footer>
@@ -269,6 +264,30 @@
   color: var(--color-headings);
   position: relative;
   padding-bottom: var(--vspace-0_5);
+  
+}
+.footerGlow {
+  animation: footerHeadingGlow 4s ease-in-out infinite;
+}
+
+@keyframes footerHeadingGlow {
+  0%, 100% {
+    color: var(--color-headings);
+    text-shadow: none;
+  }
+  30% {
+    color: #ffffff;
+    text-shadow:
+      0 0 8px rgba(255, 255, 255, 0.9),
+      0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 40px rgba(70, 134, 114, 0.4);
+  }
+  60% {
+    color: var(--color-neutral-300);
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.4),
+      0 0 16px rgba(70, 134, 114, 0.2);
+  }
 }
 
 .footer__heading::after {
@@ -383,13 +402,19 @@
 
 .footer__bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding-top: var(--vspace-2);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  flex-wrap: wrap;
-  gap: var(--vspace-1);
   animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
+
+.footer__made-by {
+  font-size: clamp(var(--text-sm), 2.5vw, var(--text-md));
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-headings);
+  cursor: default;
 }
 
 .footer__copyright {

@@ -1,76 +1,61 @@
-import { ref, computed } from 'vue'
-
-export interface MenuItem {
-  id: number
-  name: string
-  description: string
-  price: number
-  category: string
-}
-
+// useMenu — fetches from /api/menu and /api/categories, all mutations go through the API
 export const useMenu = () => {
-  const menuItems = ref<MenuItem[]>([
-    {
-      id: 1,
-      name: 'Lounge Elegance Espresso',
-      description: 'Rich and full-bodied espresso with a smooth finish',
-      price: 3.5,
-      category: 'Signature Blends',
-    },
-    {
-      id: 2,
-      name: 'Velvet Mocha Delight',
-      description: 'Silky mocha infused with premium chocolate and espresso',
-      price: 4.25,
-      category: 'Signature Blends',
-    },
-    {
-      id: 3,
-      name: 'Butter Croissant',
-      description: 'Flaky French croissant with layers of butter',
-      price: 3.0,
-      category: 'Pastries',
-    },
-    {
-      id: 4,
-      name: 'Chocolate Cake',
-      description: 'Rich chocolate cake with ganache frosting',
-      price: 4.5,
-      category: 'Gourmet Treats',
-    },
-  ])
+  const menuItems = useState('menuItems', () => [] as any[])
+  const availableCategories = useState('availableCategories', () => [] as any[])
 
-  const categories = computed(() => {
-    return Array.from(new Set(menuItems.value.map((item) => item.category)))
-  })
-
-  const getItemsByCategory = (category: string) => {
-    return menuItems.value.filter((item) => item.category === category)
+  const fetchAll = async () => {
+    const [items, cats] = await Promise.all([
+      $fetch<any[]>('/api/menu'),
+      $fetch<any[]>('/api/categories'),
+    ])
+    menuItems.value = items
+    availableCategories.value = cats
   }
 
-  const addMenuItem = (item: Omit<MenuItem, 'id'>) => {
-    const newId = Math.max(0, ...menuItems.value.map(i => i.id)) + 1
-    menuItems.value.push({ ...item, id: newId })
+  const categories = computed(() => availableCategories.value.map((c: any) => c.name))
+
+  const addMenuItem = async (item: any) => {
+    const created = await $fetch<any>('/api/menu', { method: 'POST', body: item })
+    menuItems.value = [...menuItems.value, created]
   }
 
-  const updateMenuItem = (id: number, updates: Partial<MenuItem>) => {
-    const index = menuItems.value.findIndex((item) => item.id === id)
-    if (index !== -1) {
-      menuItems.value[index] = { ...menuItems.value[index], ...updates }
-    }
+  const updateMenuItem = async (id: number, updates: any) => {
+    const updated = await $fetch<any>(`/api/menu/${id}`, { method: 'PUT', body: updates })
+    menuItems.value = menuItems.value.map((i: any) => i.id === id ? updated : i)
   }
 
-  const deleteMenuItem = (id: number) => {
-    menuItems.value = menuItems.value.filter((item) => item.id !== id)
+  const deleteMenuItem = async (id: number) => {
+    await $fetch(`/api/menu/${id}`, { method: 'DELETE' })
+    menuItems.value = menuItems.value.filter((i: any) => i.id !== id)
+  }
+
+  const addCategory = async (category: any) => {
+    const created = await $fetch<any>('/api/categories', { method: 'POST', body: category })
+    availableCategories.value = [...availableCategories.value, created]
+  }
+
+  const updateCategory = async (id: number, updates: any) => {
+    const updated = await $fetch<any>(`/api/categories/${id}`, { method: 'PUT', body: updates })
+    availableCategories.value = availableCategories.value.map((c: any) => c.id === id ? updated : c)
+    menuItems.value = await $fetch<any[]>('/api/menu')
+  }
+
+  const deleteCategory = async (id: number) => {
+    await $fetch(`/api/categories/${id}`, { method: 'DELETE' })
+    availableCategories.value = availableCategories.value.filter((c: any) => c.id !== id)
+    menuItems.value = await $fetch<any[]>('/api/menu')
   }
 
   return {
     menuItems,
+    availableCategories,
     categories,
-    getItemsByCategory,
+    fetchAll,
     addMenuItem,
     updateMenuItem,
     deleteMenuItem,
+    addCategory,
+    updateCategory,
+    deleteCategory,
   }
 }
-

@@ -28,6 +28,11 @@ definePageMeta({
   layout: false,
 })
 
+// Fetch all dynamic data on the server (SSR) so it's ready on first paint
+const { fetchAll } = useMenu()
+const { fetchGallery } = useGallery()
+await useAsyncData('site-data', () => Promise.all([fetchAll(), fetchGallery()]))
+
 // Static, search-optimized metadata for the home page.
 useSeoMeta({
   title: SEO_TITLE,
