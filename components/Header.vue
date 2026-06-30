@@ -1,6 +1,6 @@
 <template>
   <header class="s-header" :class="headerClasses">
-    <div class="container s-header__content">
+    <div class="container s-header__content anim-fade-in-up" style="animation-delay: 2.1s">
       <div class="s-header__block">
         <div class="header-logo">
           <a class="specialFont" href="#top">
@@ -109,3 +109,21 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 </script>
+
+<style scoped>
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-in-out forwards;
+}
+</style>

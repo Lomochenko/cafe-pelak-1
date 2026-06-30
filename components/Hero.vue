@@ -1,16 +1,16 @@
 <template>
   <div class="grid-block s-intro__content">
     <div class="intro-header">
-      <div class="intro-header__overline">
+      <div class="intro-header__overline anim-fade-in-up" style="animation-delay: 0.3s">
         Welcome to
       </div>
-      <div class="intro-header__big-type">
+      <h1 class="intro-header__big-type anim-fade-in-up--big" style="animation-delay: 0.6s">
         <span class="font-condensed">Pelak 1</span> <br />
         <span class="font-condensed">Cafe</span>
-      </div>
+      </h1>
     </div>
 
-    <figure class="intro-pic-primary">
+    <figure class="intro-pic-primary anim-fade-in-scale" style="animation-delay: 0.2s">
       <img
         src="/images/intro-pic-primary.jpg"
         srcset="/images/intro-pic-primary.jpg 1x, /images/intro-pic-primary@2x.jpg 2x"
@@ -19,7 +19,7 @@
     </figure>
 
     <div class="intro-block-content">
-      <figure class="intro-block-content__pic">
+      <figure class="intro-block-content__pic anim-fade-in-scale" style="animation-delay: 0.4s">
         <img
           src="/images/intro-pic-secondary.jpg"
           srcset="/images/intro-pic-secondary.jpg 1x, /images/intro-pic-secondary@2x.jpg 2x"
@@ -28,27 +28,12 @@
       </figure>
 
       <div class="intro-block-content__text-wrap" dir="rtl">
-        <p class="intro-block-content__text">
+        <p class="intro-block-content__text anim-fade-in-up" style="animation-delay: 0.9s">
           Savor moments of bliss with every sip, as our expertly crafted coffees and delectable
           pastries embrace your senses.
         </p>
-
-        <!-- <ul 
-          class="intro-block-content__social"
-          v-motion="{ 
-            initial: { opacity: 0, y: 30 }, 
-            enter: { opacity: 1, y: 0, transition: { duration: 600, delay: 1200 } } 
-          }"
-        >
-          <li><a href="#0">FB</a></li>
-          <li><a href="#0">IG</a></li>
-          <li><a href="#0">PI</a></li>
-          <li><a href="#0">X</a></li>
-        </ul> -->
       </div>
     </div>
-
-    
   </div>
 </template>
 
@@ -176,6 +161,54 @@
 
 .intro-block-content__social a:hover {
   color: var(--color-text);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUpBig {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.anim-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.anim-fade-in-up--big {
+  opacity: 0;
+  animation: fadeInUpBig 0.7s ease both;
+}
+
+.anim-fade-in-scale {
+  opacity: 0;
+  animation: fadeInScale 0.8s ease both;
 }
 
 @media screen and (max-width: 1000px) {
