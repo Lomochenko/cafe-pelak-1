@@ -1,6 +1,6 @@
 <template>
   <header class="s-header" :class="headerClasses">
-    <div class="container s-header__content" v-motion="{ initial: { opacity: 0, y: -30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 2.1, ease: 'easeInOut' } } }">
+    <div class="container s-header__content">
       <div class="s-header__block">
         <div class="header-logo">
           <a class="specialFont" href="#top">

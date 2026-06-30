@@ -1,34 +1,16 @@
 <template>
   <div class="grid-block s-intro__content">
     <div class="intro-header">
-      <div 
-        class="intro-header__overline"
-        v-motion="{ 
-          initial: { opacity: 0, y: 30 }, 
-          enter: { opacity: 1, y: 0, transition: { duration: 600, delay: 300 } } 
-        }"
-      >
+      <div class="intro-header__overline">
         Welcome to
       </div>
-      <h1 
-        class="intro-header__big-type"
-        v-motion="{ 
-          initial: { opacity: 0, y: 40 }, 
-          enter: { opacity: 1, y: 0, transition: { duration: 700, delay: 600 } } 
-        }"
-      >
+      <div class="intro-header__big-type">
         <span class="font-condensed">Pelak 1</span> <br />
         <span class="font-condensed">Cafe</span>
-      </h1>
+      </div>
     </div>
 
-    <figure 
-      class="intro-pic-primary"
-      v-motion="{ 
-        initial: { opacity: 0, scale: 0.95 }, 
-        enter: { opacity: 1, scale: 1, transition: { duration: 800, delay: 200 } } 
-      }"
-    >
+    <figure class="intro-pic-primary">
       <img
         src="/images/intro-pic-primary.jpg"
         srcset="/images/intro-pic-primary.jpg 1x, /images/intro-pic-primary@2x.jpg 2x"
@@ -37,13 +19,7 @@
     </figure>
 
     <div class="intro-block-content">
-      <figure 
-        class="intro-block-content__pic"
-        v-motion="{ 
-          initial: { opacity: 0, scale: 0.95 }, 
-          enter: { opacity: 1, scale: 1, transition: { duration: 800, delay: 400 } } 
-        }"
-      >
+      <figure class="intro-block-content__pic">
         <img
           src="/images/intro-pic-secondary.jpg"
           srcset="/images/intro-pic-secondary.jpg 1x, /images/intro-pic-secondary@2x.jpg 2x"
@@ -52,13 +28,7 @@
       </figure>
 
       <div class="intro-block-content__text-wrap" dir="rtl">
-        <p 
-          class="intro-block-content__text"
-          v-motion="{ 
-            initial: { opacity: 0, y: 30 }, 
-            enter: { opacity: 1, y: 0, transition: { duration: 600, delay: 900 } } 
-          }"
-        >
+        <p class="intro-block-content__text">
           Savor moments of bliss with every sip, as our expertly crafted coffees and delectable
           pastries embrace your senses.
         </p>

@@ -176,7 +176,9 @@ definePageMeta({
 
 const { galleryImages, addImage, updateImage, deleteImage: removeImage, fetchGallery } = useGallery()
 
-onMounted(() => fetchGallery())
+onMounted(async () => {
+  await fetchGallery()
+})
 
 const showForm = ref(false)
 const showDeleteConfirm = ref(false)
@@ -293,11 +295,14 @@ const saveImage = async () => {
     }
 
     if (editingImage.value) {
-      updateImage(editingImage.value.id, imageData)
+      await updateImage(editingImage.value.id, imageData)
     } else {
-      addImage(imageData)
+      await addImage(imageData)
     }
     closeForm()
+  } catch (error) {
+    console.error('Failed to save image:', error)
+    alert('Failed to save image: ' + (error?.message || 'Unknown error'))
   } finally {
     saving.value = false
   }
@@ -317,7 +322,10 @@ const executeDelete = async () => {
   if (!imageToDelete.value) return
   deleting.value = true
   try {
-    removeImage(imageToDelete.value.id)
+    await removeImage(imageToDelete.value.id)
+  } catch (error) {
+    console.error('Failed to delete image:', error)
+    alert('Failed to delete image: ' + (error?.message || 'Unknown error'))
   } finally {
     deleting.value = false
     cancelDelete()

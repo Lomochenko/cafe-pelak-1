@@ -23,15 +23,20 @@ import {
   BUSINESS,
   buildLocalBusinessJsonLd,
 } from '~/utils/seo'
+import { useMenuStore } from '~/stores/menu'
+import { useGalleryStore } from '~/stores/gallery'
 
 definePageMeta({
   layout: false,
 })
 
 // Fetch all dynamic data on the server (SSR) so it's ready on first paint
-const { fetchAll } = useMenu()
-const { fetchGallery } = useGallery()
-await useAsyncData('site-data', () => Promise.all([fetchAll(), fetchGallery()]))
+const menuStore = useMenuStore()
+const galleryStore = useGalleryStore()
+
+await useAsyncData('site-data', async () => {
+  await Promise.all([menuStore.fetchAll(), galleryStore.fetchGallery()])
+})
 
 // Static, search-optimized metadata for the home page.
 useSeoMeta({

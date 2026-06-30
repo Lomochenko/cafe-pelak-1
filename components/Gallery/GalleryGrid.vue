@@ -23,7 +23,14 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useGallery } from '~/composables/useGallery'
 
-const { galleryImages } = useGallery()
+const { galleryImages, fetchGallery } = useGallery()
+
+// Fetch gallery images on mount
+onMounted(async () => {
+  if (!galleryImages.value.length) {
+    await fetchGallery()
+  }
+})
 
 // Map to the shape the template expects
 const images = computed(() =>

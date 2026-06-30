@@ -159,7 +159,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 import AdminLayout from '~/components/AdminLayout.vue'
 
@@ -170,7 +170,9 @@ definePageMeta({
 
 const { menuItems, addMenuItem, updateMenuItem, deleteMenuItem, categories, fetchAll } = useMenu()
 
-onMounted(() => fetchAll())
+onMounted(async () => {
+  await fetchAll()
+})
 
 const activeCategory = ref('')
 const showForm = ref(false)
@@ -180,7 +182,6 @@ const itemToDelete = ref(null)
 const saving = ref(false)
 const deleting = ref(false)
 
-// Default to first category when categories load
 watch(categories, (cats) => {
   if (cats.length && !activeCategory.value) activeCategory.value = cats[0]
 }, { immediate: true })
@@ -229,6 +230,9 @@ const saveItem = async () => {
       await addMenuItem(itemData)
     }
     closeForm()
+  } catch (error) {
+    console.error('Failed to save item:', error)
+    alert('Failed to save menu item: ' + (error?.message || 'Unknown error'))
   } finally {
     saving.value = false
   }
@@ -249,6 +253,9 @@ const executeDelete = async () => {
   deleting.value = true
   try {
     await deleteMenuItem(itemToDelete.value.id)
+  } catch (error) {
+    console.error('Failed to delete item:', error)
+    alert('Failed to delete menu item: ' + (error?.message || 'Unknown error'))
   } finally {
     deleting.value = false
     cancelDelete()

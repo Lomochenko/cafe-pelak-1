@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
     '@vueuse/nuxt',
+    '@pinia/nuxt',
   ],
   content: {
     sources: {

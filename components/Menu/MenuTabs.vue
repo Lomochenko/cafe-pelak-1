@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 
 const activeTab = ref(0)
@@ -100,6 +100,19 @@ onUnmounted(() => {
 })
 
 const { availableCategories, menuItems } = useMenu()
+
+// Fetch data when component mounts on client
+onMounted(async () => {
+  const { fetchAll } = useMenu()
+  if (!availableCategories.value.length) {
+    await fetchAll()
+  }
+})
+
+// Default to first category when categories load
+watch(availableCategories, (cats) => {
+  if (cats.length && activeTab.value === 0) activeTab.value = cats[0].id
+}, { immediate: true })
 
 const categories = computed(() =>
   availableCategories.value.map(cat => ({

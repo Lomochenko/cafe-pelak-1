@@ -8,9 +8,23 @@ export default defineEventHandler(async (event) => {
   }
 
   if (method === 'POST') {
-    const body = await readBody(event)
-    const item = { ...body, id: store.nextMenuId++ }
-    store.menuItems.push(item)
-    return item
+    try {
+      const body = await readBody(event)
+      
+      if (!body.name || !body.category) {
+        throw createError({ statusCode: 400, message: 'Name and category are required' })
+      }
+      
+      const item = { 
+        ...body, 
+        id: store.nextMenuId++,
+        price: Number(body.price) || 0
+      }
+      store.menuItems.push(item)
+      return item
+    } catch (error: any) {
+      if (error.statusCode) throw error
+      throw createError({ statusCode: 500, message: error.message || 'Failed to create menu item' })
+    }
   }
 })

@@ -15,11 +15,14 @@
   },
   "dependencies": {
     "@nuxt/content": "^2.11.0",
+    "@pinia/nuxt": "^0.11.3",
     "@vueuse/core": "^10.7.0",
     "@vueuse/motion": "^3.0.3",
     "@vueuse/nuxt": "^10.7.0",
+    "better-sqlite3": "^12.11.1",
     "glightbox": "^3.3.0",
     "nuxt": "^3.9.0",
+    "pinia": "^3.0.4",
     "swiper": "^11.0.0",
     "vue": "^3.4.0"
   },

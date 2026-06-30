@@ -8,9 +8,24 @@ export default defineEventHandler(async (event) => {
   }
 
   if (method === 'POST') {
-    const body = await readBody(event)
-    const image = { ...body, id: store.nextGalleryId++ }
-    store.galleryImages.push(image)
-    return image
+    try {
+      const body = await readBody(event)
+      
+      if (!body.src) {
+        throw createError({ statusCode: 400, message: 'Image source is required' })
+      }
+      
+      const image = { 
+        ...body, 
+        id: store.nextGalleryId++,
+        thumb: body.thumb || body.src,
+        alt: body.alt || ''
+      }
+      store.galleryImages.push(image)
+      return image
+    } catch (error: any) {
+      if (error.statusCode) throw error
+      throw createError({ statusCode: 500, message: error.message || 'Failed to create gallery image' })
+    }
   }
 })

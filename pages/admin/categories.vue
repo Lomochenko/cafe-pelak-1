@@ -138,7 +138,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 import AdminLayout from '~/components/AdminLayout.vue'
 
@@ -147,7 +147,11 @@ definePageMeta({
   middleware: 'admin-auth',
 })
 
-const { menuItems, availableCategories, addCategory, updateCategory, deleteCategory } = useMenu()
+const { menuItems, availableCategories, addCategory, updateCategory, deleteCategory, fetchAll } = useMenu()
+
+onMounted(async () => {
+  await fetchAll()
+})
 
 const showForm = ref(false)
 const showDeleteConfirm = ref(false)
@@ -198,11 +202,14 @@ const saveCategory = async () => {
       description: formData.value.description,
     }
     if (editingCategory.value) {
-      updateCategory(editingCategory.value.id, categoryData)
+      await updateCategory(editingCategory.value.id, categoryData)
     } else {
-      addCategory(categoryData)
+      await addCategory(categoryData)
     }
     closeForm()
+  } catch (error) {
+    console.error('Failed to save category:', error)
+    alert('Failed to save category: ' + (error?.message || 'Unknown error'))
   } finally {
     saving.value = false
   }
@@ -222,7 +229,10 @@ const executeDelete = async () => {
   if (!categoryToDelete.value) return
   deleting.value = true
   try {
-    deleteCategory(categoryToDelete.value.id)
+    await deleteCategory(categoryToDelete.value.id)
+  } catch (error) {
+    console.error('Failed to delete category:', error)
+    alert('Failed to delete category: ' + (error?.message || 'Unknown error'))
   } finally {
     deleting.value = false
     cancelDelete()
