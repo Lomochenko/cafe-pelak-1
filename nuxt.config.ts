@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
   ],
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
   content: {
     sources: {
       content: {

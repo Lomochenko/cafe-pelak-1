@@ -65,8 +65,6 @@ const setLimit = () => {
   const containerWidth = containerRef.value.scrollWidth
   const wrapperWidth = wrapperRef.value.clientWidth
   scroll.limit = Math.max(0, containerWidth - wrapperWidth)
-
-  console.log('✅ [GALLERY] Scroll limit:', scroll.limit, 'px')
 }
 
 const handleScroll = () => {
@@ -81,15 +79,8 @@ const handleScroll = () => {
   if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
     isInGallery = true
     
-    // Calculate scroll progress through the gallery section
-    // Extended calculation to ensure all images are visible including last ones
-    const scrollProgress = clamp(-sectionTop / (sectionHeight - windowHeight * 1), 0, 1)
+    const scrollProgress = clamp(-sectionTop / (sectionHeight - windowHeight), 0, 1)
     scroll.target = clamp(scrollProgress * scroll.limit, 0, scroll.limit)
-
-    console.log('🎯 [GALLERY]', {
-      progress: (scrollProgress * 100).toFixed(1) + '%',
-      target: scroll.target.toFixed(0) + 'px',
-    })
   } else {
     isInGallery = false
   }
@@ -133,42 +124,34 @@ const onResize = () => {
 }
 
 onMounted(async () => {
-  console.log('🚀 [GALLERY] Initializing...')
-
   await new Promise((resolve) => {
     requestAnimationFrame(() => {
-      requestAnimationFrame(resolve)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resolve)
+      })
     })
   })
 
   scroll.current = 0
   scroll.target = 0
   
-  setLimit()
+  const recalc = () => {
+    setLimit()
+    if (scroll.limit > 0) return
+    requestAnimationFrame(recalc)
+  }
+  recalc()
 
   window.addEventListener('scroll', handleScroll, { passive: true })
   window.addEventListener('resize', onResize)
 
   rafId = requestAnimationFrame(render)
-  
-  console.log('✅ [GALLERY] Ready! Scroll page to move gallery horizontally')
-
-  ;(window as any).testGallery = () => {
-    console.log('🧪 [TEST]', {
-      current: scroll.current.toFixed(0),
-      target: scroll.target.toFixed(0),
-      limit: scroll.limit.toFixed(0),
-      progress: ((scroll.current / scroll.limit) * 100).toFixed(1) + '%',
-      isInGallery,
-    })
-  }
 })
 
 onBeforeUnmount(() => {
   if (rafId) cancelAnimationFrame(rafId)
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('resize', onResize)
-  delete (window as any).testGallery
 })
 </script>
 

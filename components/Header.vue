@@ -124,6 +124,11 @@ onUnmounted(() => {
 
 .anim-fade-in-up {
   opacity: 0;
-  animation: fadeInUp 0.6s ease-in-out forwards;
+  animation: fadeInUp 0.6s ease-in-out both;
+  animation-play-state: paused;
+}
+
+[data-page-ready] .anim-fade-in-up {
+  animation-play-state: running;
 }
 </style>

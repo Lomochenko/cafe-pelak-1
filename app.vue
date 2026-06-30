@@ -1,6 +1,6 @@
 <template>
   <div id="page" class="s-pagewrap ss-home">
-    <!-- <Preloader /> -->
+    <AppLoader />
     <NuxtPage />
   </div>
 </template>

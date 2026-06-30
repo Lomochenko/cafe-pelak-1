@@ -34,8 +34,12 @@ definePageMeta({
 const menuStore = useMenuStore()
 const galleryStore = useGalleryStore()
 
-await useAsyncData('site-data', async () => {
-  await Promise.all([menuStore.fetchAll(), galleryStore.fetchGallery()])
+const { data: siteData } = await useAsyncData('site-data', async () => {
+  const [menu, gallery] = await Promise.all([
+    menuStore.fetchAll(),
+    galleryStore.fetchGallery()
+  ])
+  return { menu, gallery }
 })
 
 // Static, search-optimized metadata for the home page.

@@ -5,8 +5,8 @@
         Welcome to
       </div>
       <h1 class="intro-header__big-type anim-fade-in-up--big" style="animation-delay: 0.6s">
-        <span class="font-condensed">Pelak 1</span> <br />
-        <span class="font-condensed">Cafe</span>
+        <span>Pelak 1</span> <br />
+        <span>Cafe</span>
       </h1>
     </div>
 
@@ -27,10 +27,9 @@
         />
       </figure>
 
-      <div class="intro-block-content__text-wrap" dir="rtl">
+      <div class="intro-block-content__text-wrap">
         <p class="intro-block-content__text anim-fade-in-up" style="animation-delay: 0.9s">
-          Savor moments of bliss with every sip, as our expertly crafted coffees and delectable
-          pastries embrace your senses.
+          Great coffee, fresh pastries – crafted with love and a warm welcome.
         </p>
       </div>
     </div>
@@ -199,16 +198,25 @@
 .anim-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.6s ease both;
+  animation-play-state: paused;
 }
 
 .anim-fade-in-up--big {
   opacity: 0;
   animation: fadeInUpBig 0.7s ease both;
+  animation-play-state: paused;
 }
 
 .anim-fade-in-scale {
   opacity: 0;
   animation: fadeInScale 0.8s ease both;
+  animation-play-state: paused;
+}
+
+[data-page-ready] .anim-fade-in-up,
+[data-page-ready] .anim-fade-in-up--big,
+[data-page-ready] .anim-fade-in-scale {
+  animation-play-state: running;
 }
 
 @media screen and (max-width: 1000px) {
