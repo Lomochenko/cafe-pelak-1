@@ -3024,19 +3024,6 @@ td:last-child {
     font-size : clamp(var(--text-display), var(--text-display) - 1rem + 2vw, var(--text-huge));
 }
 
-.section-header::before {
-    display       : block;
-    content       : attr(data-num) ".";
-    font-family   : var(--type-headings);
-    font-weight   : 400;
-    font-size     : var(--text-md);
-    letter-spacing: -0.02em;
-    line-height   : 1;
-    color         : var(--color-text-light);
-    margin-left   : 0.4em;
-    margin-bottom : -0.4em;
-}
-
 /* ------------------------------------------------------------------- 
  * ## social list
  * ------------------------------------------------------------------- */

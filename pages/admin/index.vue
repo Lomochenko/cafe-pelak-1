@@ -121,7 +121,7 @@ const recentItems = computed(() => {
 
 .dashboard-welcome p {
   color: var(--color-text-light);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin: 0;
 }
 
@@ -133,7 +133,7 @@ const recentItems = computed(() => {
 }
 
 .dashboard-card {
-  background: var(--color-bg-neutral);
+  background: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   display: flex;
@@ -161,7 +161,7 @@ const recentItems = computed(() => {
 }
 
 .card-label {
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-light);
@@ -175,7 +175,7 @@ const recentItems = computed(() => {
 }
 
 .card-link {
-  font-size: 0.85rem;
+  font-size: 1.5rem;
   color: var(--color-bg-primary);
   text-decoration: none;
   display: inline-flex;
@@ -236,7 +236,7 @@ const recentItems = computed(() => {
 }
 
 .recent-category {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--color-text-light);
 }
 
@@ -276,7 +276,7 @@ const recentItems = computed(() => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 0.85rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
@@ -297,7 +297,7 @@ const recentItems = computed(() => {
   border-radius: 50%;
   background: var(--color-bg-primary);
   color: #fff;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   flex-shrink: 0;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="row s-menu__content">
     <div class="column xl-4 lg-5 md-12 s-menu__content-start">
-      <div class="section-header" data-num="02">
+      <div class="section-header anim-fade-in-up" style="animation-delay: 0.3s">
         <h2 class="text-display-title">Our Menu</h2>
       </div>
 
@@ -234,6 +234,36 @@ const categories = computed(() =>
   .tab-nav__list li a {
     padding: var(--vspace-0_375) var(--vspace-0_5);
     font-size: calc(var(--text-size) * 0.9);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.s-menu__content-start {
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .s-menu__content-start {
+    text-align: center;
+  }
+
+  .section-header {
+    text-align: center;
   }
 }
 </style>

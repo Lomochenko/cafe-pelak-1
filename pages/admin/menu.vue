@@ -291,7 +291,7 @@ const getCategoryIcon = (category) => {
 
 .admin-section-subtitle {
   color: var(--color-text-light);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin: 0;
 }
 
@@ -316,7 +316,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   color: var(--color-text);
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -406,7 +406,7 @@ const getCategoryIcon = (category) => {
 .card-description {
   margin: 0 0 0.75rem;
   color: var(--color-text-light);
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 
@@ -418,7 +418,7 @@ const getCategoryIcon = (category) => {
 }
 
 .card-category {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-text-light);
@@ -446,7 +446,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 0.85rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -567,7 +567,7 @@ const getCategoryIcon = (category) => {
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--color-headings);
 }
@@ -579,7 +579,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -606,7 +606,7 @@ const getCategoryIcon = (category) => {
 
 .delete-warning {
   color: #dc2626;
-  font-size: 0.85rem;
+  font-size: 1rem;
   margin-top: 0.5rem;
 }
 
@@ -614,7 +614,7 @@ const getCategoryIcon = (category) => {
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);

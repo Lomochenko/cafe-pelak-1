@@ -356,7 +356,7 @@ const executeDelete = async () => {
 
 .admin-section-subtitle {
   color: var(--color-text-light);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin: 0;
 }
 
@@ -411,7 +411,7 @@ const executeDelete = async () => {
 
 .card-alt {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-text-light);
 }
 
@@ -434,7 +434,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 0.85rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -554,7 +554,7 @@ const executeDelete = async () => {
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--color-headings);
 }
@@ -566,7 +566,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -580,7 +580,7 @@ const executeDelete = async () => {
 .form-hint {
   display: block;
   margin-top: 0.25rem;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--color-text-light);
 }
 
@@ -613,7 +613,7 @@ const executeDelete = async () => {
 
 .drop-zone-content p {
   margin: 0.5rem 0;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 
 .drop-zone-content svg {
@@ -621,7 +621,7 @@ const executeDelete = async () => {
 }
 
 .file-hint {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   opacity: 0.7;
 }
 
@@ -657,7 +657,7 @@ const executeDelete = async () => {
 }
 
 .file-size {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--color-text-light);
 }
 
@@ -683,7 +683,7 @@ const executeDelete = async () => {
 
 .delete-warning {
   color: #dc2626;
-  font-size: 0.85rem;
+  font-size: 1rem;
   margin-top: 0.5rem;
 }
 
@@ -691,7 +691,7 @@ const executeDelete = async () => {
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);

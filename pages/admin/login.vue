@@ -200,7 +200,7 @@ const handleLogin = async () => {
 
 .error-message {
   color: var(--color-error-content);
-  font-size: var(--text-sm);
+  font-size: 1rem;
   margin-top: 1rem;
   text-align: center;
 }
@@ -208,7 +208,7 @@ const handleLogin = async () => {
 .login-hint {
   text-align: center;
   color: var(--color-text-light);
-  font-size: var(--text-sm);
+  font-size: 1rem;
 }
 
 code {
