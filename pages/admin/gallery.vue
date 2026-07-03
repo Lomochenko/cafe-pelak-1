@@ -15,7 +15,20 @@
         </button>
       </div>
 
-      <div v-if="galleryImages.length" class="gallery-grid">
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="gallery-grid">
+        <div class="cards-grid">
+          <div v-for="n in 6" :key="n" class="gallery-item-card skeleton-card">
+            <div class="skeleton skeleton--rect skeleton--thumbnail"></div>
+            <div class="card-content">
+              <div class="skeleton skeleton--text skeleton--title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Images Grid -->
+      <div v-else-if="galleryImages.length" class="gallery-grid">
         <TransitionGroup name="card" tag="div" class="cards-grid">
           <div
             v-for="image in galleryImages"
@@ -167,7 +180,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useGallery } from '~/composables/useGallery'
+import { useToast } from '~/composables/useToast'
 import AdminLayout from '~/components/AdminLayout.vue'
+
+const toast = useToast()
 
 definePageMeta({
   layout: 'admin',
@@ -177,7 +193,9 @@ definePageMeta({
 const { galleryImages, addImage, updateImage, deleteImage: removeImage, fetchGallery } = useGallery()
 
 onMounted(async () => {
+  loading.value = true
   await fetchGallery()
+  loading.value = false
 })
 
 const showForm = ref(false)
@@ -187,6 +205,7 @@ const imageToDelete = ref(null)
 const saving = ref(false)
 const deleting = ref(false)
 const dragOver = ref(false)
+const loading = ref(false)
 
 const formData = ref({
   src: '',
@@ -247,11 +266,11 @@ const handleDrop = (event) => {
 
 const processFile = (file) => {
   if (!file.type.startsWith('image/')) {
-    alert('Please select an image file')
+    toast.add('Please select an image file', 'error')
     return
   }
   if (file.size > 5 * 1024 * 1024) {
-    alert('File size must be less than 5MB')
+    toast.add('File size must be less than 5MB', 'error')
     return
   }
   fileName.value = file.name
@@ -302,7 +321,7 @@ const saveImage = async () => {
     closeForm()
   } catch (error) {
     console.error('Failed to save image:', error)
-    alert('Failed to save image: ' + (error?.message || 'Unknown error'))
+    toast.add('Failed to save image: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     saving.value = false
   }
@@ -325,7 +344,7 @@ const executeDelete = async () => {
     await removeImage(imageToDelete.value.id)
   } catch (error) {
     console.error('Failed to delete image:', error)
-    alert('Failed to delete image: ' + (error?.message || 'Unknown error'))
+    toast.add('Failed to delete image: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     deleting.value = false
     cancelDelete()
@@ -785,5 +804,47 @@ const executeDelete = async () => {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Skeleton Loader */
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-card .card-thumbnail {
+  background: var(--color-bg-neutral-dark, #171a19);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-neutral-dark, #171a19) 25%, var(--color-bg-neutral-light, #232625) 50%, var(--color-bg-neutral-dark, #171a19) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.skeleton--rect {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+.skeleton--text {
+  height: 14px;
+  margin-bottom: 0.6rem;
+}
+
+.skeleton--title {
+  width: 65%;
+  height: 18px;
+}
+
+.skeleton--thumbnail {
+  aspect-ratio: 16/10;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 </style>

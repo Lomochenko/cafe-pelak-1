@@ -29,8 +29,22 @@
         </button>
       </div>
 
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="menu-items-grid">
+        <div class="cards-grid">
+          <div v-for="n in 6" :key="n" class="menu-item-card skeleton-card">
+            <div class="skeleton skeleton--rect skeleton--thumbnail"></div>
+            <div class="card-content">
+              <div class="skeleton skeleton--text skeleton--title"></div>
+              <div class="skeleton skeleton--text skeleton--desc"></div>
+              <div class="skeleton skeleton--text skeleton--short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Menu Items Grid -->
-      <div v-if="filteredItems.length" class="menu-items-grid">
+      <div v-else-if="filteredItems.length" class="menu-items-grid">
         <TransitionGroup name="card" tag="div" class="cards-grid">
           <div
             v-for="item in filteredItems"
@@ -161,7 +175,10 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useMenu } from '~/composables/useMenu'
+import { useToast } from '~/composables/useToast'
 import AdminLayout from '~/components/AdminLayout.vue'
+
+const toast = useToast()
 
 definePageMeta({
   layout: 'admin',
@@ -171,7 +188,9 @@ definePageMeta({
 const { menuItems, addMenuItem, updateMenuItem, deleteMenuItem, categories, fetchAll } = useMenu()
 
 onMounted(async () => {
+  loading.value = true
   await fetchAll()
+  loading.value = false
 })
 
 const activeCategory = ref('')
@@ -181,6 +200,7 @@ const editingItem = ref(null)
 const itemToDelete = ref(null)
 const saving = ref(false)
 const deleting = ref(false)
+const loading = ref(false)
 
 watch(categories, (cats) => {
   if (cats.length && !activeCategory.value) activeCategory.value = cats[0]
@@ -232,7 +252,7 @@ const saveItem = async () => {
     closeForm()
   } catch (error) {
     console.error('Failed to save item:', error)
-    alert('Failed to save menu item: ' + (error?.message || 'Unknown error'))
+    toast.add('Failed to save menu item: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     saving.value = false
   }
@@ -255,7 +275,7 @@ const executeDelete = async () => {
     await deleteMenuItem(itemToDelete.value.id)
   } catch (error) {
     console.error('Failed to delete item:', error)
-    alert('Failed to delete menu item: ' + (error?.message || 'Unknown error'))
+    toast.add('Failed to delete menu item: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     deleting.value = false
     cancelDelete()
@@ -717,5 +737,60 @@ const getCategoryIcon = (category) => {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Skeleton Loader */
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-card .card-thumbnail {
+  background: var(--color-bg-neutral-dark, #171a19);
+}
+
+.skeleton-card .card-content {
+  padding: 1rem;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-neutral-dark, #171a19) 25%, var(--color-bg-neutral-light, #232625) 50%, var(--color-bg-neutral-dark, #171a19) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.skeleton--rect {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+.skeleton--text {
+  height: 14px;
+  margin-bottom: 0.6rem;
+}
+
+.skeleton--title {
+  width: 65%;
+  height: 18px;
+}
+
+.skeleton--desc {
+  width: 90%;
+}
+
+.skeleton--short {
+  width: 40%;
+  margin-bottom: 0;
+}
+
+.skeleton--thumbnail {
+  aspect-ratio: 16/10;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 </style>

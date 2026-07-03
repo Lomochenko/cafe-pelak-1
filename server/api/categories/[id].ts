@@ -1,34 +1,56 @@
-import { store } from '~/server/store'
+import { db } from '~/server/database'
+import { createError } from 'h3'
 
 export default defineEventHandler(async (event) => {
-  const id = Number(getRouterParam(event, 'id'))
   const method = event.method
+  const id = getRouterParam(event, 'id')
+
+  if (method === 'GET') {
+    return db.prepare('SELECT * FROM categories').all()
+  }
+
+  if (method === 'POST') {
+    try {
+      const body = await readBody(event)
+      if (!body.name) {
+        throw createError({ statusCode: 400, message: 'Category name is required' })
+      }
+      const result = db.prepare(
+        'INSERT INTO categories (name, icon, description) VALUES (?, ?, ?)'
+      ).run(body.name, body.icon || '📦', body.description || '')
+      return { ...body, id: Number(result.lastInsertRowid) }
+    } catch (error: any) {
+      if (error.statusCode) throw error
+      throw createError({ statusCode: 500, message: error.message || 'Failed to create category' })
+    }
+  }
 
   if (method === 'PUT') {
-    const body = await readBody(event)
-    const index = store.categories.findIndex(c => c.id === id)
-    if (index === -1) throw createError({ statusCode: 404, message: 'Not found' })
-    const oldName = store.categories[index].name
-    store.categories[index] = { ...store.categories[index], ...body, id }
-    // Rename items in that category if name changed
-    if (body.name && body.name !== oldName) {
-      store.menuItems = store.menuItems.map(item =>
-        item.category === oldName ? { ...item, category: body.name } : item
+    try {
+      const body = await readBody(event)
+      const existing = db.prepare('SELECT * FROM categories WHERE id = ?').get(Number(id))
+      if (!existing) throw createError({ statusCode: 404, message: 'Category not found' })
+
+      db.prepare(
+        'UPDATE categories SET name = ?, icon = ?, description = ? WHERE id = ?'
+      ).run(
+        body.name ?? existing.name,
+        body.icon ?? existing.icon,
+        body.description ?? existing.description,
+        Number(id)
       )
+      return db.prepare('SELECT * FROM categories WHERE id = ?').get(Number(id))
+    } catch (error: any) {
+      if (error.statusCode) throw error
+      throw createError({ statusCode: 500, message: error.message || 'Failed to update category' })
     }
-    return store.categories[index]
   }
 
   if (method === 'DELETE') {
-    const cat = store.categories.find(c => c.id === id)
-    if (!cat) throw createError({ statusCode: 404, message: 'Not found' })
-    const others = store.categories.filter(c => c.id !== id)
-    if (others.length > 0) {
-      store.menuItems = store.menuItems.map(item =>
-        item.category === cat.name ? { ...item, category: others[0].name } : item
-      )
+    const result = db.prepare('DELETE FROM categories WHERE id = ?').run(Number(id))
+    if (result.changes === 0) {
+      throw createError({ statusCode: 404, message: 'Category not found' })
     }
-    store.categories = others
-    return { ok: true }
+    return { success: true }
   }
 })

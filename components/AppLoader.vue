@@ -6,7 +6,6 @@
           <span class="app-loader__dot"></span>
           <span class="app-loader__text">P<span class="font-condensed">1</span> CAFE</span>
         </div>
-        <!-- <p class="app-loader__subtitle">کافه پلاک یک</p> -->
       </div>
     </div>
   </Transition>

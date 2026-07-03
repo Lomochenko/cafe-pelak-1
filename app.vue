@@ -1,6 +1,12 @@
 <template>
   <div id="page" class="s-pagewrap ss-home">
     <AppLoader />
+    <ClientOnly>
+      <Toast />
+      <template #fallback>
+        <div style="display:none"></div>
+      </template>
+    </ClientOnly>
     <NuxtPage />
   </div>
 </template>

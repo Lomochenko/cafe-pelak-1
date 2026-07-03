@@ -16,7 +16,18 @@
       </div>
 
       <div class="categories-list">
-        <TransitionGroup name="card" tag="div" class="cards-grid">
+        <!-- Loading Skeleton -->
+        <div v-if="loading" class="cards-grid">
+          <div v-for="n in 6" :key="n" class="category-card skeleton-card">
+            <div class="skeleton skeleton--rect skeleton--icon"></div>
+            <div class="category-content">
+              <div class="skeleton skeleton--text skeleton--title"></div>
+              <div class="skeleton skeleton--text skeleton--desc"></div>
+            </div>
+          </div>
+        </div>
+
+        <TransitionGroup v-else-if="availableCategories.length" name="card" tag="div" class="cards-grid">
           <div
             v-for="category in availableCategories"
             :key="category.id"
@@ -35,7 +46,7 @@
             <div class="card-actions">
               <button @click="editCategory(category)" class="action-btn" aria-label="Edit category">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0-2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
                 Edit
@@ -50,17 +61,17 @@
             </div>
           </div>
         </TransitionGroup>
-      </div>
 
-      <div v-if="!availableCategories.length" class="empty-state">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-          <path d="M2 17l10 5 10-5"></path>
-          <path d="M2 12l10 5 10-5"></path>
-        </svg>
-        <h3>No categories yet</h3>
-        <p>Add your first category to organize your menu</p>
-        <button @click="openAddForm" class="btn btn-primary">Add Category</button>
+        <div v-else class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+          <h3>No categories yet</h3>
+          <p>Add your first category to organize your menu</p>
+          <button @click="openAddForm" class="btn btn-primary">Add Category</button>
+        </div>
       </div>
     </div>
 
@@ -140,7 +151,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useMenu } from '~/composables/useMenu'
+import { useToast } from '~/composables/useToast'
 import AdminLayout from '~/components/AdminLayout.vue'
+
+const toast = useToast()
 
 definePageMeta({
   layout: 'admin',
@@ -150,7 +164,9 @@ definePageMeta({
 const { menuItems, availableCategories, addCategory, updateCategory, deleteCategory, fetchAll } = useMenu()
 
 onMounted(async () => {
+  loading.value = true
   await fetchAll()
+  loading.value = false
 })
 
 const showForm = ref(false)
@@ -159,6 +175,7 @@ const editingCategory = ref(null)
 const categoryToDelete = ref(null)
 const saving = ref(false)
 const deleting = ref(false)
+const loading = ref(false)
 
 const formData = ref({
   name: '',
@@ -209,7 +226,7 @@ const saveCategory = async () => {
     closeForm()
   } catch (error) {
     console.error('Failed to save category:', error)
-    alert('Failed to save category: ' + (error?.message || 'Unknown error'))
+        toast.add('Failed to save category: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     saving.value = false
   }
@@ -232,7 +249,7 @@ const executeDelete = async () => {
     await deleteCategory(categoryToDelete.value.id)
   } catch (error) {
     console.error('Failed to delete category:', error)
-    alert('Failed to delete category: ' + (error?.message || 'Unknown error'))
+    toast.add('Failed to delete category: ' + (error?.message || 'Unknown error'), 'error')
   } finally {
     deleting.value = false
     cancelDelete()
@@ -612,5 +629,54 @@ const executeDelete = async () => {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Skeleton Loader */
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-card .category-icon {
+  background: var(--color-bg-neutral-dark, #171a19);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-neutral-dark, #171a19) 25%, var(--color-bg-neutral-light, #232625) 50%, var(--color-bg-neutral-dark, #171a19) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.skeleton--rect {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+.skeleton--text {
+  height: 14px;
+  margin-bottom: 0.6rem;
+}
+
+.skeleton--title {
+  width: 65%;
+  height: 18px;
+}
+
+.skeleton--desc {
+  width: 90%;
+}
+
+.skeleton--icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  flex-shrink: 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 </style>
