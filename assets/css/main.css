@@ -4230,10 +4230,10 @@ td:last-child {
     display         : block;
     height          : 1px;
     width           : var(--vspace-0_5);
-    background-color: var(--color-border);
+    background-color: var(--color-1-500);
     position        : absolute;
     top             : 50%;
-    left            : 0;
+    right            : 0;
 }
 
 .menu-list {

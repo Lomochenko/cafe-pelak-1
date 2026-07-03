@@ -141,6 +141,7 @@
 .menu-block__cat-name {
     font-family: var(--font-digi) !important;
     font-weight: 700;
+    font-size: 1.9rem;
 }
 
 /* ------------------------------------------------------------------- 
@@ -4263,7 +4264,7 @@ td:last-child {
 .menu-block__cat-name {
     margin-top   : 0;
     margin-bottom: var(--vspace-1);
-    padding-left : var(--vspace-1);
+    padding-right : var(--vspace-1);
     color        : var(--color-text);
     position     : relative;
 }

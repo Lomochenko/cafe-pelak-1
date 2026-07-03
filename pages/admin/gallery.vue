@@ -305,9 +305,8 @@ const saveImage = async () => {
     }
 
     if (formData.value.file) {
-      const objectUrl = URL.createObjectURL(formData.value.file)
-      imageData.src = objectUrl
-      imageData.thumb = objectUrl
+      imageData.src = filePreview.value
+      imageData.thumb = filePreview.value
     } else if (editingImage.value) {
       imageData.src = editingImage.value.src
       imageData.thumb = editingImage.value.thumb
@@ -439,7 +438,7 @@ const executeDelete = async () => {
   gap: 0.5rem;
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--color-border);
-  background: var(--color-bg-neutral);
+  background: var(--color-bg-neutral-light);
 }
 
 .action-btn {

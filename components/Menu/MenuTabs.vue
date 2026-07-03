@@ -42,7 +42,7 @@
           class="menu-block__group tab-content__item"
           :data-tab-active="activeTab === index ? '' : undefined"
         >
-          <h6 class="menu-block__cat-name">{{ category.name }}</h6>
+          <h6 class="menu-block__cat-name" dir="rtl">{{ category.name }}</h6>
 
           <ul class="menu-list">
             <MenuItem v-for="item in category.items" :key="item.id" :item="item" />
