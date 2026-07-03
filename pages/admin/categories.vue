@@ -33,7 +33,6 @@
             :key="category.id"
             class="category-card"
           >
-            <div class="category-icon">{{ category.icon }}</div>
             <div class="category-content">
               <h4 class="category-name">{{ category.name }}</h4>
               <p class="category-description">{{ category.description }}</p>
@@ -273,14 +272,14 @@ const executeDelete = async () => {
 }
 
 .admin-section-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
 }
 
 .admin-section-subtitle {
   color: var(--color-text-light);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   margin: 0;
 }
 
@@ -311,15 +310,6 @@ const executeDelete = async () => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.category-icon {
-  font-size: 2.5rem;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, var(--color-bg-primary-light), var(--color-bg-secondary-light));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .category-content {
   padding: 1rem;
   flex: 1;
@@ -327,14 +317,14 @@ const executeDelete = async () => {
 
 .category-name {
   margin: 0 0 0.5rem;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-headings);
 }
 
 .category-description {
   margin: 0 0 0.75rem;
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: var(--color-text-light);
 }
 
@@ -344,7 +334,7 @@ const executeDelete = async () => {
 }
 
 .stat-badge {
-  font-size: 0.9rem;
+  font-size: 1.3rem;
   padding: 0.25rem 0.5rem;
   background: var(--color-bg-neutral);
   border-radius: var(--radius-sm);
@@ -356,7 +346,7 @@ const executeDelete = async () => {
   gap: 0.5rem;
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--color-border);
-  background: var(--color-bg-neutral);
+  background: var(--color-bg-neutral-light);
 }
 
 .action-btn {
@@ -535,7 +525,7 @@ const executeDelete = async () => {
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);

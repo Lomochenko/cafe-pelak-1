@@ -217,13 +217,12 @@ onMounted(() => {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   color: var(--color-text-light);
-  font-size: 13px;
+  font-size: 1.5rem;
   font-family: var(--font-1);
   cursor: pointer;
   transition: all 0.18s ease;
+  border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); 
 }
-.logout-btn:hover { border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); }
-
 /* ── Overlay (mobile) ────────────────────── */
 .admin-overlay {
   display: none;

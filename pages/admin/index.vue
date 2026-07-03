@@ -35,21 +35,6 @@
         </div>
       </TransitionGroup>
 
-      <!-- Recent Activity Section -->
-      <div class="recent-section">
-        <h3>Recent Menu Items</h3>
-        <div class="recent-list" v-if="recentItems.length">
-          <div v-for="item in recentItems" :key="item.id" class="recent-item">
-            <div class="recent-info">
-              <span class="recent-name">{{ item.name }}</span>
-              <span class="recent-category">{{ item.category }}</span>
-            </div>
-            <span class="recent-price">${{ item.price.toFixed(2) }}</span>
-          </div>
-        </div>
-        <p v-else class="no-items">No menu items yet</p>
-      </div>
-
       <div class="quick-actions">
         <h3>Quick Actions</h3>
         <div class="action-grid">
@@ -121,7 +106,7 @@ const recentItems = computed(() => {
 
 .dashboard-welcome p {
   color: var(--color-text-light);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   margin: 0;
 }
 
@@ -161,7 +146,7 @@ const recentItems = computed(() => {
 }
 
 .card-label {
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-light);
@@ -256,7 +241,7 @@ const recentItems = computed(() => {
 
 /* Quick Actions */
 .quick-actions h3 {
-  font-size: 1rem;
+  font-size: 1.52rem;
   color: var(--color-headings);
   margin: 0 0 1rem;
 }
@@ -276,7 +261,7 @@ const recentItems = computed(() => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: 1.5rem;
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;

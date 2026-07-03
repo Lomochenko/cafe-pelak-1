@@ -4,7 +4,7 @@
       <div class="admin-header-section">
         <div>
           <h2 class="admin-section-title">Menu Items</h2>
-          <p class="admin-section-subtitle">{{ menuItems.length }} items across {{ categories.length }} categories</p>
+          <p class="admin-section-subtitle">{{ menuItems.length }} items / {{ categories.length }} categories</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -51,13 +51,10 @@
             :key="item.id"
             class="menu-item-card"
           >
-            <div class="card-thumbnail">
-              <div class="category-badge">{{ getCategoryIcon(item.category) }}</div>
-            </div>
             <div class="card-content">
               <div class="card-header">
                 <h4 class="card-title">{{ item.name }}</h4>
-                <span class="card-price">${{ item.price.toFixed(2) }}</span>
+                <span class="card-price">{{ item.price.toFixed(3) }} T</span>
               </div>
               <p class="card-description">{{ item.description }}</p>
               <div class="card-meta">
@@ -304,14 +301,14 @@ const getCategoryIcon = (category) => {
 }
 
 .admin-section-title {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
 }
 
 .admin-section-subtitle {
   color: var(--color-text-light);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   margin: 0;
 }
 
@@ -331,12 +328,12 @@ const getCategoryIcon = (category) => {
 }
 
 .category-tabs button {
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1rem;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
@@ -409,16 +406,16 @@ const getCategoryIcon = (category) => {
 
 .card-title {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-headings);
   line-height: 1.3;
 }
 
 .card-price {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-bg-primary);
+  color: var(--color-bg-primary-light);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -426,7 +423,7 @@ const getCategoryIcon = (category) => {
 .card-description {
   margin: 0 0 0.75rem;
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 1.375rem;
   line-height: 1.5;
 }
 
@@ -438,7 +435,7 @@ const getCategoryIcon = (category) => {
 }
 
 .card-category {
-  font-size: 0.9rem;
+  font-size: 1.275rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-text-light);
@@ -450,9 +447,9 @@ const getCategoryIcon = (category) => {
 .card-actions {
   display: flex;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   border-top: 1px solid var(--color-border);
-  background: var(--color-bg-neutral);
+  background: var(--color-bg-neutral-light);
 }
 
 .action-btn {
@@ -634,7 +631,7 @@ const getCategoryIcon = (category) => {
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);

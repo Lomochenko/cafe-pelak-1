@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-const ADMIN_PASSWORD = 'admin123' // Change this in production
+const ADMIN_PASSWORD = 'p1'
 const AUTH_KEY = 'cafe_pelak_admin_auth'
 
 export const useAuth = () => {

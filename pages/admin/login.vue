@@ -2,13 +2,6 @@
   <div class="admin-login">
     <div class="login-container">
       <div class="login-card">
-        <div class="login-brand">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-            <path d="M2 17l10 5 10-5"></path>
-            <path d="M2 12l10 5 10-5"></path>
-          </svg>
-        </div>
         <h1 class="login-title">Admin Dashboard</h1>
         <p class="login-subtitle">Enter your password to continue</p>
 
@@ -49,10 +42,8 @@
             {{ isLoading ? 'Logging in...' : 'Login' }}
           </button>
 
-          <p v-if="error" class="error-message" role="alert">{{ error }}</p>
-        </form>
-
-        <p class="login-hint">Demo password: <code>admin123</code></p>
+        <p v-if="error" class="error-message" role="alert">{{ error }}</p>
+      </form>
       </div>
     </div>
   </div>
@@ -108,7 +99,7 @@ const handleLogin = async () => {
 .login-card {
   background-color: var(--color-bg-neutral);
   border-radius: var(--radius-lg);
-  padding: 3rem 2rem;
+  padding: 2rem;
   box-shadow: var(--shadow-high);
 }
 
@@ -123,12 +114,14 @@ const handleLogin = async () => {
   text-align: center;
   margin-bottom: 0.5rem;
   color: var(--color-headings);
+  font-size: 3rem;
 }
 
 .login-subtitle {
   text-align: center;
   color: var(--color-text-light);
   margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .login-form {
@@ -191,6 +184,12 @@ const handleLogin = async () => {
 
 .btn {
   width: 100%;
+  background-color: var(--color-bg);
+  transition: background-color 0.3s;
+  border: 1px solid var(--color-border);
+}
+.btn:hover:not(:disabled) {
+  background-color: var(--color-bg-primary);
 }
 
 .btn:disabled {
@@ -203,20 +202,6 @@ const handleLogin = async () => {
   font-size: 1rem;
   margin-top: 1rem;
   text-align: center;
-}
-
-.login-hint {
-  text-align: center;
-  color: var(--color-text-light);
-  font-size: 1rem;
-}
-
-code {
-  background-color: var(--color-bg);
-  padding: 0.2rem 0.4rem;
-  border-radius: var(--radius-sm);
-  color: var(--color-bg-primary);
-  font-family: var(--font-mono);
 }
 </style>
 
