@@ -4,7 +4,7 @@
       <div class="app-loader__inner">
         <div class="app-loader__brand">
           <span class="app-loader__dot"></span>
-          <span class="app-loader__text">P<span class="font-condensed">1</span> CAFE</span>
+          <span class="app-loader__text">P1 CAFE</span>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ onMounted(async () => {
 }
 
 .app-loader__text {
-  font-family: "Playfair Display", Serif;
+  font-family: sans-serif !important;
   font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 700;
   color: #f4f9f7;
