@@ -46,6 +46,13 @@
       </nav>
 
       <div class="sidebar-footer">
+        <NuxtLink to="/" class="home-btn" @click="sidebarOpen = false">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Homepage
+        </NuxtLink>
         <button @click="handleLogout" class="logout-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -222,6 +229,27 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.18s ease;
   border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); 
+}
+
+.home-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 16px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-light);
+  font-size: 1.5rem;
+  font-family: var(--font-1);
+  cursor: pointer;
+    color: var(--color-text);
+  border-color: var(--color-bg-primary);
+  background: rgba(70, 134, 114, 0.06);
+  text-decoration: none;
+  margin-bottom: 8px;
 }
 /* ── Overlay (mobile) ────────────────────── */
 .admin-overlay {

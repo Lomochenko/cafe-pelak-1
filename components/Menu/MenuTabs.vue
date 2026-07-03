@@ -111,7 +111,7 @@ onMounted(async () => {
 
 // Default to first category when categories load
 watch(availableCategories, (cats) => {
-  if (cats.length && activeTab.value === 0) activeTab.value = cats[0].id
+  if (cats.length && activeTab.value === 0) activeTab.value = 0
 }, { immediate: true })
 
 const categories = computed(() =>
