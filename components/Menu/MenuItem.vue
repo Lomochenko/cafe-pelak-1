@@ -4,7 +4,7 @@
       <h4>{{ item.name }}</h4>
       <p>{{ item.description }}</p>
     </div>
-    <div class="menu-list__item-price">{{ item.price.toFixed(3) }} <span>T</span></div>
+    <div class="menu-list__item-price" dir="ltr">{{ item.price.toFixed(3) }}<span> T</span></div>
   </li>
 </template>
 
