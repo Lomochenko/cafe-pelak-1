@@ -51,7 +51,7 @@
             :key="item.id"
             class="menu-item-card"
           >
-            <div class="card-content">
+            <div class="card-content" dir="rtl">
               <div class="card-header">
                 <h4 class="card-title">{{ item.name }}</h4>
                 <span class="card-price">{{ item.price.toFixed(3) }} T</span>

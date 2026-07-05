@@ -2,7 +2,7 @@
   <div class="row s-menu__content">
     <div class="column xl-4 lg-5 md-12 s-menu__content-start">
       <div class="section-header anim-fade-in-up" style="animation-delay: 0.3s">
-        <h2 class="text-display-title">Our Menu</h2>
+        <h2 class="text-display-title1">Our Menu</h2>
       </div>
 
       <nav class="tab-nav" ref="tabNavRef" :class="{ 'tab-nav--sticky': isSticky }">
@@ -62,24 +62,12 @@ const isSticky = ref(false)
 const tabNavRef = ref<HTMLElement | null>(null)
 const menuContentRef = ref<HTMLElement | null>(null)
 
-const scrollToCategory = (index: number) => {
-  activeTab.value = index
-  const element = document.getElementById('tab-' + categories.value[index].id)
-  if (element) {
-    const firstItem = element.querySelector('.menu-list__item')
-    const targetElement = firstItem || element
-    
-    const stickyNavHeight = tabNavRef.value?.offsetHeight || 60
-    const additionalOffset = 250
-    const totalOffset = isSticky.value ? stickyNavHeight + additionalOffset : additionalOffset
-    
-    const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
-    const offsetPosition = elementPosition - totalOffset
-    
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
+const scrollToCategory = (_index: number) => {
+  activeTab.value = _index
+  const heading = document.querySelector('.s-menu .section-header') as HTMLElement | null
+  if (heading) {
+    const top = heading.getBoundingClientRect().top + window.pageYOffset
+    window.scrollTo({ top, behavior: 'smooth' })
   }
 }
 
@@ -144,6 +132,9 @@ const categories = computed(() =>
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   animation: slideDown 0.3s ease-out;
+}
+.text-display-title1{
+  font-size: clamp(var(--text-display), var(--text-display) - 1rem + 1.5vw, var(--text-huge)) !important;
 }
 
 @keyframes slideDown {
