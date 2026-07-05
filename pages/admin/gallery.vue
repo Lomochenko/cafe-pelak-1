@@ -38,7 +38,7 @@
             <div class="card-thumbnail">
               <img :src="image.thumb" :alt="image.alt" loading="lazy" />
             </div>
-            <div class="card-content">
+            <div class="card-content" dir="rtl">
               <p class="card-alt">{{ image.alt }}</p>
             </div>
             <div class="card-actions">
@@ -75,7 +75,7 @@
 
     <!-- Add/Edit Form Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
@@ -125,12 +125,7 @@
                       <span class="file-name">{{ fileName }}</span>
                       <span class="file-size">{{ formatFileSize(fileSize) }}</span>
                     </div>
-                    <button type="button" class="file-remove" @click.stop="removeFile">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    </button>
+                    
                   </div>
                 </div>
               </div>
@@ -367,14 +362,14 @@ const executeDelete = async () => {
 }
 
 .admin-section-title {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
 }
 
 .admin-section-subtitle {
   color: var(--color-text-light);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   margin: 0;
 }
 
@@ -452,7 +447,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -528,7 +523,7 @@ const executeDelete = async () => {
 .modal-title {
   margin: 0;
   color: var(--color-headings);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -560,6 +555,9 @@ const executeDelete = async () => {
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--color-border);
 }
+.modal-footer .btn {
+  font-size: large;
+}
 
 .form-group {
   margin-bottom: 1rem;
@@ -572,7 +570,7 @@ const executeDelete = async () => {
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-headings);
 }
@@ -584,7 +582,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: 1.4rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -679,25 +677,9 @@ const executeDelete = async () => {
   color: var(--color-text-light);
 }
 
-.file-remove {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text-light);
-  cursor: pointer;
-  flex-shrink: 0;
-}
 
-.file-remove:hover {
-  background: #dc2626;
-  border-color: #dc2626;
-  color: #fff;
-}
+
+
 
 .delete-warning {
   color: #dc2626;

@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <TransitionGroup v-else-if="availableCategories.length" name="card" tag="div" class="cards-grid">
+        <TransitionGroup v-else-if="availableCategories.length" name="card" tag="div" class="cards-grid" dir="rtl">
           <div
             v-for="category in availableCategories"
             :key="category.id"
@@ -88,7 +88,7 @@
                 </svg>
               </button>
             </div>
-            <form @submit.prevent="saveCategory" class="modal-body">
+            <form @submit.prevent="saveCategory" class="modal-body" dir="rtl">
               <div class="form-group">
                 <label class="form-label">Category Name *</label>
                 <input v-model="formData.name" type="text" class="form-input" placeholder="e.g., Signature Blends" required />
@@ -360,7 +360,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -480,7 +480,7 @@ const executeDelete = async () => {
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-headings);
 }
@@ -492,7 +492,7 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: 1.4rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 }

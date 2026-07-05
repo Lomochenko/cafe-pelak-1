@@ -17,7 +17,7 @@
                 placeholder="Enter admin password"
                 required
                 autocomplete="current-password"
-                auto
+                autofocus
                 @keydown.enter="handleLogin"
               />
               <button

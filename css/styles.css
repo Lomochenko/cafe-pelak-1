@@ -402,6 +402,7 @@
     --vspace-9        : calc(9 * var(--space));
     --vspace-9_5      : calc(9.5 * var(--space));
     --vspace-10       : calc(10 * var(--space));
+    --vspace-11       : calc(11 * var(--space));
 
   /* type scale
    * ratio 1          :2 | base: 20px
@@ -4126,7 +4127,7 @@ td:last-child {
 .s-menu__content-start {
     position     : sticky;
     top          : var(--vspace-5);
-    margin-bottom: var(--vspace-2);
+    /* margin-bottom: var(--vspace-2); */
 }
 
 .s-menu__content-end {
@@ -4414,7 +4415,6 @@ td:last-child {
 .s-gallery {
     padding-top: var(--vspace-5);
 }
-
 /* ------------------------------------------------------------------- 
  * ## gallery items
  * ------------------------------------------------------------------- */

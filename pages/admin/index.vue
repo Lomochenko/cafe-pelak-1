@@ -13,7 +13,7 @@
             <span class="card-label">Menu Items</span>
             <span class="card-value">{{ menuStats.total }}</span>
           </div>
-          <NuxtLink to="/admin/menu" class="card-link">Manage &rarr;</NuxtLink>
+          <NuxtLink to="/admin/menu" class="card-link">Manage</NuxtLink>
         </div>
 
         <div key="categories" class="dashboard-card" style="--order: 1">
@@ -22,7 +22,7 @@
             <span class="card-label">Categories</span>
             <span class="card-value">{{ menuStats.categories }}</span>
           </div>
-          <NuxtLink to="/admin/categories" class="card-link">Manage &rarr;</NuxtLink>
+          <NuxtLink to="/admin/categories" class="card-link">Manage</NuxtLink>
         </div>
 
         <div key="gallery" class="dashboard-card" style="--order: 2">
@@ -31,7 +31,7 @@
             <span class="card-label">Gallery Images</span>
             <span class="card-value">{{ galleryStats.total }}</span>
           </div>
-          <NuxtLink to="/admin/gallery" class="card-link">Manage &rarr;</NuxtLink>
+          <NuxtLink to="/admin/gallery" class="card-link">Manage</NuxtLink>
         </div>
       </TransitionGroup>
 
@@ -160,18 +160,22 @@ const recentItems = computed(() => {
 }
 
 .card-link {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color: var(--color-bg-primary);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   margin-top: auto;
+  margin-left: auto;
   font-weight: 500;
+  border: 2px solid var(--color-bg-neutral);
+  padding: .375rem;
+  border-radius: var(--radius-md);
 }
 
 .card-link:hover {
-  color: var(--color-bg-primary-dark);
+  color: var(--color-text);
 }
 
 /* Recent Section */
@@ -265,6 +269,7 @@ const recentItems = computed(() => {
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
+  border: 1px solid var(--color-bg-primary);
 }
 
 .action-btn:hover {

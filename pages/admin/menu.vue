@@ -44,17 +44,17 @@
       </div>
 
       <!-- Menu Items Grid -->
-      <div v-else-if="filteredItems.length" class="menu-items-grid">
+      <div v-else-if="filteredItems.length" class="menu-items-grid" dir="rtl">
         <TransitionGroup name="card" tag="div" class="cards-grid">
           <div
             v-for="item in filteredItems"
             :key="item.id"
             class="menu-item-card"
           >
-            <div class="card-content" dir="rtl">
+            <div class="card-content">
               <div class="card-header">
                 <h4 class="card-title">{{ item.name }}</h4>
-                <span class="card-price">{{ item.price.toFixed(3) }} T</span>
+                <span class="card-price" dir="ltr">{{ item.price.toFixed(3) }} T</span>
               </div>
               <p class="card-description">{{ item.description }}</p>
               <div class="card-meta">
@@ -95,7 +95,7 @@
 
     <!-- Add/Edit Form Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
@@ -301,7 +301,7 @@ const getCategoryIcon = (category) => {
 }
 
 .admin-section-title {
-  font-size: 1.9rem;
+  font-size: 1.7rem;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
 }
@@ -463,7 +463,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -584,7 +584,7 @@ const getCategoryIcon = (category) => {
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--color-headings);
 }
@@ -596,7 +596,7 @@ const getCategoryIcon = (category) => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1.05rem;
+  font-size: 1.4rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
