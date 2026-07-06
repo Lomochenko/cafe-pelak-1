@@ -49,7 +49,6 @@
           </ul>
         </div>
       </div>
-      <div ref="sentinelRef" class="menu-sentinel"></div>
     </div>
   </div>
 </template>
@@ -62,7 +61,6 @@ const activeTab = ref(0)
 const isSticky = ref(false)
 const tabNavRef = ref<HTMLElement | null>(null)
 const menuContentRef = ref<HTMLElement | null>(null)
-const sentinelRef = ref<HTMLElement | null>(null)
 
 const scrollToCategory = (_index: number) => {
   activeTab.value = _index
@@ -76,21 +74,23 @@ const scrollToCategory = (_index: number) => {
 let observer: IntersectionObserver | null = null
 
 onMounted(() => {
-  if (typeof window !== 'undefined' && sentinelRef.value) {
+  if (typeof window !== 'undefined' && menuContentRef.value) {
     observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          isSticky.value = true
-        } else {
-          isSticky.value = false
-        }
+        isSticky.value = entry.isIntersecting
       },
       {
-        rootMargin: '0px 0px -50px 0px',
         threshold: 0,
       }
     )
-    observer.observe(sentinelRef.value)
+    observer.observe(menuContentRef.value)
+  }
+})
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+    observer = null
   }
 })
 
@@ -275,14 +275,5 @@ const categories = computed(() =>
   .section-header {
     text-align: center;
   }
-}
-
-.menu-sentinel {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  height: 1px;
-  width: 100%;
-  pointer-events: none;
 }
 </style>

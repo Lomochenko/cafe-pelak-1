@@ -4132,7 +4132,6 @@ td:last-child {
 
 .s-menu__content-end {
     padding-top: var(--vspace-2_5);
-    position: relative;
 }
 
 /* --------------------------------------------------------------------

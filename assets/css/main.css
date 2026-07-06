@@ -92,26 +92,6 @@
  * ## font families
  * ------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap");
-/* Roboto Condensed - self hosted variable font (single file, all weights) */
-@font-face {
-    font-family   : "Roboto Condensed";
-    src           : url("/fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype-variations"),
-                    url("/fonts/RobotoCondensed-VariableFont_wght.ttf") format("truetype");
-    font-weight   : 100 900;
-    font-stretch  : 75% 100%;
-    font-style    : normal;
-    font-display  : swap;
-}
-
-/* Digi Lotos Bold - Persian/Display font */
-@font-face {
-    font-family   : "Digi Lotos";
-    src           : url("/fonts/Digi Lotos Bold.ttf") format("truetype");
-    font-weight   : 700;
-    font-style    : normal;
-    font-display  : swap;
-}
-
 
 :root {    
    /* font-families
@@ -120,33 +100,7 @@
     --font-2   : "Playfair Display", Serif;
     --font-mono: Consolas, "Andale Mono", Courier, "Courier New", monospace;
 }
-    --font-1        : "Roboto Flex", Sans-Serif;
-    --font-2        : "Playfair Display", Serif;
-    --font-condensed: "Roboto Condensed", "Arial Narrow", Sans-Serif;
-    --font-digi     : "Digi Lotos", "Playfair Display", Serif;
-    --font-mono     : Consolas, "Andale Mono", Courier, "Courier New", monospace;
-}
 
-/* utility: apply the Roboto Condensed brand font */
-.font-condensed {
-    font-family: var(--font-condensed);
-}
-
-/* Menu list item: Digi Lotos for title, description, category name */
-.menu-list__item h4 {
-    font-family: var(--font-digi) !important;
-    font-weight: 700;
-}
-
-.menu-list__item p {
-    font-family: var(--font-digi) !important;
-}
-
-.menu-block__cat-name {
-    font-family: var(--font-digi) !important;
-    font-weight: 700;
-    font-size: 1.9rem;
-}
 /* ------------------------------------------------------------------- 
  * ## colors
  * ------------------------------------------------------------------- */
@@ -452,13 +406,13 @@
  */
 @media screen and (max-width: 600px) {
     :root {
-        --multiplier: .95;
+        --multiplier: .875;
     }
 }
 
 @media screen and (max-width: 400px) {
     :root {
-        --multiplier: .9;
+        --multiplier: .8125;
     }
 }
 
@@ -1553,9 +1507,6 @@ body {
     font-weight: var(--type-weight-body);
     line-height: var(--type-line-height-body);
     color      : var(--color-text);
-}
-.specialFont{
-    font-family: var(--type-headings);
 }
 
 /* links
@@ -3661,7 +3612,7 @@ td:last-child {
 }
 
 .intro-header__big-type {
-    font-size  : clamp(var(--text-display), var(--text-3xl) + 10vw, 17.4rem);
+    font-size  : clamp(var(--text-display), var(--text-3xl) + 10vw, 18.4rem);
     line-height: 1;
     margin-top : 0;
 }
@@ -4269,7 +4220,7 @@ td:last-child {
 .menu-block__cat-name {
     margin-top   : 0;
     margin-bottom: var(--vspace-1);
-    padding-right : var(--vspace-1);
+    padding-left : var(--vspace-1);
     color        : var(--color-text);
     position     : relative;
 }
@@ -4282,7 +4233,7 @@ td:last-child {
     background-color: var(--color-1-500);
     position        : absolute;
     top             : 50%;
-    left            : 0;
+    right            : 0;
 }
 
 .menu-list {
@@ -4310,7 +4261,7 @@ td:last-child {
 
 .menu-list__item p {
     font-weight  : 300;
-    font-size    : var(--text-base);
+    font-size    : var(--text-sm);
     line-height  : var(--vspace-0_75);
     margin-bottom: var(--vspace-1);
     color        : var(--color-text-light);
@@ -4318,8 +4269,7 @@ td:last-child {
 
 .menu-list__item-desc {
     max-width    : min(100%, 90rem);
-    padding-left: calc(var(--gutter) * 2);
-    padding-right: 0;
+    padding-right: calc(var(--gutter) * 2);
 }
 
 .menu-list__item-price {
