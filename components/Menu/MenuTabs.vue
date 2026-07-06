@@ -49,6 +49,7 @@
           </ul>
         </div>
       </div>
+      <div ref="sentinelRef" class="menu-sentinel"></div>
     </div>
   </div>
 </template>
@@ -61,6 +62,7 @@ const activeTab = ref(0)
 const isSticky = ref(false)
 const tabNavRef = ref<HTMLElement | null>(null)
 const menuContentRef = ref<HTMLElement | null>(null)
+const sentinelRef = ref<HTMLElement | null>(null)
 
 const scrollToCategory = (_index: number) => {
   activeTab.value = _index
@@ -71,20 +73,32 @@ const scrollToCategory = (_index: number) => {
   }
 }
 
-const handleScroll = () => {
-  if (window.innerWidth < 1000 && menuContentRef.value && tabNavRef.value) {
-    const rect = menuContentRef.value.getBoundingClientRect()
-    const menuEndRect = document.querySelector('.s-menu__content')?.getBoundingClientRect()
-    isSticky.value = rect.top <= 0 && (menuEndRect ? menuEndRect.bottom > 0 : true)
-  }
-}
+let observer: IntersectionObserver | null = null
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
+  if (typeof window !== 'undefined' && sentinelRef.value) {
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          isSticky.value = true
+        } else {
+          isSticky.value = false
+        }
+      },
+      {
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0,
+      }
+    )
+    observer.observe(sentinelRef.value)
+  }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
 })
 
 const { availableCategories, menuItems } = useMenu()
@@ -261,5 +275,14 @@ const categories = computed(() =>
   .section-header {
     text-align: center;
   }
+}
+
+.menu-sentinel {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  pointer-events: none;
 }
 </style>
