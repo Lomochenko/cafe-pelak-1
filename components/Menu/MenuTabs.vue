@@ -54,14 +54,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 
+// --- Data & state ---
 const activeTab = ref(0)
 const isSticky = ref(false)
 const tabNavRef = ref<HTMLElement | null>(null)
 const menuContentRef = ref<HTMLElement | null>(null)
 
+const { availableCategories, menuItems, fetchAll } = useMenu()
+
+// --- Tab navigation ---
 const scrollToCategory = (_index: number) => {
   activeTab.value = _index
   const heading = document.querySelector('.s-menu .section-header') as HTMLElement | null
@@ -71,51 +75,72 @@ const scrollToCategory = (_index: number) => {
   }
 }
 
-let observer: IntersectionObserver | null = null
+// --- Sticky logic (triggered by nav's own top, unstick by section bottom) ---
+let navTop = 0
+let sectionBottom = 0
+const STICKY_BUFFER = 350 // you can adjust this value
 
-onMounted(() => {
-  if (typeof window !== 'undefined' && menuContentRef.value) {
-    observer = new IntersectionObserver(
-      ([entry]) => {
-        isSticky.value = entry.isIntersecting
-      },
-      {
-        threshold: 0,
-      }
-    )
-    observer.observe(menuContentRef.value)
+const updateBounds = () => {
+  if (!tabNavRef.value || !menuContentRef.value) return
+  const navRect = tabNavRef.value.getBoundingClientRect()
+  const sectionRect = menuContentRef.value.getBoundingClientRect()
+  navTop = navRect.top + window.scrollY
+  sectionBottom = sectionRect.bottom + window.scrollY
+}
+
+const updateStickyState = () => {
+  if (!tabNavRef.value || !menuContentRef.value) return
+  const scrollY = window.scrollY
+  // Stick when nav top has passed viewport top AND section bottom is still visible (with buffer)
+  const shouldBeSticky = scrollY >= navTop && scrollY < sectionBottom - STICKY_BUFFER
+  if (shouldBeSticky !== isSticky.value) {
+    isSticky.value = shouldBeSticky
   }
-})
+}
 
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
+// Throttled scroll handler
+let ticking = false
+const handleScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      updateStickyState()
+      ticking = false
+    })
+    ticking = true
   }
-})
+}
 
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
-})
+const handleResize = () => {
+  updateBounds()
+  updateStickyState()
+}
 
-const { availableCategories, menuItems } = useMenu()
-
-// Fetch data when component mounts on client
+// --- Lifecycle ---
 onMounted(async () => {
-  const { fetchAll } = useMenu()
+  // Fetch menu data if needed
   if (!availableCategories.value.length) {
     await fetchAll()
   }
+
+  // Initial layout and sticky state
+  await nextTick()
+  updateBounds()
+  updateStickyState()
+
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', handleResize, { passive: true })
 })
 
-// Default to first category when categories load
-watch(availableCategories, (cats) => {
-  if (cats.length && activeTab.value === 0) activeTab.value = 0
-}, { immediate: true })
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleResize)
+  if (ticking) {
+    window.cancelAnimationFrame(0)
+    ticking = false
+  }
+})
 
+// --- Computed categories ---
 const categories = computed(() =>
   availableCategories.value.map(cat => ({
     id: cat.name.toLowerCase().replace(/\s+/g, '-'),
@@ -123,6 +148,11 @@ const categories = computed(() =>
     items: menuItems.value.filter(item => item.category === cat.name),
   }))
 )
+
+// --- Watch for category changes to set active tab ---
+watch(availableCategories, (cats) => {
+  if (cats.length && activeTab.value === 0) activeTab.value = 0
+}, { immediate: true })
 </script>
 
 <style scoped>
