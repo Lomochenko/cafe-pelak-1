@@ -1,7 +1,7 @@
 <template>
   <section class="content content--demo-5">
     <h2 class="content__title content__title--size-xl" ref="textRef">
-      <slot>Crafted by Naseri</slot>
+      <slot>Created by Naseri</slot>
     </h2>
   </section>
 </template>
@@ -25,8 +25,8 @@ const textRef = ref(null);
 
 // ─── Configuration ───
 const CONFIG = {
-  totalWords: 6,
-  tyIncrement: 13,
+  totalWords: 8,
+  tyIncrement: 15,
   txIncrement: 1,
   opacityIncrement: 0.10,
   delayIncrement: 0.02,
@@ -46,7 +46,7 @@ onMounted(() => {
   }
 
   // ─── 1. Get original text and wrap in a link ───
-  const originalText = el.textContent.trim() || 'Crafted by Naseri';
+  const originalText = el.textContent.trim() || 'Created by Naseri';
   // Wrap the text in an <a> tag pointing to your GitHub
   const linkHtml = `<a href="https://github.com/Lomochenko" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">${originalText}</a>`;
 
@@ -171,6 +171,7 @@ onMounted(() => {
   font-family: 'Arial Black', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
+  font-style: italic;
   cursor: default;
   user-select: none;
   text-align: center;
@@ -219,7 +220,7 @@ onMounted(() => {
 /* ─── Responsive (Phone) ─── */
 @media screen and (max-width: 53em) {
   .content__title {
-    font-size: clamp(1.8rem, 7vw, 3.5rem);
+    font-size: clamp(3rem, 7vw, 3.5rem);
     padding: 0 15px;
   }
 
