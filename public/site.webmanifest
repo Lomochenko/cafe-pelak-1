@@ -1,21 +1,21 @@
 {
-  "name": "Cafe Pelak 1",
-  "short_name": "Pelak 1",
-  "description": "کافه پلاک یک هشتگرد | Cafe Pelak 1 — specialty coffee & fresh bakery",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#090a0a",
-  "theme_color": "#090a0a",
+  "name": "Cafe P1",
+  "short_name": "Cafe P1",
   "icons": [
     {
-      "src": "/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
-      "src": "/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#141111",
+  "display": "standalone"
 }
