@@ -11,7 +11,7 @@
             <span class="footer__title-line font-condensed">Cafe</span>
             <span class="footer__title-line footer__title-line--accent font-condensed">Pelak 1</span>
           </h3>
-          <p class="footer__tagline">Experience premium coffee culture with us.</p>
+          <p class="footer__tagline">Experience premium coffee culture with us :)</p>
         </div>
 
         <!-- Contact Section -->
@@ -19,14 +19,14 @@
           <h4 class="footer__heading font-condensed">Contact</h4>
           <ul class="footer__list">
             <li class="footer__list-item">
-              <a href="tel:+1234567890" class="footer__link">+1 (234) 567-890</a>
+              <a href="tel:09366687897" class="footer__link">09366687897</a>
             </li>
             <li class="footer__list-item">
-              <a href="#cafePelak1" class="footer__link">@cafePelak1</a>
+              <a href="https://instagram.com/cafe.pelak.yek" class="footer__link">@cafe.Pelak.yek</a>
             </li>
             <li class="footer__list-item">
               
-              <span>123 Coffee Street, City, Country</span>
+              <span>هشتگرد-بلوار امام خمینی-جنب میدان دخانیات</span>
             </li>
           </ul>
         </div>
@@ -37,9 +37,9 @@
           <div class="footer__map-wrapper">
             <iframe
               class="footer__map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.9627430987844!2d51.38897!3d35.6892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzIxLjEiTiA1McKwMjMnMjAuMyJF!5e0!3m2!1sen!2s!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d201.85275599994011!2d50.685631083318526!3d35.95567541152528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8daa98c2f70d27%3A0xbfb13a69f631fa04!2z2YPYp9mE2KfZiSDYqNix2YIg2K_YsdmI2YrYtNmJ!5e0!3m2!1sen!2sus!4v1783727145863!5m2!1sen!2sus"
               style="border:0;"
-              allowfullscreen=""
+              allowfullscreen="true"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               title="کافه پلاک یک"
@@ -50,7 +50,7 @@
 
       <!-- Bottom Section -->
       <div class="footer__bottom">
-        <span class="footer__made-by footerGlow font-condensed">Made By Naseri</span>
+        <span class="footer__made-by footerGlow font-condensed">Crafted With Love By Naseri</span>
       </div>
     </div>
   </footer>
@@ -154,7 +154,7 @@
 
 .footer__title {
   font-family: var(--type-headings);
-  font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
+  font-size: clamp(3rem, 5vw, 5rem);
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: var(--vspace-1);
@@ -185,7 +185,7 @@
 }
 
 .footer__tagline {
-  font-size: clamp(0.85rem, 2vw, var(--text-base));
+  font-size: clamp(2rem, 2vw, 3rem);
   color: var(--color-text-light);
   margin-bottom: var(--vspace-1_5);
   line-height: 1.6;
@@ -313,10 +313,11 @@
 
 .footer__list-item {
   display: flex;
+  font-family: var(--font-digi) !important;
   align-items: flex-start;
   gap: clamp(0.5rem, 1.5vw, var(--vspace-0_5));
   margin-bottom: var(--vspace-0_75);
-  font-size: clamp(0.85rem, 2vw, var(--text-base));
+  font-size: clamp(2rem, 2vw, 3rem);
   color: var(--color-text-light);
   transition: all 0.3s var(--ease-smooth);
 }
