@@ -1,5 +1,5 @@
 <template>
-  <div class="row s-menu__content">
+  <div class="row s-menu__content click-scroll">
     <div class="column xl-4 lg-5 md-12 s-menu__content-start">
       <div class="section-header anim-fade-in-up" style="animation-delay: 0.3s">
         <h2 class="text-display-title1">Our Menu</h2>
@@ -68,7 +68,7 @@ const { availableCategories, menuItems, fetchAll } = useMenu()
 // --- Tab navigation ---
 const scrollToCategory = (_index: number) => {
   activeTab.value = _index
-  const heading = document.querySelector('.s-menu .section-header') as HTMLElement | null
+  const heading = document.querySelector('.click-scroll') as HTMLElement | null
   if (heading) {
     const top = heading.getBoundingClientRect().top + window.pageYOffset
     window.scrollTo({ top, behavior: 'smooth' })
