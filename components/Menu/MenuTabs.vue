@@ -75,10 +75,11 @@ const scrollToCategory = (_index: number) => {
   }
 }
 
-// --- Sticky logic (triggered by nav's own top, unstick by section bottom) ---
+// --- Sticky logic: only for small screens ---
 let navTop = 0
 let sectionBottom = 0
-const STICKY_BUFFER = 350 // you can adjust this value
+const STICKY_BUFFER = 350
+const BREAKPOINT = 1000 // matches the CSS media query
 
 const updateBounds = () => {
   if (!tabNavRef.value || !menuContentRef.value) return
@@ -89,9 +90,14 @@ const updateBounds = () => {
 }
 
 const updateStickyState = () => {
+  // On large screens, never apply sticky class
+  if (window.innerWidth >= BREAKPOINT) {
+    if (isSticky.value) isSticky.value = false
+    return
+  }
+
   if (!tabNavRef.value || !menuContentRef.value) return
   const scrollY = window.scrollY
-  // Stick when nav top has passed viewport top AND section bottom is still visible (with buffer)
   const shouldBeSticky = scrollY >= navTop && scrollY < sectionBottom - STICKY_BUFFER
   if (shouldBeSticky !== isSticky.value) {
     isSticky.value = shouldBeSticky
@@ -117,12 +123,10 @@ const handleResize = () => {
 
 // --- Lifecycle ---
 onMounted(async () => {
-  // Fetch menu data if needed
   if (!availableCategories.value.length) {
     await fetchAll()
   }
 
-  // Initial layout and sticky state
   await nextTick()
   updateBounds()
   updateStickyState()
