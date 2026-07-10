@@ -1,5 +1,6 @@
 <template>
   <GalleryGrid  dir="ltr"/>
+  <TextRepitition />
 </template>
 
 <script setup lang="ts">

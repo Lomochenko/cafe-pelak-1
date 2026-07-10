@@ -25,6 +25,7 @@ import {
 } from '~/utils/seo'
 import { useMenuStore } from '~/stores/menu'
 import { useGalleryStore } from '~/stores/gallery'
+import TextRepitition from '~/components/TextRepitition.vue'
 
 definePageMeta({
   layout: false,
