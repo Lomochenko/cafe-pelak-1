@@ -4934,7 +4934,7 @@ td:last-child {
  * responsive:
  * footer
  * ------------------------------------------------------------------- */
-@media screen and (max-width: 1600px) {
+/* @media screen and (max-width: 1600px) {
     .ss-go-top {
         bottom: calc(var(--bottom-padding) - var(--vspace-0_25));
         right : var(--vspace-0_125);
@@ -5018,4 +5018,4 @@ td:last-child {
         font-size  : var(--text-sm);
         line-height: var(--vspace-0_75);
     }
-}
+} */
