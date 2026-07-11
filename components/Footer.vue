@@ -154,7 +154,7 @@
 
 .footer__title {
   font-family: var(--type-headings);
-  font-size: clamp(3rem, 5vw, 5rem);
+  font-size: clamp(3.9rem, 5vw, 5rem);
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: var(--vspace-1);
@@ -258,7 +258,7 @@
 
 .footer__heading {
   font-family: var(--type-headings);
-  font-size: clamp(var(--text-base), 3vw, var(--text-lg));
+  font-size: clamp(2.6rem, 2vw, 3.5rem);
   font-weight: 600;
   margin-bottom: var(--vspace-1);
   color: var(--color-headings);
@@ -416,6 +416,8 @@
   letter-spacing: 0.08em;
   color: var(--color-headings);
   cursor: default;
+  font-family: 'Arial Black', sans-serif !important;
+  /* font-style: italic; */
 }
 
 .footer__copyright {
