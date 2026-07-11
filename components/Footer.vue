@@ -185,7 +185,7 @@
 }
 
 .footer__tagline {
-  font-size: clamp(2.5rem, 2vw, 3rem);
+  font-size: clamp(2.25rem, 2vw, 3rem);
   color: var(--color-text-light);
   margin-bottom: var(--vspace-1_5);
   line-height: 1.6;
@@ -317,7 +317,7 @@
   align-items: flex-start;
   gap: clamp(0.5rem, 1.5vw, var(--vspace-0_5));
   margin-bottom: var(--vspace-0_75);
-  font-size: clamp(2.5rem, 2vw, 3rem);
+  font-size: clamp(2.25rem, 2vw, 3rem);
   color: var(--color-text-light);
   transition: all 0.3s var(--ease-smooth);
 }
