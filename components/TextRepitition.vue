@@ -218,7 +218,7 @@ onMounted(() => {
 }
 
 /* ─── Responsive (Phone) ─── */
-@media screen and (max-width: 53em) {
+/* @media screen and (max-width: ) {
   .content__title {
     font-size: clamp(3rem, 7vw, 3.5rem);
     padding: 0 15px;
@@ -230,17 +230,17 @@ onMounted(() => {
     word-break: break-word;
     line-height: 1.1;
   }
-}
+} */
 
 /* ─── Extra small phones ─── */
 @media screen and (max-width: 400px) {
   .content__title {
-    font-size: clamp(1.4rem, 5vw, 2.5rem);
+    font-size: clamp(3rem, 7vw, 3.5rem);
     padding: 0 10px;
   }
 
   .text-rep span {
-    font-size: clamp(1.4rem, 5vw, 2.5rem);
+    font-size: clamp(1.8rem, 7vw, 3.5rem);
   }
 }
 </style>

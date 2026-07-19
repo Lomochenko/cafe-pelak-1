@@ -1,6 +1,5 @@
 <template>
   <footer class="footer">
-    <div class="footer__bg-pattern"></div>
     <div class="footer__grid-lines"></div>
     
     <div class="container">
@@ -47,11 +46,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Bottom Section -->
-      <div class="footer__bottom">
-        <span class="footer__made-by footerGlow font-condensed">Crafted With Love By Naseri</span>
-      </div>
     </div>
   </footer>
 </template>
@@ -64,29 +58,6 @@
   padding: var(--vspace-4) 0 var(--vspace-2);
   overflow: hidden;
 }
-
-/* Animated Background Pattern */
-.footer__bg-pattern {
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(70, 134, 114, 0.15), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(70, 134, 114, 0.1), transparent),
-    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-neutral-dark) 100%);
-  animation: patternPulse 8s ease-in-out infinite;
-}
-
-@keyframes patternPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
-}
-
 /* Animated Grid Lines */
 .footer__grid-lines {
   position: absolute;
@@ -95,7 +66,7 @@
     linear-gradient(rgba(70, 134, 114, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(70, 134, 114, 0.03) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: gridMove 20s linear infinite;
+  animation: gridMove 7s linear infinite;
   mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 40%, transparent 100%);
 }
@@ -266,9 +237,6 @@
   padding-bottom: var(--vspace-0_5);
   
 }
-.footerGlow {
-  animation: footerHeadingGlow 4s ease-in-out infinite;
-}
 
 @keyframes footerHeadingGlow {
   0%, 100% {
@@ -401,25 +369,6 @@
   filter: grayscale(0.5) contrast(1.2);
 }
 
-.footer__bottom {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: var(--vspace-2);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  animation: fadeInUp 0.8s ease-out 0.6s backwards;
-}
-
-.footer__made-by {
-  font-size: clamp(2.5rem, 2vw, 3rem);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--color-headings);
-  cursor: default;
-  font-family: 'Arial Black', sans-serif !important;
-  /* font-style: italic; */
-}
-
 .footer__copyright {
   margin: 0;
   color: var(--color-text-light);
@@ -490,6 +439,7 @@
 
   .footer__list-item {
     justify-content: center;
+    text-align: center;
   }
 
   .footer__bottom {
