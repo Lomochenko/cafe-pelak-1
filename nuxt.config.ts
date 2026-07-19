@@ -19,9 +19,8 @@ export default defineNuxtConfig({
   },
   css: [
     '~/css/styles.css',
-    '~/assets/css/main.css',
-    '~/assets/css/variables.css',
-    'glightbox/dist/css/glightbox.css',
+    // '~/assets/css/main.css',
+    '~/assets/css/variables.css'
   ],
   app: {
     head: {
