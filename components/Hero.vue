@@ -4,13 +4,13 @@
       <div class="intro-header__overline anim-fade-in-up" style="animation-delay: 0.3s">
         Welcome to
       </div>
-      <h1 class="intro-header__big-type anim-fade-in-up--big" style="animation-delay: 0.6s">
+      <h1 @click="scrollToMenu" class="intro-header__big-type anim-fade-in-up--big" style="animation-delay: 0.6s">
         <span>Pelak 1</span> <br />
         <span>Cafe</span>
       </h1>
     </div>
 
-    <figure class="intro-pic-primary anim-fade-in-scale" style="animation-delay: 0.2s">
+    <figure @click="scrollToMenu" class="intro-pic-primary anim-fade-in-scale" style="animation-delay: 0.2s">
       <img
         src="/images/intro-pic-primary.jpg"
         srcset="/images/intro-pic-primary.jpg 1x, /images/intro-pic-primary@2x.jpg 2x"
@@ -19,7 +19,7 @@
     </figure>
 
     <div class="intro-block-content">
-      <figure class="intro-block-content__pic anim-fade-in-scale" style="animation-delay: 0.4s">
+      <figure @click="scrollToMenu" class="intro-block-content__pic anim-fade-in-scale" style="animation-delay: 0.4s">
         <img
           src="/images/intro-pic-secondary.jpg"
           srcset="/images/intro-pic-secondary.jpg 1x, /images/intro-pic-secondary@2x.jpg 2x"
@@ -332,3 +332,22 @@
   }
 }
 </style>
+<script setup lang="ts">
+import { onMounted } from 'vue'
+
+// Ensure 'menu' element exists
+onMounted(() => {
+  const menuElement = document.getElementById('menu')
+  if (!menuElement) {
+    console.error('Menu section not found!')
+  }
+})
+
+// Smooth scroll function
+function scrollToMenu() {
+  const menuElement = document.getElementById('menu')
+  if (menuElement) {
+    menuElement.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+</script>
