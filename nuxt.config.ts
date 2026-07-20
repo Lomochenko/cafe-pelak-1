@@ -71,16 +71,15 @@ export default defineNuxtConfig({
   },
 
   image: {
-    provider: 'ipx',        // built‑in, uses sharp
+    provider: 'ipx',
     quality: 80,
-    format: ['webp'],       // force WebP for all images
+    format: ['webp'],
     screens: {
       sm: 640,
       md: 768,
       lg: 1024,
       xl: 1280,
     },
-    // If your images are hosted on external domains, add them here:
-    // domains: ['your-domain.com'],
+    dir: 'public',
   },
 })

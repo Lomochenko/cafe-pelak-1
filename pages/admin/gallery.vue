@@ -295,17 +295,16 @@ const saveImage = async () => {
   if (!formData.value.file && !editingImage.value) return
   saving.value = true
   try {
-    const imageData = {
-      alt: formData.value.alt,
-    }
+    let imagePath = editingImage.value?.src || ''
 
     if (formData.value.file) {
-      imageData.src = filePreview.value
-      imageData.thumb = filePreview.value
-    } else if (editingImage.value) {
-      imageData.src = editingImage.value.src
-      imageData.thumb = editingImage.value.thumb
+      const fd = new FormData()
+      fd.append('file', formData.value.file)
+      const { path } = await $fetch('/api/upload', { method: 'POST', body: fd })
+      imagePath = path
     }
+
+    const imageData = { alt: formData.value.alt, src: imagePath, thumb: imagePath }
 
     if (editingImage.value) {
       await updateImage(editingImage.value.id, imageData)
