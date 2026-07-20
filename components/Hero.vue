@@ -11,20 +11,28 @@
     </div>
 
     <figure @click="scrollToMenu" class="intro-pic-primary anim-fade-in-scale" style="animation-delay: 0.2s">
-      <img
-        src="/images/intro-pic-primary.jpg"
-        srcset="/images/intro-pic-primary.jpg 1x, /images/intro-pic-primary@2x.jpg 2x"
-        alt=""
-      />
+      <NuxtImg
+            src="/images/intro-pic-primary@2x.jpg"
+            alt="Primary intro image"
+            class="gallery__media__image"
+            format="webp"
+            quality="80"
+            loading="lazy"
+            draggable="false"
+          />
     </figure>
 
     <div class="intro-block-content">
       <figure @click="scrollToMenu" class="intro-block-content__pic anim-fade-in-scale" style="animation-delay: 0.4s">
-        <img
-          src="/images/intro-pic-secondary.jpg"
-          srcset="/images/intro-pic-secondary.jpg 1x, /images/intro-pic-secondary@2x.jpg 2x"
-          alt=""
-        />
+        <NuxtImg
+            src="/images/intro-pic-secondary@2x.jpg"
+            alt="Secondary intro image"
+            class="gallery__media__image"
+            format="webp"
+            quality="80"
+            loading="lazy"
+            draggable="false"
+          />
       </figure>
 
       <div class="intro-block-content__text-wrap">
