@@ -16,11 +16,13 @@ pnpm-debug.log
 *.swo
 *~
 .DS_Store
+.prettierrc
 
 # Environment
 .env
 .env.local
 .env.*.local
+.venv
 
 # Build
 .cache

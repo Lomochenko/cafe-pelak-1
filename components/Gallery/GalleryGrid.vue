@@ -2,18 +2,21 @@
   <section id="gallery" class="content" ref="sectionRef">
     <div class="gallery__wrapper" ref="wrapperRef">
       <div class="gallery__image__container" ref="containerRef">
-        <picture 
+        <div 
           v-for="(image, index) in images" 
           :key="index" 
           class="gallery__media"
         >
-          <img
+          <NuxtImg
             :src="image.src"
             :alt="image.alt"
             class="gallery__media__image"
+            format="webp"
+            quality="80"
+            loading="lazy"
             draggable="false"
           />
-        </picture>
+        </div>
       </div>
     </div>
   </section>
@@ -257,7 +260,6 @@ onBeforeUnmount(() => {
   .gallery__wrapper {
     height: 45vh;
     top: 20vh;
-    /* gallery items height */
   }
 
   .gallery__image__container {
