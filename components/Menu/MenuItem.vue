@@ -7,6 +7,11 @@
     <div class="menu-list__item-price" dir="ltr">{{ item.price.toFixed(3) }}<span> T</span></div>
   </li>
 </template>
+<style>
+.menu-list__item-price {
+  text-wrap: nowrap !important;
+}
+</style>
 
 <script setup lang="ts">
 interface MenuItem {
