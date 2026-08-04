@@ -3274,8 +3274,12 @@ td:last-child {
 
     opacity         : 0;
     visibility      : hidden;
-    background-color: var(--color-bg);
-    box-shadow      : var(--shadow-medium);
+    /* From https://css.glass */
+background: rgba(255, 255, 255, 0) !important;
+border-radius: 16px !important;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+backdrop-filter: blur(4.2px) !important;
+-webkit-backdrop-filter: blur(4.2px) !important;
     border-bottom   : 1px solid var(--color-bg-neutral-dark);
     position        : fixed;
     top             : 0;
