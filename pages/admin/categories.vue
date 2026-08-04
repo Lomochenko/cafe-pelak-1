@@ -94,11 +94,6 @@
                 <input v-model="formData.name" type="text" class="form-input" placeholder="e.g., Signature Blends" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Icon (Emoji) *</label>
-                <input v-model="formData.icon" type="text" class="form-input" placeholder="e.g., ☕" maxlength="2" required />
-                <span class="form-hint">Use a single emoji as the category icon</span>
-              </div>
-              <div class="form-group">
                 <label class="form-label">Description</label>
                 <textarea v-model="formData.description" class="form-input form-textarea" placeholder="Brief description of this category" rows="2"></textarea>
               </div>
@@ -178,7 +173,6 @@ const loading = ref(false)
 
 const formData = ref({
   name: '',
-  icon: '',
   description: '',
 })
 
@@ -189,7 +183,7 @@ const getItemCount = (categoryName) => {
 
 const openAddForm = () => {
   editingCategory.value = null
-  formData.value = { name: '', icon: '', description: '' }
+  formData.value = { name: '', description: '' }
   showForm.value = true
 }
 
@@ -197,7 +191,6 @@ const editCategory = (category) => {
   editingCategory.value = category
   formData.value = {
     name: category.name,
-    icon: category.icon,
     description: category.description,
   }
   showForm.value = true
@@ -206,7 +199,7 @@ const editCategory = (category) => {
 const closeForm = () => {
   showForm.value = false
   editingCategory.value = null
-  formData.value = { name: '', icon: '', description: '' }
+  formData.value = { name: '', description: '' }
 }
 
 const saveCategory = async () => {
@@ -214,7 +207,6 @@ const saveCategory = async () => {
   try {
     const categoryData = {
       name: formData.value.name,
-      icon: formData.value.icon,
       description: formData.value.description,
     }
     if (editingCategory.value) {

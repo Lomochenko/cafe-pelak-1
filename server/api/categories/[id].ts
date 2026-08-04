@@ -16,8 +16,8 @@ export default defineEventHandler(async (event) => {
         throw createError({ statusCode: 400, message: 'Category name is required' })
       }
       const result = db.prepare(
-        'INSERT INTO categories (name, icon, description) VALUES (?, ?, ?)'
-      ).run(body.name, body.icon || '📦', body.description || '')
+        'INSERT INTO categories (name, description) VALUES (?, ?)'
+      ).run(body.name, body.description || '')
       return { ...body, id: Number(result.lastInsertRowid) }
     } catch (error: any) {
       if (error.statusCode) throw error
@@ -32,10 +32,9 @@ export default defineEventHandler(async (event) => {
       if (!existing) throw createError({ statusCode: 404, message: 'Category not found' })
 
       db.prepare(
-        'UPDATE categories SET name = ?, icon = ?, description = ? WHERE id = ?'
+        'UPDATE categories SET name = ?, description = ? WHERE id = ?'
       ).run(
         body.name ?? existing.name,
-        body.icon ?? existing.icon,
         body.description ?? existing.description,
         Number(id)
       )

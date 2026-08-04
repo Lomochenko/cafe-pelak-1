@@ -9,9 +9,9 @@ export const store = {
     { id: 4, name: 'Chocolate Cake', description: 'Rich chocolate cake with ganache frosting', price: 4.5, category: 'Gourmet Treats' },
   ],
   categories: [
-    { id: 1, name: 'Signature Blends', icon: '☕', description: 'Premium coffee blends' },
-    { id: 2, name: 'Pastries', icon: '🥐', description: 'Fresh baked pastries' },
-    { id: 3, name: 'Gourmet Treats', icon: '🍫', description: 'Sweet delicacies' },
+    { id: 1, name: 'Signature Blends', description: 'Premium coffee blends' },
+    { id: 2, name: 'Pastries', description: 'Fresh baked pastries' },
+    { id: 3, name: 'Gourmet Treats', description: 'Sweet delicacies' },
   ],
   galleryImages: [
     { id: 1, src: '/images/gallery/gallery-01.jpg', thumb: '/images/gallery/gallery-01.jpg', alt: 'Cafe interior with cozy seating' },

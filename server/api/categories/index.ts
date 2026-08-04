@@ -17,8 +17,7 @@ export default defineEventHandler(async (event) => {
       
       const category = { 
         ...body, 
-        id: store.nextCategoryId++,
-        icon: body.icon || '📦'
+        id: store.nextCategoryId++
       }
       store.categories.push(category)
       return category

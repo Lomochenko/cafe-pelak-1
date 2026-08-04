@@ -23,7 +23,6 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
-    icon TEXT NOT NULL DEFAULT '📦',
     description TEXT NOT NULL DEFAULT ''
   )
 `)
@@ -43,7 +42,7 @@ if (countStmt.get().c === 0) {
     'INSERT INTO menu_items (name, description, price, category) VALUES (?, ?, ?, ?)'
   )
   const insertCat = db.prepare(
-    'INSERT OR IGNORE INTO categories (name, icon, description) VALUES (?, ?, ?)'
+    'INSERT OR IGNORE INTO categories (name, description) VALUES (?, ?)'
   )
   const insertGallery = db.prepare(
     'INSERT INTO gallery_images (src, thumb, alt) VALUES (?, ?, ?)'
@@ -54,9 +53,9 @@ if (countStmt.get().c === 0) {
     insertMenu.run('Velvet Mocha Delight', 'Silky mocha infused with premium chocolate and espresso', 4.25, 'Signature Blends')
     insertMenu.run('Butter Croissant', 'Flaky French croissant with layers of butter', 3.0, 'Pastries')
     insertMenu.run('Chocolate Cake', 'Rich chocolate cake with ganache frosting', 4.5, 'Gourmet Treats')
-    insertCat.run('Signature Blends', '☕', 'Premium coffee blends')
-    insertCat.run('Pastries', '🥐', 'Fresh baked pastries')
-    insertCat.run('Gourmet Treats', '🍫', 'Sweet delicacies')
+    insertCat.run('Signature Blends', 'Premium coffee blends')
+    insertCat.run('Pastries', 'Fresh baked pastries')
+    insertCat.run('Gourmet Treats', 'Sweet delicacies')
     insertGallery.run('/images/gallery/gallery-01.jpg', '/images/gallery/gallery-01.jpg', 'Cafe interior with cozy seating')
     insertGallery.run('/images/gallery/gallery-02.jpg', '/images/gallery/gallery-02.jpg', 'Expert barista preparing coffee')
     insertGallery.run('/images/gallery/gallery-03.jpg', '/images/gallery/gallery-03.jpg', 'Warm cafe ambiance with lighting')
