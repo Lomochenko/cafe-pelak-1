@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <Header /> -->
+    <Header />
     <section id="intro" class="container s-intro target-section">
       <Hero />
     </section>
@@ -10,7 +10,7 @@
     <section id="gallery" class="container s-gallery target-section">
       <Gallery />
     </section>
-    <Footer />
+    <Footer  id="contact"/>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ import {
 import { useMenuStore } from '~/stores/menu'
 import { useGalleryStore } from '~/stores/gallery'
 import TextRepitition from '~/components/TextRepitition.vue'
+import { defineAsyncComponent } from 'vue'
+
+const Header = defineAsyncComponent(() => import('~/components/Header.vue'))
 
 definePageMeta({
   layout: false,

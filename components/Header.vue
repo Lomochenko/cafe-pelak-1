@@ -1,12 +1,7 @@
 <template>
   <header class="s-header" :class="headerClasses">
-    <div class="container s-header__content anim-fade-in-up" style="animation-delay: 2.1s">
+    <div class="container s-header__content anim-fade-in-up" style="animation-delay: 1.5s">
       <div class="s-header__block">
-        <div class="header-logo">
-          <a class="specialFont" href="#top">
-            <span class="font-condensed">Pelak 1</span> Cafe
-          </a>
-        </div>
         <a class="header-menu-toggle" :class="{ 'is-clicked': menuOpen }" href="#0" @click.prevent="toggleMenu">
           <span>Menu</span>
         </a>
@@ -22,6 +17,9 @@
           </li>
           <li :class="{ current: activeSection === 'gallery' }">
             <a class="smoothscroll" href="#gallery" @click="handleNavClick">Gallery</a>
+          </li>
+          <li :class="{ current: activeSection === 'contact' }">
+            <a class="smoothscroll" href="#contact" @click="handleNavClick">Contact</a>
           </li>
         </ul>
       </nav>

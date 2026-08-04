@@ -60,7 +60,6 @@
 import { computed } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 import { useGallery } from '~/composables/useGallery'
-import { useAuth } from '~/composables/useAuth'
 import AdminLayout from '~/components/AdminLayout.vue'
 
 definePageMeta({
@@ -70,7 +69,6 @@ definePageMeta({
 
 const { menuItems } = useMenu()
 const { galleryImages } = useGallery()
-const { logout } = useAuth()
 
 const menuStats = computed(() => ({
   total: menuItems.value.length,
@@ -81,11 +79,7 @@ const galleryStats = computed(() => ({
   total: galleryImages.value.length,
 }))
 
-const recentItems = computed(() => {
-  return [...menuItems.value]
-    .sort((a, b) => b.id - a.id)
-    .slice(0, 5)
-})
+
 </script>
 
 <style scoped>
@@ -176,71 +170,6 @@ const recentItems = computed(() => {
 
 .card-link:hover {
   color: var(--color-text);
-}
-
-/* Recent Section */
-.recent-section {
-  margin-bottom: 2.5rem;
-}
-
-.recent-section h3 {
-  font-size: 1rem;
-  color: var(--color-headings);
-  margin: 0 0 1rem;
-}
-
-.recent-list {
-  background: var(--color-bg-neutral);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.recent-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--color-border);
-  transition: background 0.2s;
-}
-
-.recent-item:last-child {
-  border-bottom: none;
-}
-
-.recent-item:hover {
-  background: var(--color-bg);
-}
-
-.recent-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.recent-name {
-  font-weight: 500;
-  color: var(--color-headings);
-}
-
-.recent-category {
-  font-size: 1rem;
-  color: var(--color-text-light);
-}
-
-.recent-price {
-  font-weight: 600;
-  color: var(--color-bg-primary);
-}
-
-.no-items {
-  text-align: center;
-  color: var(--color-text-light);
-  padding: 2rem;
-  background: var(--color-bg-neutral);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
 }
 
 /* Quick Actions */

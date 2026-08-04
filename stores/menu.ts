@@ -96,9 +96,14 @@ export const useMenuStore = defineStore('menu', {
         const updated = await $fetch<Category>(`/api/categories/${id}`, { method: 'PUT', body: updates })
         const index = this.categories.findIndex((c) => c.id === id)
         if (index !== -1) {
+          const oldName = this.categories[index].name
           this.categories[index] = updated
+          if (updates.name && updates.name !== oldName) {
+            this.menuItems = this.menuItems.map((item) =>
+              item.category === oldName ? { ...item, category: updates.name! } : item
+            )
+          }
         }
-        this.menuItems = await $fetch<MenuItem[]>('/api/menu')
         return updated
       } catch (error: any) {
         this.error = error.message || 'Failed to update category'
@@ -109,8 +114,11 @@ export const useMenuStore = defineStore('menu', {
     async deleteCategory(id: number) {
       try {
         await $fetch(`/api/categories/${id}`, { method: 'DELETE' })
+        const deleted = this.categories.find((c) => c.id === id)
         this.categories = this.categories.filter((c) => c.id !== id)
-        this.menuItems = await $fetch<MenuItem[]>('/api/menu')
+        if (deleted) {
+          this.menuItems = this.menuItems.filter((item) => item.category !== deleted.name)
+        }
       } catch (error: any) {
         this.error = error.message || 'Failed to delete category'
         throw error

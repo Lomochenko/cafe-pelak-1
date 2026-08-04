@@ -344,13 +344,6 @@
 import { onMounted } from 'vue'
 
 // Ensure 'menu' element exists
-onMounted(() => {
-  const menuElement = document.getElementById('menu')
-  if (!menuElement) {
-    console.error('Menu section not found!')
-  }
-})
-
 // Smooth scroll function
 function scrollToMenu() {
   const menuElement = document.getElementById('menu')

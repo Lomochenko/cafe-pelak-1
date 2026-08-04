@@ -31,3 +31,7 @@ pnpm-debug.log
 # OS
 Thumbs.db
 
+# Database
+data.db
+data.db-shm
+data.db-wal

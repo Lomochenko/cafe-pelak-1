@@ -86,15 +86,6 @@ onMounted(async () => {
   animation: loaderFadeIn 0.8s ease-out both;
 }
 
-.app-loader__subtitle {
-  font-family: "Roboto Flex";
-  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-  color: #9fa1a1;
-  letter-spacing: 0.12em;
-  margin: 0;
-  animation: loaderFadeIn 0.8s ease-out 0.3s both;
-}
-
 @keyframes loaderPulse {
   0%, 100% {
     opacity: 0.4;

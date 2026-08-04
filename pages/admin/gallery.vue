@@ -278,13 +278,6 @@ const processFile = (file) => {
   reader.readAsDataURL(file)
 }
 
-const removeFile = () => {
-  formData.value.file = null
-  filePreview.value = editingImage.value ? editingImage.value.thumb : null
-  fileName.value = editingImage.value ? 'Current image' : ''
-  fileSize.value = 0
-}
-
 const formatFileSize = (bytes) => {
   if (bytes < 1024) return bytes + ' B'
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'

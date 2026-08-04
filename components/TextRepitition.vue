@@ -40,10 +40,7 @@ let isLoaded = false;
 onMounted(() => {
   if (!process.client) return;
   const el = textRef.value;
-  if (!el) {
-    console.error('TextRepetition: element not found');
-    return;
-  }
+  if (!el) return;
 
   // ─── 1. Get original text and wrap in a link ───
   const originalText = el.textContent.trim() || 'Created by Naseri';

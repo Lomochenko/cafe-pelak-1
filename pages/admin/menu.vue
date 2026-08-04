@@ -279,10 +279,6 @@ const executeDelete = async () => {
   }
 }
 
-const getCategoryIcon = (category) => {
-  const icons = { 'Signature Blends': '☕', 'Pastries': '🥐', 'Gourmet Treats': '🍫' }
-  return icons[category] || '📦'
-}
 </script>
 
 <style scoped>
