@@ -4115,7 +4115,7 @@ td:last-child {
  *
  * ------------------------------------------------------------------- */
 .s-menu {
-    padding-top: var(--vspace-5);
+    padding-top: var(--vspace-1) !important;
 }
 
 .s-menu__content {

@@ -215,7 +215,7 @@ onMounted(() => {
 }
 
 /* ─── Responsive (Phone) ─── */
-/* @media screen and (max-width: ) {
+@media screen and (max-width: ) {
   .content__title {
     font-size: clamp(3rem, 7vw, 3.5rem);
     padding: 0 15px;
@@ -227,7 +227,7 @@ onMounted(() => {
     word-break: break-word;
     line-height: 1.1;
   }
-} */
+}
 
 /* ─── Extra small phones ─── */
 @media screen and (max-width: 400px) {

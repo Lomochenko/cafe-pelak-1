@@ -341,8 +341,6 @@
 }
 </style>
 <script setup lang="ts">
-import { onMounted } from 'vue'
-
 // Ensure 'menu' element exists
 // Smooth scroll function
 function scrollToMenu() {

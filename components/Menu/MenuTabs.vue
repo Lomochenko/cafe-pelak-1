@@ -2,7 +2,7 @@
   <div class="s-menu__content">
     <!-- Title centered at the top -->
     <div class="menu-header">
-      <h2 class="text-display-title1">Our Menu</h2>
+      <h2 @click="scrollToMenu" class="text-display-title1">Our Menu</h2>
     </div>
 
     <!-- All categories and their items listed sequentially -->
@@ -46,6 +46,14 @@ const categories = computed(() =>
     items: menuItems.value.filter(item => item.category === cat.name),
   }))
 )
+// Ensure 'menu' element exists
+// Smooth scroll function
+function scrollToMenu() {
+  const menuElement = document.getElementById('menu')
+  if (menuElement) {
+    menuElement.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 </script>
 
 <style scoped>
@@ -87,6 +95,7 @@ const categories = computed(() =>
   margin-bottom: var(--vspace-1);
   text-align: right;
   font-family: var(--font-digi) !important;
+  margin-top: 0 !important;
 }
 
 .menu-list {
