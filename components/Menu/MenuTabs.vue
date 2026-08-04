@@ -86,6 +86,7 @@ const categories = computed(() =>
   color: var(--color-headings);
   margin-bottom: var(--vspace-1);
   text-align: right;
+  font-family: var(--font-digi) !important;
 }
 
 .menu-list {
