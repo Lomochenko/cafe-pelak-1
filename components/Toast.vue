@@ -61,7 +61,7 @@ const { toasts, remove } = useToast()
 .toast__message {
   flex: 1;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   color: var(--color-text, #bfc1c0);
   line-height: 1.4;
 }

@@ -70,7 +70,7 @@ const handleLogin = async () => {
   isLoading.value = true
 
   try {
-    const success = login(password.value)
+    const success = await login(password.value)
     if (success) {
       await navigateTo('/admin')
     } else {
