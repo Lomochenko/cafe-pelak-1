@@ -23,8 +23,6 @@ export default defineNuxtConfig({
 
   css: [
     '~/css/styles.css',
-    '~/css/main.css',
-    '~/css/variables.css'
   ],
 
   app: {
