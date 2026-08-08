@@ -6,26 +6,26 @@
  */
 
 // Production domain. Update this to the real domain before deploying.
-export const SITE_URL = 'https://cafepelak1.ir'
+export const SITE_URL = 'https://cafepelakyek.ir'
 
 // Brand / business facts (Hashtgerd, Alborz, Iran)
 export const BUSINESS = {
-  name: 'کافه پلاک یک',
-  nameEn: 'Cafe Pelak 1',
-  legalName: 'Cafe Pelak 1 — کافه بیکری پلاک یک',
+  name: 'کافه بیکری پلاک یک',
+  nameEn: 'Cafe Bakery Pelak yek',
+  legalName: 'Cafe Bakery Pelak yek — کافه بیکری پلاک یک',
   phone: '+989366687897',
-  instagram: 'https://instagram.com/cafePelak1',
+  instagram: 'https://instagram.com/cafe.pelak.yek',
   streetAddress: 'هشتگرد، البرز',
   locality: 'هشتگرد',
   region: 'البرز',
   country: 'IR',
-  postalCode: '',
+  postalCode: '1',
   // Approximate Hashtgerd coordinates — replace with the exact location.
-  latitude: 35.9626,
-  longitude: 50.6797,
-  priceRange: '$$',
+  latitude: 35.9558,
+  longitude: 50.6857,
+  priceRange: '100.000 - 500.000',
   image: `${SITE_URL}/images/intro-pic-primary.jpg`,
-  logo: `${SITE_URL}/images/logo.svg`,
+  logo: `public/apple-touch-icon.png`,
 } as const
 
 // All targeted keywords (Persian + English) for the cafe & bakery.
@@ -34,11 +34,12 @@ export const SEO_KEYWORDS: string[] = [
   'کافه هشتگرد',
   'کافه بیکری',
   'کافه بیکری هشتگرد',
+  'کافه بیکری کیا',
   'کیا کافه',
   'kia cafe',
   'cafe kia',
   'pelak 1',
-  'cafe pelak 1',
+  'cafe pelak yek',
   'pelak yek',
   'پلاک یک',
   'پلاک یک هشتگرد',
@@ -49,10 +50,10 @@ export const SEO_KEYWORDS: string[] = [
 ]
 
 export const SEO_TITLE =
-  'کافه پلاک یک هشتگرد | Cafe Pelak 1 — کافه بیکری'
+  'کافه بیکری پلاک یک | Cafe Bakery Pelak 1 — کافه بیکری'
 
 export const SEO_DESCRIPTION =
-  'کافه پلاک یک هشتگرد | کافه و بیکری تخصصی با نان و شیرینی تازه و فضایی دنج.. Cafe Pelak 1 — specialty coffee & fresh bakery in Hashtgerd.'
+  'کافه بیکری پلاک یک | کافه و بیکری تخصصی با نان و شیرینی تازه و فضایی دنج.. Cafe Bakery Pelak 1 — specialty coffee & fresh bakery in Hashtgerd.'
 
 /**
  * Schema.org JSON-LD for a coffee shop / bakery.
