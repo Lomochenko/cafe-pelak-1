@@ -3,7 +3,16 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dbPath = path.join(__dirname, '..', '..', 'data.db')
+
+// Use environment variable for database path, fallback to local path
+const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'data.db')
+
+// Ensure the directory exists
+import { mkdirSync, existsSync } from 'fs'
+const dir = path.dirname(dbPath)
+if (!existsSync(dir)) {
+  mkdirSync(dir, { recursive: true })
+}
 
 export const db = new Database(dbPath)
 
