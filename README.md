@@ -14,7 +14,6 @@ A modern Vue 3 + Nuxt 3 application for Cafe Pelak, featuring a beautiful respon
 - Carousel functionality with Swiper
 - Admin dashboard for content management (CRUD operations)
 - Local authentication for admin access
-- Nuxt Content integration for menu and gallery data
 - Smooth scrolling and scroll spy navigation
 - CSS Variables system for theming and consistency
 
@@ -30,7 +29,6 @@ A modern Vue 3 + Nuxt 3 application for Cafe Pelak, featuring a beautiful respon
 | Styling         | CSS with CSS Variables (no Tailwind) |
 | Carousel        | Swiper 11.0.0                      |
 | Lightbox        | GLightbox 3.3.0                    |
-| Content         | Nuxt Content 2.11.0                |
 | Utilities       | VueUse 10.7.0                      |
 | Code Quality    | ESLint, Prettier                   |
 

@@ -25,7 +25,6 @@ import {
 } from '~/utils/seo'
 import { useMenuStore } from '~/stores/menu'
 import { useGalleryStore } from '~/stores/gallery'
-import TextRepitition from '~/components/TextRepitition.vue'
 import { defineAsyncComponent } from 'vue'
 
 const Header = defineAsyncComponent(() => import('~/components/Header.vue'))
