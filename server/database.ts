@@ -1,14 +1,12 @@
-import Database from 'better-sqlite3'
+import { mkdirSync, existsSync } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import Database from 'better-sqlite3'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Use environment variable for database path, fallback to local path
 const dbPath = process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'data.db')
 
-// Ensure the directory exists
-import { mkdirSync, existsSync } from 'fs'
 const dir = path.dirname(dbPath)
 if (!existsSync(dir)) {
   mkdirSync(dir, { recursive: true })
@@ -44,33 +42,3 @@ db.exec(`
     alt TEXT NOT NULL DEFAULT ''
   )
 `)
-
-const countStmt = db.prepare('SELECT COUNT(*) as c FROM menu_items')
-if (countStmt.get().c === 0) {
-  const insertMenu = db.prepare(
-    'INSERT INTO menu_items (name, description, price, category) VALUES (?, ?, ?, ?)'
-  )
-  const insertCat = db.prepare(
-    'INSERT OR IGNORE INTO categories (name, description) VALUES (?, ?)'
-  )
-  const insertGallery = db.prepare(
-    'INSERT INTO gallery_images (src, thumb, alt) VALUES (?, ?, ?)'
-  )
-
-  const tx = db.transaction(() => {
-    insertMenu.run('Lounge Elegance Espresso', 'Rich and full-bodied espresso with a smooth finish', 3.5, 'Signature Blends')
-    insertMenu.run('Velvet Mocha Delight', 'Silky mocha infused with premium chocolate and espresso', 4.25, 'Signature Blends')
-    insertMenu.run('Butter Croissant', 'Flaky French croissant with layers of butter', 3.0, 'Pastries')
-    insertMenu.run('Chocolate Cake', 'Rich chocolate cake with ganache frosting', 4.5, 'Gourmet Treats')
-    insertCat.run('Signature Blends', 'Premium coffee blends')
-    insertCat.run('Pastries', 'Fresh baked pastries')
-    insertCat.run('Gourmet Treats', 'Sweet delicacies')
-    insertGallery.run('/images/gallery/gallery-01.jpg', '/images/gallery/gallery-01.jpg', 'Cafe interior with cozy seating')
-    insertGallery.run('/images/gallery/gallery-02.jpg', '/images/gallery/gallery-02.jpg', 'Expert barista preparing coffee')
-    insertGallery.run('/images/gallery/gallery-03.jpg', '/images/gallery/gallery-03.jpg', 'Warm cafe ambiance with lighting')
-    insertGallery.run('/images/gallery/gallery-04.jpg', '/images/gallery/gallery-04.jpg', 'Fresh pastries display')
-    insertGallery.run('/images/gallery/gallery-05.jpg', '/images/gallery/gallery-05.jpg', 'Comfortable seating area')
-    insertGallery.run('/images/gallery/gallery-06.jpg', '/images/gallery/gallery-06.jpg', 'Perfectly crafted coffee cup')
-  })
-  tx()
-}
