@@ -31,10 +31,6 @@ export const BUSINESS = {
 // All targeted keywords (Persian + English) for the cafe & bakery.
 export const SEO_KEYWORDS: string[] = [
   'کافه کیا',
-  'کافه هشتگرد',
-  'کافه بیکری',
-  'کافه بیکری هشتگرد',
-  'کافه بیکری کیا',
   'کیا کافه',
   'kia cafe',
   'cafe kia',
@@ -50,10 +46,10 @@ export const SEO_KEYWORDS: string[] = [
 ]
 
 export const SEO_TITLE =
-  'کافه بیکری پلاک یک | Cafe Bakery Pelak 1 — کافه بیکری'
+  'کافه پلاک یک | Cafe Pelak 1'
 
 export const SEO_DESCRIPTION =
-  'کافه بیکری پلاک یک | کافه و بیکری تخصصی با نان و شیرینی تازه و فضایی دنج.. Cafe Bakery Pelak 1 — specialty coffee & fresh bakery in Hashtgerd.'
+  ' Cafe Pelak 1 — specialty coffee in Hashtgerd.'
 
 /**
  * Schema.org JSON-LD for a coffee shop / bakery.

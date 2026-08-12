@@ -22,8 +22,8 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'کافه پلاک یک هشتگرد | کافه و بیکری تخصصی با نان و شیرینی تازه. بهترین کافه بیکری در هشتگرد. Cafe Pelak yek — specialty coffee & fresh bakery in Hashtgerd.' },
-        { name: 'keywords', content: 'کافه کیا, کافه هشتگرد, کافه بیکری, کافه بیکری هشتگرد, کیا کافه, kia cafe, cafe kia, pelak yek, cafe pelak 1, pelak yek, پلاک یک, پلاک یک هشتگرد, کافه پلاک یک, پلاک 1, کافه پلاک 1' },
+        { name: 'description', content: 'کافه پلاک یک هشتگرد. بهترین کافه در هشتگرد. Cafe Pelak yek — specialty coffee in Hashtgerd.' },
+        { name: 'keywords', content: 'کافه کیا, کافه هشتگرد, کیا کافه, kia cafe, cafe kia, pelak yek, cafe pelak 1, pelak yek, پلاک یک, پلاک یک هشتگرد, کافه پلاک یک, پلاک 1, کافه پلاک 1' },
         { name: 'robots', content: 'index, follow, max-image-preview:large' },
         { name: 'theme-color', content: '#090a0a' },
         { name: 'apple-mobile-web-app-title', content: 'Cafe Pelak yek' },
