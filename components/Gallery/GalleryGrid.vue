@@ -7,13 +7,12 @@
           :key="index" 
           class="gallery__media"
         >
-          <NuxtImg
+          <img
             :src="image.src"
             :alt="image.alt"
             class="gallery__media__image"
-            format="webp"
-            quality="80"
             loading="lazy"
+            decoding="async"
             draggable="false"
           />
         </div>

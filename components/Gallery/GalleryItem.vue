@@ -6,7 +6,13 @@
       :data-glightbox="`gallery-${index}`"
       :title="image.alt"
     >
-      <img :src="image.thumb" :alt="image.alt" class="gallery-item__image" />
+      <img
+        :src="image.thumb"
+        :alt="image.alt"
+        class="gallery-item__image"
+        loading="lazy"
+        decoding="async"
+      />
       <div class="gallery-item__overlay">
         <svg class="gallery-item__icon" viewBox="0 0 24 24" fill="none">
           <path

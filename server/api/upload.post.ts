@@ -1,7 +1,8 @@
 import { readMultipartFormData, createError } from 'h3'
-import { writeFile } from 'fs/promises'
+import { writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { randomUUID } from 'crypto'
+import sharp from 'sharp'
 
 export default defineEventHandler(async (event) => {
   const parts = await readMultipartFormData(event)
@@ -11,15 +12,21 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'No file uploaded' })
   }
 
-  const ext = filePart.filename.split('.').pop()?.toLowerCase() || 'jpg'
-  const allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif']
-  if (!allowed.includes(ext)) {
+  const mimeType = filePart.type || ''
+  if (!mimeType.startsWith('image/')) {
     throw createError({ statusCode: 400, message: 'Invalid file type' })
   }
 
-  const filename = `${randomUUID()}.${ext}`
-  const uploadDir = join(process.cwd(), 'public', 'uploads')
-  await writeFile(join(uploadDir, filename), filePart.data)
+  const uploadDir = process.env.UPLOAD_PATH || join(process.cwd(), 'public', 'uploads')
+  await mkdir(uploadDir, { recursive: true })
 
-  return { path: `/uploads/${filename}` }
+  const filename = `${randomUUID()}.webp`
+  const optimized = await sharp(filePart.data)
+    .resize({ width: 1200, withoutEnlargement: true })
+    .webp({ quality: 80 })
+    .toBuffer()
+
+  await writeFile(join(uploadDir, filename), optimized)
+
+  return { path: `/api/uploads/${filename}` }
 })
