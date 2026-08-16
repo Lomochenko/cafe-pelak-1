@@ -54,7 +54,7 @@
             <div class="card-content">
               <div class="card-header">
                 <h4 class="card-title">{{ item.name }}</h4>
-                <span class="card-price" dir="ltr">{{ item.price.toFixed(3) }} T</span>
+                <span class="card-price" dir="ltr">{{ item.price }} T</span>
               </div>
               <p class="card-description">{{ item.description }}</p>
               <div class="card-meta">

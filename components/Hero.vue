@@ -5,8 +5,8 @@
         Welcome to
       </div>
       <h1 @click="scrollToMenu" class="intro-header__big-type anim-fade-in-up--big" style="animation-delay: 0.6s">
-        <span>Pelak 1</span> <br />
-        <span>Cafe</span>
+        <span>Cafe</span> <br />
+        <span>Pelak 1</span>
       </h1>
     </div>
 
