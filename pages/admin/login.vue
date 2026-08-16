@@ -2,8 +2,8 @@
   <div class="admin-login">
     <div class="login-container">
       <div class="login-card">
-        <h1 class="login-title">Admin Dashboard</h1>
-        <p class="login-subtitle">Enter your password to continue</p>
+        <h1 class="login-title">داشبورد مدیریتی</h1>
+        <p class="login-subtitle">رمز شخصی را وارد کنید</p>
 
         <form @submit.prevent="handleLogin" class="login-form">
           <div class="form-group">
@@ -40,7 +40,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary" :disabled="isLoading">
-            {{ isLoading ? 'Logging in...' : 'Login' }}
+            {{ isLoading ? '...در حال تایید' : 'تایید' }}
           </button>
 
         <p v-if="error" class="error-message" role="alert">{{ error }}</p>
@@ -116,6 +116,7 @@ const handleLogin = async () => {
   margin-bottom: 0.5rem;
   color: var(--color-headings);
   font-size: 3rem;
+  font-family: var(--font-digi) !important;
 }
 
 .login-subtitle {
@@ -123,6 +124,7 @@ const handleLogin = async () => {
   color: var(--color-text-light);
   margin-bottom: 2rem;
   font-size: 2rem;
+    font-family: var(--font-digi) !important;
 }
 
 .login-form {
@@ -188,6 +190,8 @@ const handleLogin = async () => {
   background-color: var(--color-bg);
   transition: background-color 0.3s;
   border: 1px solid var(--color-border);
+  font-family: var(--font-digi) !important;
+  font-size: larger;
 }
 .btn:hover:not(:disabled) {
   background-color: var(--color-bg-primary);
