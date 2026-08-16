@@ -22,26 +22,26 @@
             <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect>
             <rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>
           </svg>
-          <span>Dashboard</span>
+          <span>داشبورد مدیریتی</span>
         </NuxtLink>
         <NuxtLink to="/admin/menu" class="nav-link" :class="{ active: $route.path === '/admin/menu' }" @click="sidebarOpen = false">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path>
           </svg>
-          <span>Menu Items</span>
+          <span>آیتم های منو</span>
         </NuxtLink>
         <NuxtLink to="/admin/categories" class="nav-link" :class="{ active: $route.path === '/admin/categories' }" @click="sidebarOpen = false">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
           </svg>
-          <span>Categories</span>
+          <span>دسته بندی های منو</span>
         </NuxtLink>
         <NuxtLink to="/admin/gallery" class="nav-link" :class="{ active: $route.path === '/admin/gallery' }" @click="sidebarOpen = false">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             <circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>
           </svg>
-          <span>Gallery</span>
+          <span>گالری</span>
         </NuxtLink>
       </nav>
 
@@ -51,7 +51,7 @@
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
-          Homepage
+          مشاهده تغیرات
         </NuxtLink>
         <button @click="handleLogout" class="logout-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -59,7 +59,7 @@
             <polyline points="16 17 21 12 16 7"></polyline>
             <line x1="21" y1="12" x2="9" y2="12"></line>
           </svg>
-          Logout
+          خروج از داشبورد
         </button>
       </div>
     </aside>
@@ -146,7 +146,7 @@ onMounted(() => {
 
 .sidebar-header {
   display: flex;
-  flex: 1;
+  /* flex: 1; */
   align-items: center;
   justify-content: space-between;
   padding: 20px 20px 16px;
@@ -174,11 +174,15 @@ onMounted(() => {
 .sidebar-close:hover { color: var(--color-text); background: var(--color-bg); }
 
 .sidebar-nav {
-  flex: 2;
+  flex: 9;
   display: flex;
   flex-direction: column;
   gap: 2px;
   padding: 16px 10px;
+}
+.sidebar-nav span{
+    font-family: var(--font-digi);
+  font-size: large;
 }
 
 .nav-link {
@@ -226,8 +230,8 @@ onMounted(() => {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   color: var(--color-text-light);
-  font-size: 1.5rem;
-  font-family: var(--font-1);
+  font-size: large;
+  font-family: var(--font-digi);
   cursor: pointer;
   transition: all 0.18s ease;
   border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); 
@@ -244,8 +248,8 @@ onMounted(() => {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   color: var(--color-text-light);
-  font-size: 1.5rem;
-  font-family: var(--font-1);
+  font-size: large;
+  font-family: var(--font-digi);
   cursor: pointer;
     color: var(--color-text);
   border-color: var(--color-bg-primary);

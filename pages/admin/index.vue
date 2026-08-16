@@ -1,54 +1,50 @@
 <template>
   <AdminLayout>
-    <div class="dashboard">
+    <div class="dashboard" dir="rtl">
       <div class="dashboard-welcome">
-        <h2>Dashboard</h2>
-        <p>Overview of your cafe's content</p>
+        <h2>داشبورد مدیریتی</h2>
+        <p>نگاهی به محتوای کافه شما</p>
       </div>
 
-      <TransitionGroup name="card" tag="div" class="dashboard-grid" appear>
-        <div key="menu" class="dashboard-card" style="--order: 0">
-          <div class="card-icon">☕</div>
-          <div class="card-body">
-            <span class="card-label">Menu Items</span>
-            <span class="card-value">{{ menuStats.total }}</span>
-          </div>
-          <NuxtLink to="/admin/menu" class="card-link">Manage</NuxtLink>
-        </div>
-
+      <TransitionGroup dir="RTL" name="card" tag="div" class="dashboard-grid" appear>
         <div key="categories" class="dashboard-card" style="--order: 1">
-          <div class="card-icon">📁</div>
           <div class="card-body">
-            <span class="card-label">Categories</span>
+            <span class="card-label">دسته بندی های منو <span class="card-icon">📁</span></span>
             <span class="card-value">{{ menuStats.categories }}</span>
           </div>
-          <NuxtLink to="/admin/categories" class="card-link">Manage</NuxtLink>
+          <NuxtLink to="/admin/categories" class="card-link">ویرایش</NuxtLink>
+        </div>
+        <div key="menu" class="dashboard-card" style="--order: 0">
+          <div class="card-body">
+            <span class="card-label">آیتم های منو <span class="card-icon">☕</span></span>
+            <span class="card-value">{{ menuStats.total }}</span>
+          </div>
+          <NuxtLink to="/admin/menu" class="card-link">ویرایش</NuxtLink>
         </div>
 
         <div key="gallery" class="dashboard-card" style="--order: 2">
-          <div class="card-icon">🖼</div>
           <div class="card-body">
-            <span class="card-label">Gallery Images</span>
+            <span class="card-label">عکس های گالری <span class="card-icon">🖼</span></span>
             <span class="card-value">{{ galleryStats.total }}</span>
           </div>
-          <NuxtLink to="/admin/gallery" class="card-link">Manage</NuxtLink>
+          <NuxtLink to="/admin/gallery" class="card-link">ویرایش</NuxtLink>
         </div>
       </TransitionGroup>
 
-      <div class="quick-actions">
-        <h3>Quick Actions</h3>
+      <div class="quick-actions" dir="rtl">
+        <h3>دسترسی سریع</h3>
         <div class="action-grid">
-          <NuxtLink to="/admin/menu" class="action-btn">
-            <span class="action-btn__icon">+</span>
-            <span>Add Menu Item</span>
-          </NuxtLink>
           <NuxtLink to="/admin/categories" class="action-btn">
-            <span class="action-btn__icon">+</span>
-            <span>Add Category</span>
+            <span class="action-btn__icon"></span>
+            <span class="action-text">ویرایش دسته بندی</span>
+          </NuxtLink>
+          <NuxtLink to="/admin/menu" class="action-btn">
+            <span class="action-btn__icon"></span>
+            <span class="action-text">ویرایش آیتم ها</span>
           </NuxtLink>
           <NuxtLink to="/admin/gallery" class="action-btn">
-            <span class="action-btn__icon">+</span>
-            <span>Add Gallery Image</span>
+            <span class="action-btn__icon"></span>
+            <span class="action-text">ویرایش عکس ها</span>
           </NuxtLink>
         </div>
       </div>
@@ -90,17 +86,19 @@ const galleryStats = computed(() => ({
 
 .dashboard-welcome {
   margin-bottom: 2rem;
+  font-family: var(--font-digi);
 }
 
 .dashboard-welcome h2 {
-  font-size: 1.75rem;
+  font-size: x-large;
   color: var(--color-headings);
   margin: 0 0 0.35rem;
+  font-family: var(--font-digi);
 }
 
 .dashboard-welcome p {
   color: var(--color-text-light);
-  font-size: 1.5rem;
+  font-size: larger;
   margin: 0;
 }
 
@@ -129,7 +127,7 @@ const galleryStats = computed(() => ({
 }
 
 .card-icon {
-  font-size: 1.75rem;
+  font-size: larger;
   line-height: 1;
 }
 
@@ -140,7 +138,8 @@ const galleryStats = computed(() => ({
 }
 
 .card-label {
-  font-size: 1.5rem;
+  font-size: larger;
+  font-family: var(--font-digi);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text-light);
@@ -154,29 +153,32 @@ const galleryStats = computed(() => ({
 }
 
 .card-link {
-  font-size: 1.7rem;
-  color: var(--color-bg-primary);
+  font-size: large;
+  font-family: var(--font-digi);
+  color: var(--color-text);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   margin-top: auto;
-  margin-left: auto;
   font-weight: 500;
   border: 2px solid var(--color-bg-neutral);
   padding: .375rem;
   border-radius: var(--radius-md);
+  margin-right: auto;
 }
 
 .card-link:hover {
-  color: var(--color-text);
+  color: var(--color-bg-primary);
 }
 
 /* Quick Actions */
 .quick-actions h3 {
-  font-size: 1.52rem;
+  font-size: x-large;
   color: var(--color-headings);
   margin: 0 0 1rem;
+  text-align: right;
+  font-family: var(--font-digi);
 }
 
 .action-grid {
@@ -194,7 +196,7 @@ const galleryStats = computed(() => ({
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
@@ -215,10 +217,13 @@ const galleryStats = computed(() => ({
   height: 1.5rem;
   border-radius: 50%;
   background: var(--color-bg-primary);
-  color: #fff;
   font-size: 1rem;
   font-weight: 700;
   flex-shrink: 0;
+}
+.action-text{
+  font-size: larger;
+  font-family: var(--font-digi);
 }
 
 /* TransitionGroup animations */
