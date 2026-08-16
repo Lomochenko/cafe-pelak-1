@@ -44,18 +44,18 @@
             </div>
             <div class="card-actions">
               <button @click="editCategory(category)" class="action-btn" aria-label="Edit category">
+                ویرایش
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0-2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
-                Edit
               </button>
               <button @click="confirmDelete(category)" class="action-btn action-btn--danger" aria-label="Delete category">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
-                Delete
+                حذف
               </button>
             </div>
           </div>
@@ -76,7 +76,7 @@
 
     <!-- Add/Edit Form Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
@@ -88,19 +88,15 @@
                 </svg>
               </button>
             </div>
-            <form @submit.prevent="saveCategory" class="modal-body" dir="rtl">
+            <form @submit.prevent="saveCategory" class="modal-body">
               <div class="form-group">
-                <label class="form-label">Category Name *</label>
-                <input v-model="formData.name" type="text" class="form-input" placeholder="e.g., Signature Blends" required />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea v-model="formData.description" class="form-input form-textarea" placeholder="Brief description of this category" rows="2"></textarea>
+                <label class="form-label">نام دسته بندی *</label>
+                <input v-model="formData.name" type="text" class="form-input" placeholder="برای مثال : بار سرد" required />
               </div>
               <div class="modal-footer">
-                <button type="button" @click="closeForm" class="btn btn-outline">Cancel</button>
+                <button type="button" @click="closeForm" class="btn btn-outline">انصراف</button>
                 <button type="submit" class="btn btn-primary" :disabled="saving">
-                  {{ saving ? 'Saving...' : (editingCategory ? 'Update' : 'Add') }}
+                  {{ saving ? 'در حال ذخیره...' : (editingCategory ? 'به روز رسانی' : 'افزودن') }}
                 </button>
               </div>
             </form>
@@ -111,11 +107,11 @@
 
     <!-- Delete Confirmation Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showDeleteConfirm" class="modal-overlay" @click.self="cancelDelete">
           <div class="modal-container modal-sm">
             <div class="modal-header">
-              <h3 class="modal-title">Delete Category</h3>
+              <h3 class="modal-title">حذف دسته بندی</h3>
               <button class="modal-close" @click="cancelDelete" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -124,15 +120,12 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete <strong>{{ categoryToDelete?.name }}</strong>?</p>
-              <p class="delete-warning">
-                {{ getItemCount(categoryToDelete?.name) }} menu items will be moved to another category.
-              </p>
+              <p>از حذف <strong>"{{ categoryToDelete?.name }}"</strong> مطمئن هستید؟</p>
             </div>
             <div class="modal-footer">
-              <button @click="cancelDelete" class="btn btn-outline">Cancel</button>
+              <button @click="cancelDelete" class="btn btn-outline">انصراف</button>
               <button @click="executeDelete" class="btn btn-danger" :disabled="deleting">
-                {{ deleting ? 'Deleting...' : 'Delete' }}
+                {{ deleting ? 'در حال حذف...' : 'حذف' }}
               </button>
             </div>
           </div>
@@ -354,7 +347,8 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1.3rem;
+  font-size: large;
+  font-family: var(--font-digi);
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -434,8 +428,9 @@ const executeDelete = async () => {
 .modal-title {
   margin: 0;
   color: var(--color-headings);
-  font-size: 1.25rem;
+  font-size: large;
   font-weight: 600;
+  font-family: var(--font-digi);
 }
 
 .modal-close {
@@ -457,6 +452,10 @@ const executeDelete = async () => {
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
+  font-family: var(--font-digi);
+}
+.modal-body strong{
+  font-size: x-large;
 }
 
 .modal-footer {
@@ -474,15 +473,18 @@ const executeDelete = async () => {
 .form-group:last-child {
   margin-bottom: 0;
 }
-
+input,input::placeholder{
+  font-family: var(--font-digi) !important;
+  font-size: x-large !important;
+}
 .form-label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: larger;
   font-weight: 500;
   color: var(--color-headings);
+  font-family: var(--font-digi);
 }
-
 .form-input {
   width: 100%;
   padding: 0.7rem 0.9rem;
@@ -515,7 +517,7 @@ const executeDelete = async () => {
 
 .delete-warning {
   color: #dc2626;
-  font-size: 1rem;
+  font-size: large;
   margin-top: 0.5rem;
 }
 
@@ -542,9 +544,10 @@ const executeDelete = async () => {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--color-bg-neutral-dark);
   color: var(--color-text);
   border-color: var(--color-border);
+  font-size: large;
 }
 
 .btn-outline:hover {
