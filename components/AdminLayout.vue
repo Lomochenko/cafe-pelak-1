@@ -146,6 +146,7 @@ onMounted(() => {
 
 .sidebar-header {
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
   padding: 20px 20px 16px;
@@ -173,7 +174,7 @@ onMounted(() => {
 .sidebar-close:hover { color: var(--color-text); background: var(--color-bg); }
 
 .sidebar-nav {
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -209,6 +210,7 @@ onMounted(() => {
 .nav-link:hover .nav-icon, .nav-link.active .nav-icon { opacity: 1; }
 
 .sidebar-footer {
+  flex: 3;
   padding: 16px;
   border-top: 1px solid var(--color-border);
 }
