@@ -1,17 +1,17 @@
 <template>
-  <AdminLayout>
+  <AdminLayout dir="rtl">
     <div class="categories-admin">
       <div class="admin-header-section">
         <div>
-          <h2 class="admin-section-title">Menu Categories</h2>
-          <p class="admin-section-subtitle">{{ availableCategories.length }} categories</p>
+          <h2 class="admin-section-title">دسته بندی های منو</h2>
+          <p class="admin-section-subtitle">دسته بندی {{ availableCategories.length }}</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          Add Category
+          افزودن دسته بندی
         </button>
       </div>
 
@@ -67,9 +67,9 @@
             <path d="M2 17l10 5 10-5"></path>
             <path d="M2 12l10 5 10-5"></path>
           </svg>
-          <h3>No categories yet</h3>
-          <p>Add your first category to organize your menu</p>
-          <button @click="openAddForm" class="btn btn-primary">Add Category</button>
+          <h3>هنوز دسته بندی ای وجود ندارد</h3>
+          <p>اولین دسته بندی را برای مدیریت آیتم ها به وجد بیاورید</p>
+          <button @click="openAddForm" class="btn btn-primary">افزودن دسته بندی</button>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
-              <h3 class="modal-title">{{ editingCategory ? 'Edit Category' : 'Add Category' }}</h3>
+              <h3 class="modal-title">{{ editingCategory ? 'ویرایش دسته بندی' : 'افزودن دسته بندی' }}</h3>
               <button class="modal-close" @click="closeForm" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -264,9 +264,10 @@ const executeDelete = async () => {
 }
 
 .admin-section-title {
-  font-size: 1.75rem;
+  font-size: x-large;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
+  font-family: var(--font-digi);
 }
 
 .admin-section-subtitle {
@@ -279,6 +280,7 @@ const executeDelete = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--font-digi);
 }
 
 .cards-grid {
@@ -372,6 +374,7 @@ const executeDelete = async () => {
   text-align: center;
   padding: 4rem 2rem;
   color: var(--color-text-light);
+  font-family: var(--font-digi);
 }
 
 .empty-state svg {
@@ -382,10 +385,13 @@ const executeDelete = async () => {
 .empty-state h3 {
   margin: 0 0 0.5rem;
   color: var(--color-headings);
+  font-family: var(--font-digi);
+  font-size: x-large;
 }
 
 .empty-state p {
   margin: 0 0 1.5rem;
+  font-size: large;
 }
 
 /* Modal Styles */
@@ -528,6 +534,7 @@ const executeDelete = async () => {
   background: var(--color-bg-primary);
   color: #fff;
   border-color: var(--color-bg-primary);
+  font-size: large;
 }
 
 .btn-primary:hover {
