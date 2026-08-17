@@ -1,17 +1,17 @@
 <template>
-  <AdminLayout>
+  <AdminLayout dir="rtl">
     <div class="menu-admin">
       <div class="admin-header-section">
         <div>
-          <h2 class="admin-section-title">Menu Items</h2>
-          <p class="admin-section-subtitle">{{ menuItems.length }} items / {{ categories.length }} categories</p>
+          <h2 class="admin-section-title">آیتم‌های منو</h2>
+          <p class="admin-section-subtitle">{{ menuItems.length }} آیتم / {{ categories.length }} دسته</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          Add Item
+          افزودن آیتم
         </button>
       </div>
 
@@ -67,14 +67,14 @@
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
-                Edit
+                ویرایش
               </button>
               <button @click="confirmDelete(item)" class="action-btn action-btn--danger" aria-label="Delete item">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
-                Delete
+                حذف
               </button>
             </div>
           </div>
@@ -87,9 +87,9 @@
           <path d="M2 17l10 5 10-5"></path>
           <path d="M2 12l10 5 10-5"></path>
         </svg>
-        <h3>No menu items yet</h3>
-        <p>Add your first item to get started</p>
-        <button @click="openAddForm" class="btn btn-primary">Add Item</button>
+        <h3>هنوز آیتمی وجود ندارد</h3>
+        <p>اولین آیتم را اضافه کنید</p>
+        <button @click="openAddForm" class="btn btn-primary">افزودن آیتم</button>
       </div>
     </div>
 
@@ -99,7 +99,7 @@
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
-              <h3 class="modal-title">{{ editingItem ? 'Edit Menu Item' : 'Add Menu Item' }}</h3>
+              <h3 class="modal-title">{{ editingItem ? 'ویرایش آیتم' : 'افزودن آیتم' }}</h3>
               <button class="modal-close" @click="closeForm" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -109,27 +109,27 @@
             </div>
             <form @submit.prevent="saveItem" class="modal-body">
               <div class="form-group">
-                <label class="form-label">Name *</label>
-                <input v-model="formData.name" type="text" class="form-input" placeholder="Enter item name" required />
+                <label class="form-label">نام *</label>
+                <input v-model="formData.name" type="text" class="form-input" placeholder="نام آیتم را وارد کنید" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Description *</label>
-                <textarea v-model="formData.description" class="form-input form-textarea" placeholder="Describe the item" rows="3" required></textarea>
+                <label class="form-label">توضیحات *</label>
+                <textarea v-model="formData.description" class="form-input form-textarea" placeholder="توضیحات آیتم" rows="3" required></textarea>
               </div>
               <div class="form-group">
-                <label class="form-label">Price ($) *</label>
-                <input v-model="formData.price" type="number" step="0.01" min="0" class="form-input" placeholder="0.00" required />
+                <label class="form-label">قیمت (تومان) *</label>
+                <input v-model="formData.price" type="number" step="0.01" min="0" class="form-input" placeholder="۰" required />
               </div>
               <div class="form-group">
-                <label class="form-label">Category *</label>
+                <label class="form-label">دسته بندی *</label>
                 <select v-model="formData.category" class="form-input form-select" required>
                   <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
                 </select>
               </div>
               <div class="modal-footer">
-                <button type="button" @click="closeForm" class="btn btn-outline">Cancel</button>
+                <button type="button" @click="closeForm" class="btn btn-outline">انصراف</button>
                 <button type="submit" class="btn btn-primary" :disabled="saving">
-                  {{ saving ? 'Saving...' : (editingItem ? 'Update' : 'Add') }}
+                  {{ saving ? 'در حال ذخیره...' : (editingItem ? 'به روز رسانی' : 'افزودن') }}
                 </button>
               </div>
             </form>
@@ -140,11 +140,11 @@
 
     <!-- Delete Confirmation Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showDeleteConfirm" class="modal-overlay" @click.self="cancelDelete">
           <div class="modal-container modal-sm">
             <div class="modal-header">
-              <h3 class="modal-title">Delete Menu Item</h3>
+              <h3 class="modal-title">حذف آیتم</h3>
               <button class="modal-close" @click="cancelDelete" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -153,13 +153,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete <strong>{{ itemToDelete?.name }}</strong>?</p>
-              <p class="delete-warning">This action cannot be undone.</p>
+              <p>از حذف <strong>{{ itemToDelete?.name }}</strong> مطمئن هستید؟</p>
+              <p class="delete-warning">این عمل قابل بازگشت نیست.</p>
             </div>
             <div class="modal-footer">
-              <button @click="cancelDelete" class="btn btn-outline">Cancel</button>
+              <button @click="cancelDelete" class="btn btn-outline">انصراف</button>
               <button @click="executeDelete" class="btn btn-danger" :disabled="deleting">
-                {{ deleting ? 'Deleting...' : 'Delete' }}
+                {{ deleting ? 'در حال حذف...' : 'حذف' }}
               </button>
             </div>
           </div>
@@ -249,7 +249,7 @@ const saveItem = async () => {
     closeForm()
   } catch (error) {
     console.error('Failed to save item:', error)
-    toast.add('Failed to save menu item: ' + (error?.message || 'Unknown error'), 'error')
+    toast.add('خطا در ذخیره آیتم: ' + (error?.message || 'خطای ناشناخته'), 'error')
   } finally {
     saving.value = false
   }
@@ -272,13 +272,12 @@ const executeDelete = async () => {
     await deleteMenuItem(itemToDelete.value.id)
   } catch (error) {
     console.error('Failed to delete item:', error)
-    toast.add('Failed to delete menu item: ' + (error?.message || 'Unknown error'), 'error')
+    toast.add('خطا در حذف آیتم: ' + (error?.message || 'خطای ناشناخته'), 'error')
   } finally {
     deleting.value = false
     cancelDelete()
   }
 }
-
 </script>
 
 <style scoped>
@@ -297,9 +296,10 @@ const executeDelete = async () => {
 }
 
 .admin-section-title {
-  font-size: 1.7rem;
+  font-size: x-large;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
+  font-family: var(--font-digi);
 }
 
 .admin-section-subtitle {
@@ -312,6 +312,7 @@ const executeDelete = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--font-digi);
 }
 
 .category-tabs {
@@ -329,11 +330,12 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   color: var(--color-text);
-  font-size: 1.4rem;
+  font-size: x-large;
   font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s var(--ease-snappy-polished);
+  font-family: var(--font-digi);
 }
 
 .category-tabs button:hover {
@@ -368,23 +370,6 @@ const executeDelete = async () => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.card-thumbnail {
-  aspect-ratio: 16/9;
-  background: linear-gradient(135deg, var(--color-bg-primary-light), var(--color-bg-secondary-light));
-  position: relative;
-}
-
-.category-badge {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  font-size: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  padding: 0.5rem;
-  border-radius: var(--radius-md);
-}
-
 .card-content {
   padding: 1rem;
   flex: 1;
@@ -402,14 +387,15 @@ const executeDelete = async () => {
 
 .card-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: x-large;
   font-weight: 600;
   color: var(--color-headings);
   line-height: 1.3;
+  font-family: var(--font-digi);
 }
 
 .card-price {
-  font-size: 1.5rem;
+  font-size: large;
   font-weight: 700;
   color: var(--color-bg-primary-light);
   white-space: nowrap;
@@ -419,10 +405,16 @@ const executeDelete = async () => {
 .card-description {
   margin: 0 0 0.75rem;
   color: var(--color-text-light);
-  font-size: 1.375rem;
+  font-size: large;
   line-height: 1.5;
-}
 
+}
+/* .admin-section-title {
+  font-size: x-large;
+  color: var(--color-headings);
+  margin: 0 0 0.25rem;
+  font-family: var(--font-digi);
+} */
 .card-meta {
   display: flex;
   align-items: center;
@@ -459,7 +451,8 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1.3rem;
+  font-size: large;
+  font-family: var(--font-digi);
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -467,7 +460,6 @@ const executeDelete = async () => {
 .action-btn:hover {
   color: var(--color-text);
   border-color: var(--color-bg-primary);
-  background: var(--color-bg);
 }
 
 .action-btn--danger:hover {
@@ -480,6 +472,7 @@ const executeDelete = async () => {
   text-align: center;
   padding: 4rem 2rem;
   color: var(--color-text-light);
+  font-family: var(--font-digi);
 }
 
 .empty-state svg {
@@ -490,10 +483,13 @@ const executeDelete = async () => {
 .empty-state h3 {
   margin: 0 0 0.5rem;
   color: var(--color-headings);
+  font-family: var(--font-digi);
+  font-size: x-large;
 }
 
 .empty-state p {
   margin: 0 0 1.5rem;
+  font-size: large;
 }
 
 /* Modal Styles */
@@ -536,8 +532,9 @@ const executeDelete = async () => {
 .modal-title {
   margin: 0;
   color: var(--color-headings);
-  font-size: 1.25rem;
+  font-size: large;
   font-weight: 600;
+  font-family: var(--font-digi);
 }
 
 .modal-close {
@@ -559,6 +556,10 @@ const executeDelete = async () => {
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
+  font-family: var(--font-digi);
+}
+.modal-body strong {
+  font-size: x-large;
 }
 
 .modal-footer {
@@ -572,17 +573,22 @@ const executeDelete = async () => {
 .form-group {
   margin-bottom: 1rem;
 }
-
 .form-group:last-child {
   margin-bottom: 0;
+}
+
+input, input::placeholder, textarea, select {
+  font-family: var(--font-digi) !important;
+  font-size: x-large !important;
 }
 
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  font-size: larger;
   font-weight: 500;
   color: var(--color-headings);
+  font-family: var(--font-digi);
 }
 
 .form-input {
@@ -613,13 +619,13 @@ const executeDelete = async () => {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239fa1a1' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  padding-right: 2.5rem;
+  background-position: left 0.75rem center;
+  padding-left: 2.5rem;
 }
 
 .delete-warning {
   color: #dc2626;
-  font-size: 1rem;
+  font-size: large;
   margin-top: 0.5rem;
 }
 
@@ -638,6 +644,7 @@ const executeDelete = async () => {
   background: var(--color-bg-primary);
   color: #fff;
   border-color: var(--color-bg-primary);
+  font-size: large;
 }
 
 .btn-primary:hover {
@@ -645,9 +652,10 @@ const executeDelete = async () => {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--color-bg-neutral-dark);
   color: var(--color-text);
   border-color: var(--color-border);
+  font-size: large;
 }
 
 .btn-outline:hover {
@@ -692,11 +700,6 @@ const executeDelete = async () => {
   opacity: 0;
 }
 
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  transform: translateY(20px);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .cards-grid {
@@ -735,14 +738,6 @@ const executeDelete = async () => {
 /* Skeleton Loader */
 .skeleton-card {
   pointer-events: none;
-}
-
-.skeleton-card .card-thumbnail {
-  background: var(--color-bg-neutral-dark, #171a19);
-}
-
-.skeleton-card .card-content {
-  padding: 1rem;
 }
 
 .skeleton {
