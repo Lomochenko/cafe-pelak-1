@@ -217,7 +217,7 @@ onMounted(() => {
 /* ─── Responsive (Phone) ─── */
 @media screen and (max-width: 768px) {
   .content__title {
-    font-size: 3rem;
+    font-size: larger;
     padding: 0 15px;
   }
 

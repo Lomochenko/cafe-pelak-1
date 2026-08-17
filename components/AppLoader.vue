@@ -30,7 +30,7 @@ onMounted(async () => {
   }
   
   // Minimum display so loader animation is visible
-  const minTime = new Promise(r => setTimeout(r, 1400))
+  const minTime = new Promise(r => setTimeout(r, 1000))
   
   // Wait for full page load (images, fonts, data)
   const pageLoaded = new Promise(r => {
