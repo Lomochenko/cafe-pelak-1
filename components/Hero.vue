@@ -37,7 +37,7 @@
 
       <div class="intro-block-content__text-wrap">
         <p class="intro-block-content__text anim-fade-in-up" style="animation-delay: 0.9s">
-          Great coffee, fresh pastries – crafted with love and a warm welcome.
+          Great coffee, fresh cakes – crafted with love and a warm welcome.
         </p>
       </div>
     </div>
