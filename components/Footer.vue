@@ -7,10 +7,10 @@
         <!-- Brand Section -->
         <div class="footer__brand">
           <h3 class="footer__title">
-            <span class="footer__title-line font-condensed">Cafe</span>
+            <span class="footer__title-line font-condensed">Cafe & Cake</span>
             <span class="footer__title-line footer__title-line--accent font-condensed">Pelak 1</span>
           </h3>
-          <p class="footer__tagline">Experience premium coffee culture with us :)</p>
+          <!-- <p class="footer__tagline">Experience premium coffee culture with us</p> -->
         </div>
 
         <!-- Contact Section -->
@@ -18,7 +18,7 @@
           <h4 class="footer__heading font-condensed">Contact</h4>
           <ul class="footer__list">
             <li class="footer__list-item">
-              <a href="tel:09366687897" class="footer__link">09366687897</a>
+              <a href="tel:09126890526" class="footer__link">09126890526</a>
             </li>
             <li class="footer__list-item">
               <a href="https://instagram.com/cafe.pelak.yek" class="footer__link">@cafe.Pelak.yek</a>
