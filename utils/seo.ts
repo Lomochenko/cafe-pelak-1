@@ -10,9 +10,9 @@ export const SITE_URL = 'https://cafepelakyek.ir'
 
 // Brand / business facts (Hashtgerd, Alborz, Iran)
 export const BUSINESS = {
-  name: 'کافه بیکری پلاک یک',
+  name: 'کافه پلاک یک',
   nameEn: 'Cafe Bakery Pelak yek',
-  legalName: 'Cafe Bakery Pelak yek — کافه بیکری پلاک یک',
+  legalName: 'Cafe Pelak yek — کافه پلاک یک',
   phone: '+989366687897',
   instagram: 'https://instagram.com/cafe.pelak.yek',
   streetAddress: 'هشتگرد، البرز',
