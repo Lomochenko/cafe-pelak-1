@@ -234,6 +234,7 @@ onMounted(() => {
   font-family: var(--font-digi);
   cursor: pointer;
   transition: all 0.18s ease;
+  margin: 0 !important;
   border-color: #dc2626; color: #dc2626; background: rgba(220,38,38,0.06); 
 }
 
