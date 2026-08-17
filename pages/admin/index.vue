@@ -1,6 +1,6 @@
 <template>
-  <AdminLayout>
-    <div class="dashboard" dir="rtl">
+  <AdminLayout dir="rtl">
+    <div class="dashboard">
       <div class="dashboard-welcome">
         <h2>داشبورد مدیریتی</h2>
         <p>نگاهی به محتوای کافه شما</p>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useMenu } from '~/composables/useMenu'
 import { useGallery } from '~/composables/useGallery'
 import AdminLayout from '~/components/AdminLayout.vue'
@@ -63,8 +63,8 @@ definePageMeta({
   middleware: 'admin-auth',
 })
 
-const { menuItems } = useMenu()
-const { galleryImages } = useGallery()
+const { menuItems,fetchAll } = useMenu()
+const { galleryImages, fetchGallery } = useGallery()
 
 const menuStats = computed(() => ({
   total: menuItems.value.length,
@@ -75,7 +75,10 @@ const galleryStats = computed(() => ({
   total: galleryImages.value.length,
 }))
 
-
+onMounted(async () => {
+  // Fetch both menu and gallery data on dashboard load
+  await Promise.all([fetchAll(), fetchGallery()])
+})
 </script>
 
 <style scoped>
@@ -221,7 +224,7 @@ const galleryStats = computed(() => ({
   font-weight: 700;
   flex-shrink: 0;
 }
-.action-text{
+.action-text {
   font-size: larger;
   font-family: var(--font-digi);
 }
