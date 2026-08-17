@@ -36,7 +36,7 @@
           <div class="footer__map-wrapper">
             <iframe
               class="footer__map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d201.85275599994011!2d50.685631083318526!3d35.95567541152528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8daa98c2f70d27%3A0xbfb13a69f631fa04!2z2YPYp9mE2KfZiSDYqNix2YIg2K_YsdmI2YrYtNmJ!5e0!3m2!1sen!2sus!4v1783727145863!5m2!1sen!2sus"
+              :src="mapUrl"
               style="border:0;"
               allowfullscreen="true"
               loading="lazy"
@@ -49,6 +49,17 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+import { onMounted } from 'vue'
+import { useSettings } from '~/composables/useSettings'
+
+const { mapUrl, fetchMapUrl } = useSettings()
+
+onMounted(() => {
+  fetchMapUrl()
+})
+</script>
 
 <style scoped>
 .footer {

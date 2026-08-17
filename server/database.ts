@@ -42,3 +42,14 @@ db.exec(`
     alt TEXT NOT NULL DEFAULT ''
   )
 `)
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS settings (
+    key TEXT PRIMARY KEY,
+    value TEXT
+  )
+`);
+
+// Insert default map URL if not exists
+const stmt = db.prepare(`INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)`);
+stmt.run('mapUrl', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1269.9958256008026!2d50.68774219907292!3d35.95532902991406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8daa98c2f70d27%3A0xbfb13a69f631fa04!2z2qnYp9mE2KfbjCDYqNix2YIg2K_YsdmI24zYtNuM!5e1!3m2!1sfa!2s!4v1786934351744!5m2!1sfa!2s');

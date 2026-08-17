@@ -62,6 +62,28 @@
           خروج از داشبورد
         </button>
       </div>
+
+      <div class="sidebar-settings">
+  <div class="settings-toggle" @click="showSettings = !showSettings">
+    <span>⚙️ تنظیمات نقشه</span>
+    <svg :class="{ rotated: showSettings }" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  <div v-if="showSettings" class="settings-form">
+    <input
+      v-model="newMapUrl"
+      type="text"
+      class="settings-input"
+      placeholder="لینک نقشه گوگل"
+      dir="ltr"
+    />
+    <button @click="saveMapUrl" class="settings-save-btn" :disabled="saving">
+      {{ saving ? '...' : 'ذخیره' }}
+    </button>
+    <p v-if="saveMessage" class="settings-message">{{ saveMessage }}</p>
+  </div>
+</div>
     </aside>
 
     <!-- Main area -->
@@ -88,9 +110,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref,onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'nuxt/app'
 import { useAuth } from '~/composables/useAuth'
+import { useSettings } from '~/composables/useSettings'
 
 const route = useRoute()
 const router = useRouter()
@@ -112,6 +135,34 @@ const handleLogout = () => {
   sidebarOpen.value = false
   router.push('/admin/login')
 }
+const { mapUrl, fetchMapUrl, updateMapUrl } = useSettings()
+const showSettings = ref(false)
+const newMapUrl = ref('')
+const saving = ref(false)
+const saveMessage = ref('')
+
+onMounted(async () => {
+  await fetchMapUrl()
+  newMapUrl.value = mapUrl.value
+})
+
+const saveMapUrl = async () => {
+  if (!newMapUrl.value.trim()) {
+    saveMessage.value = 'لطفاً لینک معتبر وارد کنید'
+    setTimeout(() => saveMessage.value = '', 3000)
+    return
+  }
+  saving.value = true
+  const success = await updateMapUrl(newMapUrl.value.trim())
+  saving.value = false
+  if (success) {
+    saveMessage.value = '✅ ذخیره شد'
+    setTimeout(() => saveMessage.value = '', 3000)
+  } else {
+    saveMessage.value = '❌ خطا در ذخیره‌سازی'
+    setTimeout(() => saveMessage.value = '', 3000)
+  }
+}
 
 onMounted(() => {
   if (!isAuthenticated.value) router.push('/admin/login')
@@ -128,6 +179,81 @@ onMounted(() => {
 }
 
 /* ── Sidebar ─────────────────────────────── */
+/* ─── Sidebar settings ─── */
+.sidebar-settings {
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  color: var(--color-text-light);
+  font-size: 14px;
+  font-family: var(--font-digi);
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+.settings-toggle:hover {
+  color: var(--color-text);
+}
+.settings-toggle svg {
+  transition: transform 0.2s;
+}
+.settings-toggle svg.rotated {
+  transform: rotate(180deg);
+}
+
+.settings-form {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-input {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: var(--font-1);
+  direction: ltr;
+}
+.settings-input:focus {
+  outline: none;
+  border-color: var(--color-bg-primary);
+}
+
+.settings-save-btn {
+  padding: 8px 12px;
+  background: var(--color-bg-primary);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-family: var(--font-digi);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.settings-save-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+.settings-save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.settings-message {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-light);
+  text-align: center;
+}
 .admin-sidebar {
   width: 240px;
   flex-shrink: 0;
