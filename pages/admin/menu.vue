@@ -3,7 +3,7 @@
     <div class="menu-admin">
       <div class="admin-header-section">
         <div>
-          <h2 class="admin-section-title">آیتم‌های منو</h2>
+          <h2 class="admin-section-title">آیتم‌ های منو</h2>
           <p class="admin-section-subtitle">{{ menuItems.length }} آیتم / {{ categories.length }} دسته</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
@@ -579,7 +579,7 @@ const executeDelete = async () => {
 
 input, input::placeholder, textarea, select {
   font-family: var(--font-digi) !important;
-  font-size: x-large !important;
+  font-size: large !important;
 }
 
 .form-label {

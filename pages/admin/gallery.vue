@@ -1,17 +1,17 @@
 <template>
-  <AdminLayout>
+  <AdminLayout dir="rtl">
     <div class="gallery-admin">
       <div class="admin-header-section">
         <div>
-          <h2 class="admin-section-title">Gallery Images</h2>
-          <p class="admin-section-subtitle">{{ galleryImages.length }} images in gallery</p>
+          <h2 class="admin-section-title">تصاویر گالری</h2>
+          <p class="admin-section-subtitle">{{ galleryImages.length }} تصویر در گالری</p>
         </div>
         <button @click="openAddForm" class="btn btn-primary">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-          Add Image
+          افزودن تصویر
         </button>
       </div>
 
@@ -47,14 +47,14 @@
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
-                Edit
+                ویرایش
               </button>
               <button @click="confirmDelete(image)" class="action-btn action-btn--danger" aria-label="Delete image">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
-                Delete
+                حذف
               </button>
             </div>
           </div>
@@ -67,9 +67,9 @@
           <circle cx="8.5" cy="8.5" r="1.5"></circle>
           <polyline points="21 15 16 10 5 21"></polyline>
         </svg>
-        <h3>No gallery images yet</h3>
-        <p>Upload your first image to get started</p>
-        <button @click="openAddForm" class="btn btn-primary">Add Image</button>
+        <h3>هنوز تصویری وجود ندارد</h3>
+        <p>اولین تصویر را آپلود کنید</p>
+        <button @click="openAddForm" class="btn btn-primary">افزودن تصویر</button>
       </div>
     </div>
 
@@ -79,7 +79,7 @@
         <div v-if="showForm" class="modal-overlay" @click.self="closeForm">
           <div class="modal-container">
             <div class="modal-header">
-              <h3 class="modal-title">{{ editingImage ? 'Edit Gallery Image' : 'Add Gallery Image' }}</h3>
+              <h3 class="modal-title">{{ editingImage ? 'ویرایش تصویر' : 'افزودن تصویر' }}</h3>
               <button class="modal-close" @click="closeForm" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -89,15 +89,15 @@
             </div>
             <form @submit.prevent="saveImage" class="modal-body">
               <div class="form-group">
-                <label class="form-label">Alt Text *</label>
-                <input v-model="formData.alt" type="text" class="form-input" placeholder="Describe the image for accessibility" required />
-                <span class="form-hint">Required for accessibility</span>
+                <label class="form-label">متن جایگزین (Alt) *</label>
+                <input v-model="formData.alt" type="text" class="form-input" placeholder="توضیح تصویر برای دسترسی‌ پذیری" required />
+                <span class="form-hint">متن توضیح برای دسترسی‌ پذیری ضروری است</span>
               </div>
               <div class="form-group">
-                <label class="form-label">{{ editingImage ? 'Replace Image (optional)' : 'Image *' }}</label>
+                <label class="form-label">{{ editingImage ? 'تعویض تصویر (اختیاری)' : 'تصویر *' }}</label>
                 <div 
                   class="file-drop-zone"
-                  :class="{ 'has-file': filePreview }"
+                  :class="{ 'has-file': filePreview, 'drag-over': dragOver }"
                   @click="$refs.fileInput.click()"
                   @dragover.prevent="dragOver = true"
                   @dragleave.prevent="dragOver = false"
@@ -116,23 +116,22 @@
                       <polyline points="17 8 12 3 7 8"></polyline>
                       <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
-                    <p>Drag & drop an image here, or click to browse</p>
-                    <span class="file-hint">JPG, PNG, WebP supported (max 5MB)</span>
+                    <p>تصویر را بکشید و رها کنید، یا برای انتخاب کلیک کنید</p>
+                    <span class="file-hint">فرمت‌های JPG, PNG, WebP (حداکثر ۵ مگابایت)</span>
                   </div>
                   <div v-else class="file-preview">
-                    <img :src="filePreview" alt="Preview" />
+                    <img :src="filePreview" alt="پیش‌نمایش" />
                     <div class="file-info">
                       <span class="file-name">{{ fileName }}</span>
                       <span class="file-size">{{ formatFileSize(fileSize) }}</span>
                     </div>
-                    
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" @click="closeForm" class="btn btn-outline">Cancel</button>
+                <button type="button" @click="closeForm" class="btn btn-outline">انصراف</button>
                 <button type="submit" class="btn btn-primary" :disabled="saving || (!formData.file && !editingImage)">
-                  {{ saving ? 'Saving...' : (editingImage ? 'Update' : 'Add') }}
+                  {{ saving ? 'در حال ذخیره...' : (editingImage ? 'به روز رسانی' : 'افزودن') }}
                 </button>
               </div>
             </form>
@@ -143,11 +142,11 @@
 
     <!-- Delete Confirmation Modal -->
     <Teleport to="body">
-      <Transition name="modal">
+      <Transition name="modal" dir="rtl">
         <div v-if="showDeleteConfirm" class="modal-overlay" @click.self="cancelDelete">
           <div class="modal-container modal-sm">
             <div class="modal-header">
-              <h3 class="modal-title">Delete Gallery Image</h3>
+              <h3 class="modal-title">حذف تصویر</h3>
               <button class="modal-close" @click="cancelDelete" aria-label="Close">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -156,13 +155,13 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete this image?</p>
-              <p class="delete-warning">This action cannot be undone.</p>
+              <p>از حذف این تصویر مطمئن هستید؟</p>
+              <p class="delete-warning">این عمل قابل بازگشت نیست.</p>
             </div>
             <div class="modal-footer">
-              <button @click="cancelDelete" class="btn btn-outline">Cancel</button>
+              <button @click="cancelDelete" class="btn btn-outline">انصراف</button>
               <button @click="executeDelete" class="btn btn-danger" :disabled="deleting">
-                {{ deleting ? 'Deleting...' : 'Delete' }}
+                {{ deleting ? 'در حال حذف...' : 'حذف' }}
               </button>
             </div>
           </div>
@@ -231,7 +230,7 @@ const editImage = (image) => {
     file: null,
   }
   filePreview.value = image.thumb
-  fileName.value = 'Current image'
+  fileName.value = 'تصویر فعلی'
   fileSize.value = 0
   showForm.value = true
 }
@@ -261,11 +260,11 @@ const handleDrop = (event) => {
 
 const processFile = (file) => {
   if (!file.type.startsWith('image/')) {
-    toast.add('Please select an image file', 'error')
+    toast.add('لطفاً یک فایل تصویری انتخاب کنید', 'error')
     return
   }
   if (file.size > 5 * 1024 * 1024) {
-    toast.add('File size must be less than 5MB', 'error')
+    toast.add('حجم فایل نباید بیشتر از ۵ مگابایت باشد', 'error')
     return
   }
   fileName.value = file.name
@@ -307,7 +306,7 @@ const saveImage = async () => {
     closeForm()
   } catch (error) {
     console.error('Failed to save image:', error)
-    toast.add('Failed to save image: ' + (error?.message || 'Unknown error'), 'error')
+    toast.add('خطا در ذخیره تصویر: ' + (error?.message || 'خطای ناشناخته'), 'error')
   } finally {
     saving.value = false
   }
@@ -330,7 +329,7 @@ const executeDelete = async () => {
     await removeImage(imageToDelete.value.id)
   } catch (error) {
     console.error('Failed to delete image:', error)
-    toast.add('Failed to delete image: ' + (error?.message || 'Unknown error'), 'error')
+    toast.add('خطا در حذف تصویر: ' + (error?.message || 'خطای ناشناخته'), 'error')
   } finally {
     deleting.value = false
     cancelDelete()
@@ -354,9 +353,10 @@ const executeDelete = async () => {
 }
 
 .admin-section-title {
-  font-size: 1.7rem;
+  font-size: x-large;
   color: var(--color-headings);
   margin: 0 0 0.25rem;
+  font-family: var(--font-digi);
 }
 
 .admin-section-subtitle {
@@ -369,6 +369,7 @@ const executeDelete = async () => {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--font-digi);
 }
 
 .cards-grid {
@@ -416,8 +417,9 @@ const executeDelete = async () => {
 
 .card-alt {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.375rem;
   color: var(--color-text-light);
+  font-family: var(--font-digi);
 }
 
 .card-actions {
@@ -439,7 +441,8 @@ const executeDelete = async () => {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text-light);
-  font-size: 1.3rem;
+  font-size: large;
+  font-family: var(--font-digi);
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
 }
@@ -459,6 +462,7 @@ const executeDelete = async () => {
   text-align: center;
   padding: 4rem 2rem;
   color: var(--color-text-light);
+  font-family: var(--font-digi);
 }
 
 .empty-state svg {
@@ -469,10 +473,13 @@ const executeDelete = async () => {
 .empty-state h3 {
   margin: 0 0 0.5rem;
   color: var(--color-headings);
+  font-family: var(--font-digi);
+  font-size: x-large;
 }
 
 .empty-state p {
   margin: 0 0 1.5rem;
+  font-size: large;
 }
 
 /* Modal Styles */
@@ -515,8 +522,9 @@ const executeDelete = async () => {
 .modal-title {
   margin: 0;
   color: var(--color-headings);
-  font-size: 1.5rem;
+  font-size: large;
   font-weight: 600;
+  font-family: var(--font-digi);
 }
 
 .modal-close {
@@ -538,6 +546,10 @@ const executeDelete = async () => {
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
+  font-family: var(--font-digi);
+}
+.modal-body strong {
+  font-size: x-large;
 }
 
 .modal-footer {
@@ -547,24 +559,27 @@ const executeDelete = async () => {
   padding: 1rem 1.5rem;
   border-top: 1px solid var(--color-border);
 }
-.modal-footer .btn {
-  font-size: large;
-}
 
 .form-group {
   margin-bottom: 1rem;
 }
-
 .form-group:last-child {
   margin-bottom: 0;
+}
+
+input, input::placeholder, textarea {
+  font-family: var(--font-digi) !important;
+  font-size: large !important;
+  color: var(--color-text);
 }
 
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  font-size: larger;
   font-weight: 500;
   color: var(--color-headings);
+  font-family: var(--font-digi);
 }
 
 .form-input {
@@ -573,7 +588,7 @@ const executeDelete = async () => {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  color: var(--color-text);
+  color: var(--color-text-light);
   font-size: 1.4rem;
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -583,13 +598,16 @@ const executeDelete = async () => {
   outline: none;
   border-color: var(--color-bg-primary);
   box-shadow: 0 0 0 3px var(--color-bg-primary-light);
+  font-size: large;
+  color: var(--color-text);
 }
 
 .form-hint {
   display: block;
-  margin-top: 0.25rem;
-  font-size: 0.9rem;
+  /* margin-top: 0.25rem; */
+  font-size: large;
   color: var(--color-text-light);
+  font-family: var(--font-digi);
 }
 
 /* File Upload */
@@ -621,7 +639,8 @@ const executeDelete = async () => {
 
 .drop-zone-content p {
   margin: 0.5rem 0;
-  font-size: 1.05rem;
+  font-size: large;
+  font-family: var(--font-digi);
 }
 
 .drop-zone-content svg {
@@ -629,8 +648,9 @@ const executeDelete = async () => {
 }
 
 .file-hint {
-  font-size: 0.9rem;
+  font-size: medium;
   opacity: 0.7;
+  font-family: var(--font-digi);
 }
 
 .file-input {
@@ -649,33 +669,33 @@ const executeDelete = async () => {
   object-fit: cover;
   border-radius: var(--radius-md);
   flex-shrink: 0;
+  margin: auto 0;
 }
 
 .file-info {
-  flex: 1;
+  /* flex: ; */
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  text-align: left;
+  text-align: right;
+  margin-right: auto !important;
 }
 
 .file-name {
   font-weight: 500;
+  font-size: large;
   color: var(--color-headings);
+  font-family: var(--font-digi);
 }
 
 .file-size {
-  font-size: 1rem;
+  font-size: large;
   color: var(--color-text-light);
 }
 
-
-
-
-
 .delete-warning {
   color: #dc2626;
-  font-size: 1rem;
+  font-size: large;
   margin-top: 0.5rem;
 }
 
@@ -683,7 +703,7 @@ const executeDelete = async () => {
 .btn {
   padding: 0.6rem 1.2rem;
   border-radius: var(--radius-md);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-snappy-polished);
@@ -694,6 +714,7 @@ const executeDelete = async () => {
   background: var(--color-bg-primary);
   color: #fff;
   border-color: var(--color-bg-primary);
+  font-size: large;
 }
 
 .btn-primary:hover {
@@ -701,9 +722,10 @@ const executeDelete = async () => {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--color-bg-neutral-dark);
   color: var(--color-text);
   border-color: var(--color-border);
+  font-size: large;
 }
 
 .btn-outline:hover {

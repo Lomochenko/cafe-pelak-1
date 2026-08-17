@@ -475,7 +475,7 @@ const executeDelete = async () => {
 }
 input,input::placeholder{
   font-family: var(--font-digi) !important;
-  font-size: x-large !important;
+  font-size: large !important;
 }
 .form-label {
   display: block;
